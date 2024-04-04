@@ -1,7 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div></div>
+    <h1>TopBar</h1>
 </template>
-
-<style scoped></style>
+<style lang="scss" scoped></style>
