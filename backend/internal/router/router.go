@@ -9,11 +9,10 @@ import (
 func New() *gin.Engine {
 	r := gin.Default()
 
-	r.GET("/hello", func(ctx *gin.Context) {
+	r.NoRoute(func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
-			"message": "hello, Phospherus",
+			"message": "路由不存在",
 		})
 	})
-
 	return r
 }
