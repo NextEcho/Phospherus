@@ -10,12 +10,11 @@ Go 版本为 1.22.1
 
 ## 第三方库
 
-gin: `go get github.com/gin-gonic/gin`
+- Web 开发框架 gin: `go get github.com/gin-gonic/gin`
+- 热更新项目 air: `go install github.com/cosmtrek/air`
+- 优雅启动服务 endless: `go get github.com/fvbock/endless`
+- 配置文件加载 viper: `go get github.com/spf13/viper`
+- 日志库 zap: `go get go.uber.org/zap`
+- ORM 框架 xorm: `go get xorm.io/xorm`
+- Redis 库 go-redis: `go get github.com/redis/go-redis/v9`
 
-air: `go install github.com/cosmtrek/air`
-
-viper: `go get github.com/spf13/viper`
-
-xorm: `go get xorm.io/xorm`
-
-endless 优雅启动服务: `"github.com/fvbock/endless"`

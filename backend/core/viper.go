@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	"log"
 	"phospherus/config"
 
@@ -9,21 +10,20 @@ import (
 )
 
 // LoadFileConfig 加载配置文件
-func loadFileConfig() (err error) {
+func Viper() {
 
 	// 加载配置文件, 配置文件路径: etc/config.yml
 	viper.SetConfigFile("etc/config.yml")
-	if err = viper.ReadInConfig(); err != nil {
+	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			log.Fatal("Error: Config File Not Found!")
+			panic("Config file not found!")
 		}
-		return
+		panic(fmt.Sprintf("viper.ReadInConfig err: %s \n", err))
 	}
 
 	// 读取到的配置信息，反序列化到 Conf 结构体中
-	if err = viper.Unmarshal(config.New()); err != nil {
-		log.Fatal("viper Unmarshal failed, err: ", err)
-		return
+	if err := viper.Unmarshal(config.New()); err != nil {
+		panic(fmt.Sprintf("viper.Unmarshal err: %s \n", err))
 	}
 
 	// viper 热加载配置
@@ -31,10 +31,7 @@ func loadFileConfig() (err error) {
 	viper.OnConfigChange(func(event fsnotify.Event) {
 		log.Println("Config File Changed: ", event.Name)
 		if err := viper.Unmarshal(config.New()); err != nil {
-			log.Println("viper Unmarshal failed, err:", err)
-			return
+			panic(fmt.Sprintf("viper.Unmarshal err: %s \n", err))
 		}
 	})
-
-	return
 }
