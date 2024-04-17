@@ -11,7 +11,7 @@ func main() {
 	core.Viper()
 
 	// 加载日志库
-	core.Zap()
+	global.LOGGER = core.Zap()
 
 	// 初始化 MySQL 数据库
 	global.DB = initialize.Gorm()
@@ -19,4 +19,6 @@ func main() {
 	// 初始化 Redis 数据库
 
 	// 启动服务
+	global.LOGGER.Info("RunServer in 2699 port...")
+	core.RunServer()
 }

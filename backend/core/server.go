@@ -11,6 +11,7 @@ func RunServer() {
 	Router := router.Router()
 
 	if err := endless.ListenAndServe(global.APP_CONFIG.Server.Port, Router); err != nil {
-		panic(err.Error())
+		global.LOGGER.Error(err.Error())
+		return
 	}
 }

@@ -17,5 +17,11 @@ func Router() *gin.Engine {
 			"message": "路由不存在",
 		})
 	})
+
+	r.GET("/get", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": "Nice",
+		})
+	})
 	return r
 }

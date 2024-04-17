@@ -1,22 +1,28 @@
 package core
 
 import (
+	"os"
+
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
-// Zap 初始化 zap 日志库
+// Zap 初始化 zap 日志
 func Zap() (logger *zap.Logger) {
-	// 判断是否有Director文件夹
-	// if ok, _ := tools.PathExists(global.GVA_CONFIG.Zap.Director); !ok {
-	// 	fmt.Printf("create %v directory\n", global.GVA_CONFIG.Zap.Director)
-	// 	_ = os.Mkdir(global.GVA_CONFIG.Zap.Director, os.ModePerm)
-	// }
-	//
-	// cores := internal.Zap.GetZapCores()
-	// logger = zap.New(zapcore.NewTee(cores...))
-	//
-	// if global.GVA_CONFIG.Zap.ShowLine {
-	// 	logger = logger.WithOptions(zap.AddCaller())
-	// }
-	return nil
+	writeSyncer := getLogWriter()
+	encoder := getEncoder()
+
+	zapCore := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
+	logger = zap.New(zapCore)
+
+	return
+}
+
+func getEncoder() zapcore.Encoder {
+	return zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())
+}
+
+func getLogWriter() zapcore.WriteSyncer {
+	file, _ := os.Create("./logs/server.log")
+	return zapcore.AddSync(file)
 }

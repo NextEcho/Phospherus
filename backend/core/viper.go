@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"log"
 	"phospherus/global"
 
 	"github.com/fsnotify/fsnotify"
@@ -21,15 +20,15 @@ func Viper() {
 	}
 
 	// 读取到的配置信息，反序列化到 Conf 结构体中
-	if err := viper.Unmarshal(global.APP_CONFIG); err != nil {
+	if err := viper.Unmarshal(&global.APP_CONFIG); err != nil {
 		panic(fmt.Sprintf("viper.Unmarshal err: %s \n", err))
 	}
 
 	// viper 热加载配置
 	viper.WatchConfig()
 	viper.OnConfigChange(func(event fsnotify.Event) {
-		log.Println("Config File Changed: ", event.Name)
-		if err := viper.Unmarshal(global.APP_CONFIG); err != nil {
+		global.LOGGER.Info("Config File Changed: " + event.Name)
+		if err := viper.Unmarshal(&global.APP_CONFIG); err != nil {
 			panic(fmt.Sprintf("viper.Unmarshal err: %s \n", err))
 		}
 	})
