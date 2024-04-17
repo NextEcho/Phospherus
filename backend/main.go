@@ -19,6 +19,5 @@ func main() {
 	// 初始化 Redis 数据库
 
 	// 启动服务
-	global.LOGGER.Info("RunServer in 2699 port...")
 	core.RunServer()
 }

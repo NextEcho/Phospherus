@@ -1,6 +1,6 @@
 server:
   name: "Phospherus"
-  port: ":2699"
+  port: ":8989"
   mode: "dev"
 
 zap:

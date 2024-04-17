@@ -17,4 +17,5 @@ Go 版本为 1.22.1
 - 日志库 zap: `go get go.uber.org/zap`
 - ORM 框架 gorm: `go get -u gorm.io/gorm`
 - Redis 库 go-redis: `go get github.com/redis/go-redis/v9`
+- 跨域中间件: `go get github.com/gin-contrib/cors`
 
