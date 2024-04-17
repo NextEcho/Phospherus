@@ -15,6 +15,6 @@ Go 版本为 1.22.1
 - 优雅启动服务 endless: `go get github.com/fvbock/endless`
 - 配置文件加载 viper: `go get github.com/spf13/viper`
 - 日志库 zap: `go get go.uber.org/zap`
-- ORM 框架 xorm: `go get xorm.io/xorm`
+- ORM 框架 gorm: `go get -u gorm.io/gorm`
 - Redis 库 go-redis: `go get github.com/redis/go-redis/v9`
 

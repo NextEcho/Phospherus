@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 	"log"
-	"phospherus/config"
+	"phospherus/global"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
@@ -11,7 +11,6 @@ import (
 
 // LoadFileConfig 加载配置文件
 func Viper() {
-
 	// 加载配置文件, 配置文件路径: etc/config.yml
 	viper.SetConfigFile("etc/config.yml")
 	if err := viper.ReadInConfig(); err != nil {
@@ -22,7 +21,7 @@ func Viper() {
 	}
 
 	// 读取到的配置信息，反序列化到 Conf 结构体中
-	if err := viper.Unmarshal(config.New()); err != nil {
+	if err := viper.Unmarshal(global.APP_CONFIG); err != nil {
 		panic(fmt.Sprintf("viper.Unmarshal err: %s \n", err))
 	}
 
@@ -30,7 +29,7 @@ func Viper() {
 	viper.WatchConfig()
 	viper.OnConfigChange(func(event fsnotify.Event) {
 		log.Println("Config File Changed: ", event.Name)
-		if err := viper.Unmarshal(config.New()); err != nil {
+		if err := viper.Unmarshal(global.APP_CONFIG); err != nil {
 			panic(fmt.Sprintf("viper.Unmarshal err: %s \n", err))
 		}
 	})
