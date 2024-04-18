@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@ant-design/icons-vue':
+    specifier: ^7.0.1
+    version: 7.0.1(vue@3.4.21)
   ant-design-vue:
     specifier: ^4.1.2
     version: 4.1.2(vue@3.4.21)
