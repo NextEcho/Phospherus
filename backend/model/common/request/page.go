@@ -1,4 +1,4 @@
-package request
+package commonreq
 
 // PageRequest 分页请求数据
 type PageRequest struct {

@@ -1,4 +1,4 @@
-package response
+package commonresp
 
 // PageResult 分页查询响应结构体
 type PageResult struct {

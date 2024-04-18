@@ -6,6 +6,7 @@ use `phospherus`;
 create table `user` (
     `id` int not null auto_increment comment '用户ID',
     `passport` varchar(64) not null comment '用户账户',
+    `nickname` varchar(64) not null comment '用户昵称',
     `password` varchar(128) not null comment '用户密码',
     `avatar` varchar(128) not null comment '用户头像',
     `signature` varchar(256) not null default '' comment '用户个人简介',

@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"phospherus/api/admin"
 	"phospherus/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -18,11 +19,14 @@ func Router() *gin.Engine {
 		})
 	})
 
-	r.GET("/ping", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
+	// admin module
+	adminRouteGroup := r.Group("/api/admin")
+	{
+		adminRouteGroup.POST("/login", admin.UserApiInstance.Login)
+		adminRouteGroup.POST("/getUserInfo", admin.UserApiInstance.GetUserInfo)
+	}
+
+	// blog module
 
 	return r
 }
