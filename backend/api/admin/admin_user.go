@@ -5,6 +5,7 @@ import (
 	"phospherus/model/admin/request"
 	"phospherus/model/admin/response"
 	commonresp "phospherus/model/common/response"
+	"phospherus/pkg"
 	"phospherus/service/admin"
 
 	"github.com/gin-gonic/gin"
@@ -22,14 +23,14 @@ func (*UserApi) Login(ctx *gin.Context) {
 		Password: loginReq.Password,
 	})
 	if err != nil {
-		commonresp.FailWithMessage(ctx, "登陆失败, 账户名不存在或者密码错误")
+		commonresp.FailWithMessage(ctx, pkg.MsgAccountMismatchPassword)
 	}
 
 	var loginResp response.Login
 	loginResp.Id = out.Id
 	loginResp.Token = out.Token
 
-	commonresp.OkWithDetail(ctx, "管理员登录成功", loginResp)
+	commonresp.OkWithDetail(ctx, pkg.MsgLoginSuccess, loginResp)
 }
 
 // GetUserInfo 获取博主信息
@@ -37,5 +38,5 @@ func (*UserApi) GetUserInfo(ctx *gin.Context) {
 	var getUserInfoReq request.GetUserInfo
 	ctx.ShouldBindJSON(&getUserInfoReq)
 
-	commonresp.OkWithMessage(ctx, "获取用户信息成功")
+	commonresp.OkWithMessage(ctx, pkg.MsgGetUserInfoSuccess)
 }
