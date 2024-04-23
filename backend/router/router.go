@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"phospherus/api/admin"
+	"phospherus/api/blog"
 	"phospherus/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -23,10 +24,13 @@ func Router() *gin.Engine {
 	adminRouteGroup := r.Group("/api/admin")
 	{
 		adminRouteGroup.POST("/login", admin.UserApiInstance.Login)
-		adminRouteGroup.POST("/getUserInfo", admin.UserApiInstance.GetUserInfo)
 	}
 
 	// blog module
+	blogRouteGroup := r.Group("/api/blog")
+	{
+		blogRouteGroup.POST("/getUserInfo", blog.UserApiInstance.GetUserInfo)
+	}
 
 	return r
 }

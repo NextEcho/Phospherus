@@ -32,11 +32,3 @@ func (*UserApi) Login(ctx *gin.Context) {
 
 	commonresp.OkWithDetail(ctx, pkg.MsgLoginSuccess, loginResp)
 }
-
-// GetUserInfo 获取博主信息
-func (*UserApi) GetUserInfo(ctx *gin.Context) {
-	var getUserInfoReq request.GetUserInfo
-	ctx.ShouldBindJSON(&getUserInfoReq)
-
-	commonresp.OkWithMessage(ctx, pkg.MsgGetUserInfoSuccess)
-}
