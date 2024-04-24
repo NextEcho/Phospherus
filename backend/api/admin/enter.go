@@ -1,5 +1,6 @@
 package admin
 
 var (
-	UserApiInstance = new(UserApi)
+	UserApiInstance    = new(UserApi)
+	ArticleApiInstance = new(ArticleApi)
 )

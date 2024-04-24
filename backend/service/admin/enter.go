@@ -1,5 +1,6 @@
 package admin
 
 var (
-	UserServiceInstance = new(UserService)
+	UserServiceInstance    = new(UserService)
+	ArticleServiceInstance = new(ArticleService)
 )
