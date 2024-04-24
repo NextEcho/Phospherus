@@ -22,6 +22,7 @@ create table `article` (
     `cover` varchar(128) default '' comment '文章图片封面',
     `description` varchar(1024) default '暂无文章概述' comment '文章概述',
     `is_visible` tinyint not null default 1 comment '文章是否可见 1-可见 0-不可见',
+    `is_about` tinyint not null default 0 comment '文章是否为博主关于页面 0-不是 1-是',
     `category_id` int not null comment '文章分类ID',
     `created_at` timestamp not null default current_timestamp comment '创建时间',
     `updated_at` timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
