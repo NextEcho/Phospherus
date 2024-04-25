@@ -17,6 +17,8 @@ create table `user` (
 -- table of article
 create table `article` (
     `id` int not null auto_increment comment '文章ID',  
+    `author_id` int not null comment '文章作者ID',
+    `category_id` int not null comment '文章所属分类ID',
     `title` varchar(128) not null comment '文章标题',
     `content` text not null comment '文章内容',
     `cover` varchar(128) default '' comment '文章图片封面',
