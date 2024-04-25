@@ -39,10 +39,9 @@ create table `tag` (
 
 -- table of article_tag
 create table `article_tag` (
-    `id` int not null auto_increment comment '文章标签关联ID',
     `article_id` int not null comment '文章ID',
     `tag_id` int not null comment '标签ID',
-    primary key (`id`)
+    primary key (`article_id`, `tag_id`)
 );
 
 -- table of category

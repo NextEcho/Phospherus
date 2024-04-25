@@ -1,7 +1,7 @@
 package blog
 
 import (
-	"phospherus/model/admin/request"
+	"phospherus/model/blog/request"
 	"phospherus/pkg"
 
 	commonresp "phospherus/model/common/response"
