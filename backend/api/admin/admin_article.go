@@ -2,6 +2,7 @@ package admin
 
 import (
 	"phospherus/global"
+	"phospherus/model/admin/input"
 	"phospherus/model/admin/request"
 	commonresp "phospherus/model/common/response"
 	"phospherus/service/admin"
@@ -22,9 +23,7 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.ArticleServiceInstance.GetArticleDetail(&request.GetArticleDetail{
-		Id: req.Id,
-	})
+	out, err := admin.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
 	if err != nil {
 		global.LOGGER.Error("admin.ArticleServiceInstance.GetArticle Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, commonresp.ErrServerBusy.Error())
