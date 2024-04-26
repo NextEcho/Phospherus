@@ -66,3 +66,21 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 
 	return
 }
+
+// GetArticleList 分页获取文章列表
+// TODO: 需要实现根据 title 过滤文章列表
+// 后续还需要实现聚合查询，title、categoryId、tagIds
+func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.GetArticleList, err error) {
+	out = &output.GetArticleList{
+		ArticleList: make([]output.ArticleItem, 0),
+	}
+
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+
+		// TODO: 查询文章
+
+		return nil
+	})
+
+	return
+}

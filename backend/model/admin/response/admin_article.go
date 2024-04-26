@@ -1,20 +1,17 @@
 package response
 
-import "time"
+import (
+	"phospherus/model"
+)
 
 type GetArticleDetail struct {
-	Id           int      `json:"id"`
-	Title        string   `json:"title"`
-	Cover        string   `json:"cover"`
-	Content      string   `json:"content"`
-	IsVisible    int      `json:"is_visible"`
-	IsAbout      int      `json:"is_about"`
+	model.Article
+	Avatar       string   `json:"avatar"`
+	AuthorName   string   `json:"author_name"`
 	CategoryName string   `json:"category_name"`
-	Tags         []string `json:"tags"`
+	TagNames     []string `json:"tag_names"`
+}
 
-	AuthorName string `json:"author_name"`
-	Avatar     string `json:"avatar"`
-
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+type GetArticleList struct {
+	ArticleList any `json:"article_lsit"`
 }
