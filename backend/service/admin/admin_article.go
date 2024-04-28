@@ -5,6 +5,7 @@ import (
 	"phospherus/model"
 	"phospherus/model/admin/input"
 	"phospherus/model/admin/output"
+	commonresp "phospherus/model/common/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/copier"
@@ -47,7 +48,7 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 		out.CategoryName = categoryEntity.Name
 
 		// 查询文章的标签信息
-		tagEntityArr := []model.Tag{}
+		tagEntityArr := []*model.Tag{}
 		tagNames := []string{}
 		// select tag.id, tag.name from tag left join article_tag at on at.tag_id = tag.id and at.article_id = 1
 		err = tx.Table("tag").
@@ -73,12 +74,26 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 // 后续还需要实现聚合查询，title、categoryId、tagIds
 func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.GetArticleList, err error) {
 	out = &output.GetArticleList{
+		PageResult: commonresp.PageResult{
+			PageNum:  in.PageNum,
+			PageSize: in.PageSize,
+		},
 		ArticleList: make([]output.ArticleItem, 0),
 	}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
 
-		// TODO: 查询文章
+		// 查询文章总数 Total
+		tx.Table("article").Count(&out.Total)
+
+		articleList := []*model.Article{}
+		err := tx.Table("article").Offset(in.PageSize * (in.PageNum - 1)).Limit(in.PageSize).Find(&articleList).Error
+		if err != nil {
+			return err
+		}
+		copier.Copy(&out.ArticleList, articleList)
+
+		// TODO: 查询文章列表的其他信息
 
 		return nil
 	})

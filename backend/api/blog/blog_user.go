@@ -1,8 +1,8 @@
 package blog
 
 import (
+	"phospherus/global/biz"
 	"phospherus/model/blog/request"
-	"phospherus/pkg"
 
 	commonresp "phospherus/model/common/response"
 
@@ -16,5 +16,5 @@ func (*UserApi) GetUserInfo(ctx *gin.Context) {
 	var getUserInfoReq request.GetUserInfo
 	ctx.ShouldBindJSON(&getUserInfoReq)
 
-	commonresp.OkWithMessage(ctx, pkg.MsgGetUserInfoSuccess)
+	commonresp.OkWithMessage(ctx, biz.MsgGetUserInfoSuccess)
 }

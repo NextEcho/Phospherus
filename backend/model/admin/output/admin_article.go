@@ -1,11 +1,15 @@
 package output
 
-import "phospherus/model"
+import (
+	"phospherus/model"
+	commonresp "phospherus/model/common/response"
+)
 
 type ArticleItem struct {
 	Id           int      `json:"id"`
 	Title        string   `json:"title"`
 	Cover        string   `json:"cover"`
+	Description  string   `json:"description"`
 	CategoryName string   `json:"category_name"`
 	TagNames     []string `json:"tag_names"`
 }
@@ -19,6 +23,7 @@ type GetArticleDetail struct {
 }
 
 type GetArticleList struct {
+	commonresp.PageResult
 	ArticleList []ArticleItem `json:"article_list"`
 }
 
