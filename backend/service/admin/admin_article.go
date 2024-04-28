@@ -6,6 +6,7 @@ import (
 	"phospherus/model/admin/input"
 	"phospherus/model/admin/output"
 
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
 )
@@ -83,4 +84,18 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 	})
 
 	return
+}
+
+// PostArticle 发布文章
+func (*ArticleService) PostArticle(ctx *gin.Context) {
+}
+
+// DeleteArticle 删除文章，可批量删除和删除单个
+func (*ArticleService) DeleteArticle(ctx *gin.Context) {
+
+}
+
+// UpdateArticle 更新文章
+func (*ArticleService) UpdateArticle(ctx *gin.Context) {
+
 }

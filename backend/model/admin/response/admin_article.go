@@ -15,3 +15,9 @@ type GetArticleDetail struct {
 type GetArticleList struct {
 	ArticleList any `json:"article_lsit"`
 }
+
+type PostArticle struct{}
+
+type DeleteArticle struct{}
+
+type UpdateArticle struct{}

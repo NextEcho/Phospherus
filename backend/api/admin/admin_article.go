@@ -15,6 +15,7 @@ import (
 
 type ArticleApi struct{}
 
+// GetArticleDetail 获取文章详情信息
 func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	req := request.GetArticleDetail{}
 
@@ -37,6 +38,7 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	commonresp.OkWithData(ctx, resp)
 }
 
+// GetArticleList 分页获取文章列表数据
 func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	req := request.GetArticleList{}
 
@@ -61,4 +63,19 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	}
 
 	commonresp.OkWithData(ctx, out)
+}
+
+// PostArticle 发布文章
+func (*ArticleApi) PostArticle(ctx *gin.Context) {
+
+}
+
+// DeleteArticle 删除文章，可批量删除和删除单个
+func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
+
+}
+
+// UpdateArticle 更新文章
+func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
+
 }

@@ -11,3 +11,28 @@ type GetArticleList struct {
 	CategoryId int    `json:"category_id,omitempty"`  // 通过 CategoryId 过滤文章列表
 	TagIds     []int  `json:"tag_ids,omitempty"`      // 通过 TagIds 过滤文章列表
 }
+
+type PostArticle struct {
+	Title      string `json:"title"`
+	Cover      string `json:"cover"`
+	Content    string `json:"content"`
+	AuthorId   int    `json:"author_id"`
+	CategoryId int    `json:"category_id"`
+	IsVisible  int    `json:"is_visible"`
+	IsAbout    int    `json:"is_about"`
+}
+
+type DeleteArticle struct {
+	Id int `json:"id"`
+}
+
+type UpdateArticle struct {
+	Id         int    `json:"id"`
+	Title      string `json:"title"`
+	Cover      string `json:"cover"`
+	Content    string `json:"content"`
+	AuthorId   int    `json:"author_id"`
+	CategoryId int    `json:"category_id"`
+	IsVisible  int    `json:"is_visible"`
+	IsAbout    int    `json:"is_about"`
+}

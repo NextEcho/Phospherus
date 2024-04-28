@@ -26,6 +26,10 @@ func Router() *gin.Engine {
 	adminArticleRouteGroup := adminRouteGroup.Group("article")
 	{
 		adminArticleRouteGroup.POST("getArticleDetail", admin.ArticleApiInstance.GetArticleDetail)
+		adminArticleRouteGroup.POST("getArticleList", admin.ArticleApiInstance.GetArticleList)
+		adminArticleRouteGroup.POST("postArticle", admin.ArticleApiInstance.PostArticle)
+		adminArticleRouteGroup.POST("deleteArticle", admin.ArticleApiInstance.DeleteArticle)
+		adminArticleRouteGroup.POST("updateArticle", admin.ArticleApiInstance.UpdateArticle)
 	}
 
 	// blog module
