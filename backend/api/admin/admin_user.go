@@ -1,11 +1,11 @@
 package admin
 
 import (
-	"phospherus/model"
+	"phospherus/global/biz"
+	"phospherus/model/admin/input"
 	"phospherus/model/admin/request"
 	"phospherus/model/admin/response"
 	commonresp "phospherus/model/common/response"
-	"phospherus/pkg"
 	"phospherus/service/admin"
 
 	"github.com/gin-gonic/gin"
@@ -18,17 +18,17 @@ func (*UserApi) Login(ctx *gin.Context) {
 	var loginReq request.Login
 	ctx.ShouldBindJSON(&loginReq)
 
-	out, err := admin.UserServiceInstance.Login(&model.User{
+	out, err := admin.UserServiceInstance.Login(&input.Login{
 		Passport: loginReq.Passport,
 		Password: loginReq.Password,
 	})
 	if err != nil {
-		commonresp.FailWithMessage(ctx, pkg.MsgAccountMismatchPassword)
+		commonresp.FailWithMessage(ctx, biz.MsgAccountMismatchPassword)
 	}
 
 	var loginResp response.Login
 	loginResp.Id = out.Id
 	loginResp.Token = out.Token
 
-	commonresp.OkWithDetail(ctx, pkg.MsgLoginSuccess, loginResp)
+	commonresp.OkWithDetail(ctx, biz.MsgLoginSuccess, loginResp)
 }

@@ -2,6 +2,7 @@ package admin
 
 import (
 	"phospherus/global"
+	"phospherus/global/biz"
 	"phospherus/model/admin/input"
 	"phospherus/model/admin/request"
 	"phospherus/model/admin/response"
@@ -22,14 +23,14 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, commonresp.ErrBindJSON.Error())
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
 	out, err := admin.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
 	if err != nil {
 		global.LOGGER.Error("admin.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, commonresp.ErrServerBusy.Error())
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArticleDetail{}
@@ -45,7 +46,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, commonresp.ErrBindJSON.Error())
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -58,7 +59,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("admin.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, commonresp.ErrServerBusy.Error())
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 

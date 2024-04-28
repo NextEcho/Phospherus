@@ -12,6 +12,8 @@ type Response struct {
 	Data    interface{} `json:"data"`
 }
 
+// 默认的成功和失败响应码
+// 更多响应码存放于 global/biz/zcode.go 文件中
 const (
 	SUCCESS = 0  // 默认的成功响应 code
 	FAIL    = -1 // 默认的失败响应 code

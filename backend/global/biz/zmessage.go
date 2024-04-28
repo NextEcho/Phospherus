@@ -1,4 +1,4 @@
-package pkg
+package biz
 
 const MsgAccountMismatchPassword = "登陆失败, 账户名不存在或者密码错误"
 const MsgLoginSuccess = "登录成功"
