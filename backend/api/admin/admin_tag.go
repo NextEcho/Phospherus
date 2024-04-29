@@ -43,11 +43,70 @@ func (*TagApi) GetTagList(ctx *gin.Context) {
 }
 
 func (*TagApi) CreateTag(ctx *gin.Context) {
+	req := request.CreateTag{}
 
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = admin.TagServiceInstance.CreateTag(&input.CreateTag{
+		Name:      req.Name,
+		IsVisible: req.IsVisible,
+	})
+	if err != nil {
+		global.LOGGER.Error("admin.TagServiceInstance.CreateTag Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	commonresp.OkWithMessage(ctx, biz.MsgCreateTagSuccess)
 }
+
 func (*TagApi) DeleteTag(ctx *gin.Context) {
+	req := request.DeleteTag{}
 
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = admin.TagServiceInstance.DeleteTag(&input.DeleteTag{
+		Ids: req.Ids,
+	})
+	if err != nil {
+		global.LOGGER.Error("admin.TagServiceInstance.DeleteTag Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	commonresp.OkWithMessage(ctx, biz.MsgDeleteTagSuccess)
 }
-func (*TagApi) UpdateTag(ctx *gin.Context) {
 
+func (*TagApi) UpdateTag(ctx *gin.Context) {
+	req := request.UpdateTag{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = admin.TagServiceInstance.UpdateTag(&input.UpdateTag{
+		Id:        req.Id,
+		Name:      req.Name,
+		IsVisible: req.IsVisible,
+	})
+	if err != nil {
+		global.LOGGER.Error("admin.TagServiceInstance.UpdateTag Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	commonresp.OkWithMessage(ctx, biz.MsgUpdateTagSuccess)
 }

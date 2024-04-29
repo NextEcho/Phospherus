@@ -34,3 +34,33 @@ func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err
 
 	return
 }
+
+func (*TagService) CreateTag(in *input.CreateTag) (out *output.CreateTag, err error) {
+	out = &output.CreateTag{}
+
+	err = global.DB.Table("tag").Create(&model.Tag{
+		Name:      in.Name,
+		IsVisible: in.IsVisible,
+	}).Error
+
+	return
+}
+
+func (*TagService) DeleteTag(in *input.DeleteTag) (out *output.DeleteTag, err error) {
+	out = &output.DeleteTag{}
+
+	err = global.DB.Where("id in (?)", in.Ids).Delete(&model.Tag{}).Error
+
+	return
+}
+
+func (*TagService) UpdateTag(in *input.UpdateTag) (out *output.UpdateTag, err error) {
+	out = &output.UpdateTag{}
+
+	err = global.DB.Table("tag").Where("id = ?", in.Id).Updates(&model.Tag{
+		Name:      in.Name,
+		IsVisible: in.IsVisible,
+	}).Error
+
+	return
+}
