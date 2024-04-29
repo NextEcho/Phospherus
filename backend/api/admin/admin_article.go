@@ -70,11 +70,6 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
 
-// PostArticle 发布文章
-func (*ArticleApi) PostArticle(ctx *gin.Context) {
-
-}
-
 // DeleteArticle 删除文章，可批量删除和删除单个
 // 请求的文章 ID 以 string 传递，以逗号分隔
 func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
@@ -98,7 +93,61 @@ func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
 	commonresp.OkWithMessage(ctx, biz.MsgDeleteArticleSuccess)
 }
 
+// PostArticle 发布文章
+func (*ArticleApi) PostArticle(ctx *gin.Context) {
+	req := request.PostArticle{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = admin.ArticleServiceInstance.PostArticle(&input.PostArticle{
+		AuthorId:   req.AuthorId,
+		CategoryId: req.CategoryId,
+		IsVisible:  req.IsVisible,
+		IsAbout:    req.IsAbout,
+		TagIds:     req.TagIds,
+		Title:      req.Title,
+		Cover:      req.Cover,
+		Content:    req.Content,
+	})
+	if err != nil {
+		global.LOGGER.Error("admin.ArticleServiceInstance.PostArticle Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	commonresp.OkWithMessage(ctx, biz.MsgPostArticleSuccess)
+}
+
 // UpdateArticle 更新文章
 func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 
+	req := request.UpdateArticle{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = admin.ArticleServiceInstance.UpdateArticle(&input.UpdateArticle{
+		AuthorId:   req.AuthorId,
+		CategoryId: req.CategoryId,
+		IsVisible:  req.IsVisible,
+		IsAbout:    req.IsAbout,
+		TagIds:     req.TagIds,
+		Title:      req.Title,
+		Cover:      req.Cover,
+		Content:    req.Content,
+	})
+	if err != nil {
+		global.LOGGER.Error("admin.ArticleServiceInstance.UpdateArticle Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	commonresp.OkWithMessage(ctx, biz.MsgUpdateArticleSuccess)
 }

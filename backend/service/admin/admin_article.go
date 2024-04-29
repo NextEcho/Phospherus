@@ -7,7 +7,6 @@ import (
 	"phospherus/model/admin/output"
 	commonresp "phospherus/model/common/response"
 
-	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
 )
@@ -133,10 +132,6 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 	return
 }
 
-// PostArticle 发布文章
-func (*ArticleService) PostArticle(ctx *gin.Context) {
-}
-
 // DeleteArticle 删除文章，可批量删除和删除单个
 func (*ArticleService) DeleteArticle(in *input.DeleteArticle) (out *output.DeleteArticle, err error) {
 	out = &output.DeleteArticle{}
@@ -159,7 +154,13 @@ func (*ArticleService) DeleteArticle(in *input.DeleteArticle) (out *output.Delet
 	return
 }
 
-// UpdateArticle 更新文章
-func (*ArticleService) UpdateArticle(ctx *gin.Context) {
+// PostArticle 发布文章
+func (*ArticleService) PostArticle(in *input.PostArticle) (out *output.PostArticle, err error) {
+	return
+}
 
+// UpdateArticle 更新文章
+func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.UpdateArticle, err error) {
+
+	return
 }

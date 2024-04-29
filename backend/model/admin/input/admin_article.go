@@ -20,6 +20,7 @@ type PostArticle struct {
 	CategoryId int    `json:"category_id"`
 	IsVisible  int    `json:"is_visible"`
 	IsAbout    int    `json:"is_about"`
+	TagIds     []int  `json:"tag_ids"`
 }
 
 type DeleteArticle struct {
@@ -35,4 +36,5 @@ type UpdateArticle struct {
 	CategoryId int    `json:"category_id"`
 	IsVisible  int    `json:"is_visible"`
 	IsAbout    int    `json:"is_about"`
+	TagIds     []int  `json:"tag_ids"`
 }
