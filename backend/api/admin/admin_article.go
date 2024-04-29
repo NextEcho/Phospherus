@@ -135,6 +135,7 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 	}
 
 	_, err = admin.ArticleServiceInstance.UpdateArticle(&input.UpdateArticle{
+		Id:         req.Id,
 		AuthorId:   req.AuthorId,
 		CategoryId: req.CategoryId,
 		IsVisible:  req.IsVisible,

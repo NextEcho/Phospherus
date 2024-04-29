@@ -29,7 +29,8 @@ type GetArticleList struct {
 	ArticleList []ArticleItem `json:"article_list"`
 }
 
-type PostArticle struct{}
+type PostArticle struct {
+}
 
 type DeleteArticle struct{}
 

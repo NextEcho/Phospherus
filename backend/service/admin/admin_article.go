@@ -6,6 +6,7 @@ import (
 	"phospherus/model/admin/input"
 	"phospherus/model/admin/output"
 	commonresp "phospherus/model/common/response"
+	"phospherus/pkg"
 
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
@@ -151,16 +152,85 @@ func (*ArticleService) DeleteArticle(in *input.DeleteArticle) (out *output.Delet
 
 		return nil
 	})
+
 	return
 }
 
 // PostArticle 发布文章
 func (*ArticleService) PostArticle(in *input.PostArticle) (out *output.PostArticle, err error) {
+	out = &output.PostArticle{}
+
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		// 插入文章数据
+		article := model.Article{
+			CategoryId:  in.CategoryId,
+			Title:       in.Title,
+			IsVisible:   in.IsVisible,
+			IsAbout:     in.IsAbout,
+			Content:     in.Content,
+			Cover:       in.Cover,
+			AuthorId:    in.AuthorId,
+			Description: pkg.GenDescription(in.Content),
+		}
+		err := tx.Create(&article).Error
+		if err != nil {
+			return err
+		}
+
+		// 插入文章标签关联数据
+		for _, tagId := range in.TagIds {
+			err := tx.Create(&model.ArticleTag{
+				ArticleId: article.Id,
+				TagId:     tagId,
+			}).Error
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+
 	return
 }
 
 // UpdateArticle 更新文章
 func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.UpdateArticle, err error) {
+	out = &output.UpdateArticle{}
+
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		// 更新文章数据
+		article := model.Article{
+			CategoryId:  in.CategoryId,
+			Title:       in.Title,
+			IsVisible:   in.IsVisible,
+			IsAbout:     in.IsAbout,
+			Content:     in.Content,
+			Cover:       in.Cover,
+			AuthorId:    in.AuthorId,
+			Description: pkg.GenDescription(in.Content),
+		}
+		err := tx.Model(&model.Article{}).Where("id = ?", in.Id).Updates(&article).Error
+		if err != nil {
+			return err
+		}
+
+		// 先删除原先文章标签关联数据
+		err = tx.Where("article_id = ?", in.Id).Delete(&model.ArticleTag{}).Error
+		if err != nil {
+			return err
+		}
+		// 再插入新的文章标签关联数据
+		for _, tagId := range in.TagIds {
+			err := tx.Create(&model.ArticleTag{
+				ArticleId: in.Id,
+				TagId:     tagId,
+			}).Error
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	})
 
 	return
 }
