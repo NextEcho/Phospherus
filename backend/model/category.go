@@ -5,3 +5,7 @@ type Category struct {
 	Name      string `json:"name"`
 	IsVisible int    `json:"is_visible"`
 }
+
+func (*Category) TableName() string {
+	return "category"
+}

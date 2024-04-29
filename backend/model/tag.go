@@ -5,3 +5,7 @@ type Tag struct {
 	Name      string `json:"name"`
 	IsVisible int    `json:"is_visible"`
 }
+
+func (*Tag) TableName() string {
+	return "tag"
+}

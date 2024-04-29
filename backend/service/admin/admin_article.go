@@ -138,8 +138,25 @@ func (*ArticleService) PostArticle(ctx *gin.Context) {
 }
 
 // DeleteArticle 删除文章，可批量删除和删除单个
-func (*ArticleService) DeleteArticle(ctx *gin.Context) {
+func (*ArticleService) DeleteArticle(in *input.DeleteArticle) (out *output.DeleteArticle, err error) {
+	out = &output.DeleteArticle{}
 
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		// 删除文章数据
+		err := tx.Where("id in (?)", in.Ids).Delete(&model.Article{}).Error
+		if err != nil {
+			return err
+		}
+
+		// 删除文章相关联的 tag ids 信息数据
+		err = tx.Where("article_id in (?)", in.Ids).Delete(&model.ArticleTag{}).Error
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+	return
 }
 
 // UpdateArticle 更新文章

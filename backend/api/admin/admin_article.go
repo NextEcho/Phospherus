@@ -36,7 +36,7 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	resp := response.GetArticleDetail{}
 	copier.Copy(&resp, out)
 
-	commonresp.OkWithData(ctx, resp)
+	commonresp.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
 }
 
 // GetArticleList 分页获取文章列表数据
@@ -67,7 +67,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 		ArticleList: out.ArticleList,
 	}
 
-	commonresp.OkWithData(ctx, resp)
+	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
 
 // PostArticle 发布文章
@@ -76,8 +76,26 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 }
 
 // DeleteArticle 删除文章，可批量删除和删除单个
+// 请求的文章 ID 以 string 传递，以逗号分隔
 func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
+	req := request.DeleteArticle{}
 
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = admin.ArticleServiceInstance.DeleteArticle(&input.DeleteArticle{
+		Ids: req.Ids,
+	})
+	if err != nil {
+		global.LOGGER.Error("admin.ArticleServiceInstance.DeleteArticle Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	commonresp.OkWithMessage(ctx, biz.MsgDeleteArticleSuccess)
 }
 
 // UpdateArticle 更新文章

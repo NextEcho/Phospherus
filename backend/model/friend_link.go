@@ -6,3 +6,7 @@ type FriendLink struct {
 	Name string `json:"name"`
 	Icon string `json:"icon"`
 }
+
+func (*FriendLink) TableName() string {
+	return "friend_link"
+}

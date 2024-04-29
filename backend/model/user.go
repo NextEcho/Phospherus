@@ -9,3 +9,7 @@ type User struct {
 	Signature string `json:"signature"`
 	Email     string `json:"email"`
 }
+
+func (*User) TableName() string {
+	return "user"
+}

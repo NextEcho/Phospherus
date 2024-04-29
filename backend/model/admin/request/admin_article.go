@@ -24,7 +24,7 @@ type PostArticle struct {
 }
 
 type DeleteArticle struct {
-	Id int `json:"id"`
+	Ids []int `json:"ids"`
 }
 
 type UpdateArticle struct {
