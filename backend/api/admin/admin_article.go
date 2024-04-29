@@ -62,8 +62,12 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
+	resp := response.GetArticleList{
+		PageResult:  out.PageResult,
+		ArticleList: out.ArticleList,
+	}
 
-	commonresp.OkWithData(ctx, out)
+	commonresp.OkWithData(ctx, resp)
 }
 
 // PostArticle 发布文章

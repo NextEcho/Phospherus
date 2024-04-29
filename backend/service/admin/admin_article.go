@@ -86,6 +86,7 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 		// 查询文章总数 Total
 		tx.Table("article").Count(&out.Total)
 
+		// 查询文章列表
 		articleList := []*model.Article{}
 		err := tx.Table("article").Offset(in.PageSize * (in.PageNum - 1)).Limit(in.PageSize).Find(&articleList).Error
 		if err != nil {
@@ -93,7 +94,38 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 		}
 		copier.Copy(&out.ArticleList, articleList)
 
-		// TODO: 查询文章列表的其他信息
+		// 查询文章所属分类
+		for idx, article := range out.ArticleList {
+			categoryEntity := model.Category{}
+			err := tx.Table("category").Where("id = ?", article.CategoryId).First(&categoryEntity).Error
+			if err != nil {
+				return err
+			}
+			out.ArticleList[idx].CategoryName = categoryEntity.Name
+		}
+
+		// 查询文章所属标签数组
+		for idx, article := range out.ArticleList {
+			tagEntityArr := []*model.Tag{}
+			err := tx.Table("tag").
+				Joins("right join article_tag on article_tag.tag_id = tag.id").
+				Where("article_tag.article_id = ?", article.Id).
+				Find(&tagEntityArr).Error
+			if err != nil {
+				return err
+			}
+			// 填充 tagIds
+			out.ArticleList[idx].TagIds = make([]int, 0)
+			for _, tag := range tagEntityArr {
+				out.ArticleList[idx].TagIds = append(out.ArticleList[idx].TagIds, tag.Id)
+			}
+
+			// 填充 tagNames
+			out.ArticleList[idx].TagNames = make([]string, 0)
+			for _, tag := range tagEntityArr {
+				out.ArticleList[idx].TagNames = append(out.ArticleList[idx].TagNames, tag.Name)
+			}
+		}
 
 		return nil
 	})

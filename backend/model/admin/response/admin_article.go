@@ -2,6 +2,7 @@ package response
 
 import (
 	"phospherus/model"
+	commonresp "phospherus/model/common/response"
 )
 
 type GetArticleDetail struct {
@@ -13,6 +14,7 @@ type GetArticleDetail struct {
 }
 
 type GetArticleList struct {
+	commonresp.PageResult
 	ArticleList any `json:"article_lsit"`
 }
 

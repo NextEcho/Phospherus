@@ -7,6 +7,8 @@ import (
 
 type ArticleItem struct {
 	Id           int      `json:"id"`
+	CategoryId   int      `json:"category_id"`
+	TagIds       []int    `json:"tag_ids"`
 	Title        string   `json:"title"`
 	Cover        string   `json:"cover"`
 	Description  string   `json:"description"`
