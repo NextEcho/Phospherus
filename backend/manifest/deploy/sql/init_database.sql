@@ -3,14 +3,15 @@ create database `phospherus`;
 use `phospherus`;
 
 -- table of user
+-- 用于存储博主信息
 create table `user` (
     `id` int not null auto_increment comment '用户ID',
     `passport` varchar(64) not null comment '用户账户',
     `nickname` varchar(64) not null comment '用户昵称',
     `password` varchar(128) not null comment '用户密码',
     `avatar` varchar(128) not null comment '用户头像',
-    `signature` varchar(256) not null default '' comment '用户个人简介',
     `email` varchar(128) not null comment '用户邮箱',
+    `github` varchar(128) not null comment '用户github地址',
     primary key (`id`)
 );
 
@@ -48,6 +49,7 @@ create table `article_tag` (
 -- table of category
 create table `category` (
     `id` int not null auto_increment comment '分类ID',
+    `parent_id` int not null default 0 comment '父分类ID 0-无父分类',
     `name` varchar(64) not null comment '分类名称',
     `is_visible` tinyint not null default 1 comment '分类是否可见 1-可见 0-不可见',
     primary key (`id`)
