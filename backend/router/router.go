@@ -19,10 +19,11 @@ func Router() *gin.Engine {
 		})
 	})
 
-	// admin module
-	adminRouteGroup := r.Group("/api/admin")
-	adminRouteGroup.POST("login", admin.UserApiInstance.Login)
+	RouteGroup := r.Group("api")
 
+	// admin module
+	adminRouteGroup := RouteGroup.Group("admin")
+	adminRouteGroup.POST("login", admin.UserApiInstance.Login)
 	adminArticleRouteGroup := adminRouteGroup.Group("article")
 	{
 		adminArticleRouteGroup.POST("getArticleDetail", admin.ArticleApiInstance.GetArticleDetail)
@@ -31,12 +32,22 @@ func Router() *gin.Engine {
 		adminArticleRouteGroup.POST("deleteArticle", admin.ArticleApiInstance.DeleteArticle)
 		adminArticleRouteGroup.POST("updateArticle", admin.ArticleApiInstance.UpdateArticle)
 	}
+	adminTagRouterGroup := adminRouteGroup.Group("tag")
+	{
+		adminTagRouterGroup.POST("getTagList", admin.TagApiInstance.GetTagList)
+		adminTagRouterGroup.POST("createTag", admin.TagApiInstance.CreateTag)
+		adminTagRouterGroup.POST("deleteTag", admin.TagApiInstance.DeleteTag)
+		adminTagRouterGroup.POST("updateTag", admin.TagApiInstance.UpdateTag)
+	}
 
 	// blog module
-	// blogRouteGroup := r.Group("/api/blog")
-	// {
-	// 	blogRouteGroup.POST("getUserInfo", blog.UserApiInstance.GetUserInfo)
-	// }
+	blogRouteGroup := RouteGroup.Group("blog")
+	blogArticleRouteGroup := blogRouteGroup.Group("article")
+	{
+		blogArticleRouteGroup.GET("/ping", func(ctx *gin.Context) {
+			ctx.Writer.WriteString("pong")
+		})
+	}
 
 	return r
 }
