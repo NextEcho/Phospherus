@@ -63,8 +63,8 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 		return
 	}
 	resp := response.GetArticleList{
-		PageResult:  out.PageResult,
-		ArticleList: out.ArticleList,
+		PageResponse: out.PageResponse,
+		ArticleList:  out.ArticleList,
 	}
 
 	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)

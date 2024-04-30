@@ -74,7 +74,7 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 // 后续还需要实现聚合查询，title、categoryId、tagIds
 func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.GetArticleList, err error) {
 	out = &output.GetArticleList{
-		PageResult: commonresp.PageResult{
+		PageResponse: commonresp.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},
@@ -198,18 +198,18 @@ func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.Updat
 	out = &output.UpdateArticle{}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
+
 		// 更新文章数据
-		article := model.Article{
-			CategoryId:  in.CategoryId,
-			Title:       in.Title,
-			IsVisible:   in.IsVisible,
-			IsAbout:     in.IsAbout,
-			Content:     in.Content,
-			Cover:       in.Cover,
-			AuthorId:    in.AuthorId,
-			Description: pkg.GenDescription(in.Content),
-		}
-		err := tx.Model(&model.Article{}).Where("id = ?", in.Id).Updates(&article).Error
+		err := tx.Model(&model.Article{}).Where("id = ?", in.Id).Updates(map[string]interface{}{
+			"category_id": in.CategoryId,
+			"title":       in.Title,
+			"is_visible":  in.IsVisible,
+			"is_about":    in.IsAbout,
+			"content":     in.Content,
+			"cover":       in.Cover,
+			"author_id":   in.AuthorId,
+			"description": pkg.GenDescription(in.Content),
+		}).Error
 		if err != nil {
 			return err
 		}

@@ -6,7 +6,7 @@ import (
 )
 
 type GetTagList struct {
-	commonresp.PageResult
+	commonresp.PageResponse
 	TagList []model.Tag `json:"tag_list"`
 }
 

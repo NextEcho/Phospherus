@@ -16,3 +16,9 @@ const MsgGetTagListSuccess = "获取标签列表成功"
 const MsgCreateTagSuccess = "创建标签成功"
 const MsgDeleteTagSuccess = "删除标签成功"
 const MsgUpdateTagSuccess = "修改标签成功"
+
+// Category Module
+const MsgGetCategoryListSuccess = "获取分类列表成功"
+const MsgCreateCategorySuccess = "创建分类成功"
+const MsgDeleteCategorySuccess = "删除分类成功"
+const MsgUpdateCategorySuccess = "修改分类成功"

@@ -3,7 +3,7 @@ package response
 import commonresp "phospherus/model/common/response"
 
 type GetTagList struct {
-	commonresp.PageResult
+	commonresp.PageResponse
 	TagList any `json:"tag_list"`
 }
 

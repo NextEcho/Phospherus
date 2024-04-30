@@ -32,12 +32,19 @@ func Router() *gin.Engine {
 		adminArticleRouteGroup.POST("deleteArticle", admin.ArticleApiInstance.DeleteArticle)
 		adminArticleRouteGroup.POST("updateArticle", admin.ArticleApiInstance.UpdateArticle)
 	}
-	adminTagRouterGroup := adminRouteGroup.Group("tag")
+	adminTagRouteGroup := adminRouteGroup.Group("tag")
 	{
-		adminTagRouterGroup.POST("getTagList", admin.TagApiInstance.GetTagList)
-		adminTagRouterGroup.POST("createTag", admin.TagApiInstance.CreateTag)
-		adminTagRouterGroup.POST("deleteTag", admin.TagApiInstance.DeleteTag)
-		adminTagRouterGroup.POST("updateTag", admin.TagApiInstance.UpdateTag)
+		adminTagRouteGroup.POST("getTagList", admin.TagApiInstance.GetTagList)
+		adminTagRouteGroup.POST("createTag", admin.TagApiInstance.CreateTag)
+		adminTagRouteGroup.POST("deleteTag", admin.TagApiInstance.DeleteTag)
+		adminTagRouteGroup.POST("updateTag", admin.TagApiInstance.UpdateTag)
+	}
+	adminCategoryRouteGroup := adminRouteGroup.Group("category")
+	{
+		adminCategoryRouteGroup.POST("getCategoryList", admin.CategoryApiInstance.GetCategoryList)
+		adminCategoryRouteGroup.POST("createCategory", admin.CategoryApiInstance.CreateCategory)
+		adminCategoryRouteGroup.POST("deleteCategory", admin.CategoryApiInstance.DeleteCategory)
+		adminCategoryRouteGroup.POST("updateCategory", admin.CategoryApiInstance.UpdateCategory)
 	}
 
 	// blog module

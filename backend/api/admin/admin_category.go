@@ -13,10 +13,10 @@ import (
 	"go.uber.org/zap"
 )
 
-type TagApi struct{}
+type CategoryApi struct{}
 
-func (*TagApi) GetTagList(ctx *gin.Context) {
-	req := request.GetTagList{}
+func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
+	req := request.GetCategoryList{}
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -25,25 +25,25 @@ func (*TagApi) GetTagList(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.TagServiceInstance.GetTagList(&input.GetTagList{
+	out, err := admin.CategoryServiceInstance.GetCategoryList(&input.GetCategoryList{
 		PageNum:  req.PageNum,
 		PageSize: req.PageSize,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.GetTagList Error", zap.Error(err))
+		global.LOGGER.Error("admin.CategoryServiceInstance.GetCategoryList Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	resp := response.GetTagList{
+	resp := response.GetCategoryList{
 		PageResponse: out.PageResponse,
-		TagList:      out.TagList,
+		CategoryList: out.CategoryList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetTagListSuccess, resp)
+	commonresp.OkWithDetail(ctx, biz.MsgGetCategoryListSuccess, resp)
 }
 
-func (*TagApi) CreateTag(ctx *gin.Context) {
-	req := request.CreateTag{}
+func (*CategoryApi) CreateCategory(ctx *gin.Context) {
+	req := request.CreateCategory{}
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -52,21 +52,22 @@ func (*TagApi) CreateTag(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.TagServiceInstance.CreateTag(&input.CreateTag{
+	_, err = admin.CategoryServiceInstance.CreateCategory(&input.CreateCategory{
+		ParentId:  req.ParentId,
 		Name:      req.Name,
 		IsVisible: req.IsVisible,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.CreateTag Error", zap.Error(err))
+		global.LOGGER.Error("admin.CategoryServiceInstance.CreateCategory Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgCreateTagSuccess)
+	commonresp.OkWithMessage(ctx, biz.MsgCreateCategorySuccess)
 }
 
-func (*TagApi) DeleteTag(ctx *gin.Context) {
-	req := request.DeleteTag{}
+func (*CategoryApi) DeleteCategory(ctx *gin.Context) {
+	req := request.DeleteCategory{}
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -75,20 +76,20 @@ func (*TagApi) DeleteTag(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.TagServiceInstance.DeleteTag(&input.DeleteTag{
+	_, err = admin.CategoryServiceInstance.DeleteCategory(&input.DeleteCategory{
 		Ids: req.Ids,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.DeleteTag Error", zap.Error(err))
+		global.LOGGER.Error("admin.CategoryServiceInstance.DeleteCategory Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgDeleteTagSuccess)
+	commonresp.OkWithMessage(ctx, biz.MsgDeleteCategorySuccess)
 }
 
-func (*TagApi) UpdateTag(ctx *gin.Context) {
-	req := request.UpdateTag{}
+func (*CategoryApi) UpdateCategory(ctx *gin.Context) {
+	req := request.UpdateCategory{}
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -97,16 +98,17 @@ func (*TagApi) UpdateTag(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.TagServiceInstance.UpdateTag(&input.UpdateTag{
+	_, err = admin.CategoryServiceInstance.UpdateCategory(&input.UpdateCategory{
 		Id:        req.Id,
+		ParentId:  req.ParentId,
 		Name:      req.Name,
 		IsVisible: req.IsVisible,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.UpdateTag Error", zap.Error(err))
+		global.LOGGER.Error("admin.CategoryServiceInstance.UpdateCategory Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgUpdateTagSuccess)
+	commonresp.OkWithMessage(ctx, biz.MsgUpdateCategorySuccess)
 }

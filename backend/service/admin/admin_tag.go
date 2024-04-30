@@ -12,7 +12,7 @@ type TagService struct{}
 
 func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err error) {
 	out = &output.GetTagList{
-		PageResult: commonresp.PageResult{
+		PageResponse: commonresp.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},
@@ -57,9 +57,11 @@ func (*TagService) DeleteTag(in *input.DeleteTag) (out *output.DeleteTag, err er
 func (*TagService) UpdateTag(in *input.UpdateTag) (out *output.UpdateTag, err error) {
 	out = &output.UpdateTag{}
 
-	err = global.DB.Table("tag").Where("id = ?", in.Id).Updates(&model.Tag{
-		Name:      in.Name,
-		IsVisible: in.IsVisible,
+	// 因为 gorm 对于零值，使用结构体更新是无效的
+	// 这里使用 map[string]interface{} 来更新字段
+	err = global.DB.Table("tag").Where("id = ?", in.Id).Updates(map[string]interface{}{
+		"name":       in.Name,
+		"is_visible": in.IsVisible,
 	}).Error
 
 	return

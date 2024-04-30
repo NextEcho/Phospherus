@@ -14,7 +14,7 @@ type GetArticleDetail struct {
 }
 
 type GetArticleList struct {
-	commonresp.PageResult
+	commonresp.PageResponse
 	ArticleList any `json:"article_lsit"`
 }
 
