@@ -18,7 +18,7 @@ func (*UserService) Login(in *input.Login) (resp *output.Login, err error) {
 	var user model.User
 	err = global.DB.Where("passport = ?", in.Passport).First(&user).Error
 	if err == nil {
-		if in.Password != pkg.MD5Encrypt(user.Password) {
+		if user.Password != pkg.MD5Encrypt(in.Password) {
 			return nil, biz.ErrPasswordMismatch
 		}
 		resp.Id = user.Id

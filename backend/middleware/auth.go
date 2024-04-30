@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"phospherus/global"
 	"phospherus/global/biz"
 	commonresp "phospherus/model/common/response"
@@ -42,7 +43,9 @@ func Auth() gin.HandlerFunc {
 		}
 
 		// passport 对比失败
-		if issuer != ctx.GetString("passport") {
+		passport, _ := ctx.Get("passport")
+		fmt.Println("passport =>", passport)
+		if issuer != passport {
 			global.LOGGER.Error(biz.MsgInvalidToken)
 			commonresp.FailWithMessage(ctx, biz.MsgInvalidToken)
 			ctx.Abort()
