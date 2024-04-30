@@ -22,7 +22,10 @@ func (*UserService) Login(in *input.Login) (resp *output.Login, err error) {
 			return nil, biz.ErrPasswordMismatch
 		}
 		resp.Id = user.Id
-		resp.Token = "token" // TODO: 生成 Token
+		resp.Token, err = pkg.CreateToken(in.Passport)
+		if err != nil {
+			return nil, biz.ErrJwtInvalid
+		}
 	}
 	return
 }

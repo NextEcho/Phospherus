@@ -24,6 +24,9 @@ func Router() *gin.Engine {
 	// admin module
 	adminRouteGroup := RouteGroup.Group("admin")
 	adminRouteGroup.POST("login", admin.UserApiInstance.Login)
+
+	adminRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
+
 	adminArticleRouteGroup := adminRouteGroup.Group("article")
 	{
 		adminArticleRouteGroup.POST("getArticleDetail", admin.ArticleApiInstance.GetArticleDetail)

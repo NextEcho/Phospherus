@@ -1,8 +1,9 @@
 package biz
 
-const MsgAccountMismatchPassword = "登陆失败, 账户名不存在或者密码错误"
+const MsgInvalidToken = "无效的Token"
 const MsgLoginSuccess = "登录成功"
 const MsgGetUserInfoSuccess = "获取用户信息成功"
+const MsgAccountMismatchPassword = "登陆失败, 账户名不存在或者密码错误"
 
 // Article Module
 const MsgGetArticleDetailSuccess = "获取文章详情成功"

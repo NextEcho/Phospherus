@@ -19,3 +19,4 @@ Go 版本为 1.22.1
 - 日志库 zap: `go get go.uber.org/zap`
 - 日志分割: `go get -u github.com/natefinch/lumberjack`
 - 跨域中间件 cors: `go get github.com/gin-contrib/cors`
+- JWT 中间件: `go get -u github.com/golang-jwt/jwt/v5`
