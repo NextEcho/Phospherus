@@ -24,7 +24,7 @@ func (*UserService) Login(in *input.Login) (resp *output.Login, err error) {
 		resp.Id = user.Id
 		resp.Token, err = pkg.CreateToken(in.Passport)
 		if err != nil {
-			return nil, biz.ErrJwtInvalid
+			return nil, biz.ErrCreateJwt
 		}
 	}
 	return

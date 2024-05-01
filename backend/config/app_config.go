@@ -5,4 +5,5 @@ type AppConfig struct {
 	*ZapConfig   `mapstructure:"zap"`
 	*MysqlConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
+	*JwtConfig   `mapstructure:"jwt"`
 }

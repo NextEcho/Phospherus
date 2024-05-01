@@ -32,7 +32,7 @@ func (*UserApi) Login(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("admin.UserServiceInstance.Login Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.MsgAccountMismatchPassword)
+		commonresp.FailWithMessage(ctx, err.Error())
 		return
 	}
 

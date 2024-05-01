@@ -1,6 +1,7 @@
 package biz
 
 const MsgInvalidToken = "无效的Token"
+const MsgTokenExpired = "Token已过期"
 const MsgLoginSuccess = "登录成功"
 const MsgGetUserInfoSuccess = "获取用户信息成功"
 const MsgAccountMismatchPassword = "登陆失败, 账户名不存在或者密码错误"
