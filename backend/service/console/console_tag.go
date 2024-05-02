@@ -1,11 +1,11 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/model"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/output"
 	commonresp "phospherus/model/common/response"
+	"phospherus/model/console/input"
+	"phospherus/model/console/output"
 )
 
 type TagService struct{}

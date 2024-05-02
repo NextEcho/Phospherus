@@ -1,13 +1,13 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/request"
-	"phospherus/model/admin/response"
 	commonresp "phospherus/model/common/response"
-	"phospherus/service/admin"
+	"phospherus/model/console/input"
+	"phospherus/model/console/request"
+	"phospherus/model/console/response"
+	"phospherus/service/console"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -25,12 +25,12 @@ func (*TagApi) GetTagList(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.TagServiceInstance.GetTagList(&input.GetTagList{
+	out, err := console.TagServiceInstance.GetTagList(&input.GetTagList{
 		PageNum:  req.PageNum,
 		PageSize: req.PageSize,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.GetTagList Error", zap.Error(err))
+		global.LOGGER.Error("console.TagServiceInstance.GetTagList Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -52,12 +52,12 @@ func (*TagApi) CreateTag(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.TagServiceInstance.CreateTag(&input.CreateTag{
+	_, err = console.TagServiceInstance.CreateTag(&input.CreateTag{
 		Name:      req.Name,
 		IsVisible: req.IsVisible,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.CreateTag Error", zap.Error(err))
+		global.LOGGER.Error("console.TagServiceInstance.CreateTag Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -75,11 +75,11 @@ func (*TagApi) DeleteTag(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.TagServiceInstance.DeleteTag(&input.DeleteTag{
+	_, err = console.TagServiceInstance.DeleteTag(&input.DeleteTag{
 		Ids: req.Ids,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.DeleteTag Error", zap.Error(err))
+		global.LOGGER.Error("console.TagServiceInstance.DeleteTag Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -97,13 +97,13 @@ func (*TagApi) UpdateTag(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.TagServiceInstance.UpdateTag(&input.UpdateTag{
+	_, err = console.TagServiceInstance.UpdateTag(&input.UpdateTag{
 		Id:        req.Id,
 		Name:      req.Name,
 		IsVisible: req.IsVisible,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.TagServiceInstance.UpdateTag Error", zap.Error(err))
+		global.LOGGER.Error("console.TagServiceInstance.UpdateTag Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}

@@ -1,13 +1,13 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/request"
-	"phospherus/model/admin/response"
 	commonresp "phospherus/model/common/response"
-	"phospherus/service/admin"
+	"phospherus/model/console/input"
+	"phospherus/model/console/request"
+	"phospherus/model/console/response"
+	"phospherus/service/console"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/copier"
@@ -27,9 +27,9 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
+	out, err := console.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
 	if err != nil {
-		global.LOGGER.Error("admin.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
+		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -50,7 +50,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.ArticleServiceInstance.GetArticleList(&input.GetArticleList{
+	out, err := console.ArticleServiceInstance.GetArticleList(&input.GetArticleList{
 		PageNum:    req.PageNum,
 		PageSize:   req.PageSize,
 		Title:      req.Title,
@@ -58,7 +58,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 		TagIds:     req.TagIds,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
+		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -82,11 +82,11 @@ func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.ArticleServiceInstance.DeleteArticle(&input.DeleteArticle{
+	_, err = console.ArticleServiceInstance.DeleteArticle(&input.DeleteArticle{
 		Ids: req.Ids,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.ArticleServiceInstance.DeleteArticle Error", zap.Error(err))
+		global.LOGGER.Error("console.ArticleServiceInstance.DeleteArticle Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -104,7 +104,7 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.ArticleServiceInstance.PostArticle(&input.PostArticle{
+	_, err = console.ArticleServiceInstance.PostArticle(&input.PostArticle{
 		AuthorId:   req.AuthorId,
 		CategoryId: req.CategoryId,
 		IsVisible:  req.IsVisible,
@@ -115,7 +115,7 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 		Content:    req.Content,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.ArticleServiceInstance.PostArticle Error", zap.Error(err))
+		global.LOGGER.Error("console.ArticleServiceInstance.PostArticle Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -134,7 +134,7 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.ArticleServiceInstance.UpdateArticle(&input.UpdateArticle{
+	_, err = console.ArticleServiceInstance.UpdateArticle(&input.UpdateArticle{
 		Id:         req.Id,
 		AuthorId:   req.AuthorId,
 		CategoryId: req.CategoryId,
@@ -146,7 +146,7 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 		Content:    req.Content,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.ArticleServiceInstance.UpdateArticle Error", zap.Error(err))
+		global.LOGGER.Error("console.ArticleServiceInstance.UpdateArticle Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}

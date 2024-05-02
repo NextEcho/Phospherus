@@ -1,4 +1,4 @@
-package admin
+package console
 
 var (
 	UserServiceInstance     = new(UserService)

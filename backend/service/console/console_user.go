@@ -1,11 +1,11 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
 	"phospherus/model"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/output"
+	"phospherus/model/console/input"
+	"phospherus/model/console/output"
 	"phospherus/pkg"
 )
 

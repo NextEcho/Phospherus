@@ -1,11 +1,11 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/model"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/output"
 	commonresp "phospherus/model/common/response"
+	"phospherus/model/console/input"
+	"phospherus/model/console/output"
 	"phospherus/pkg"
 
 	"github.com/jinzhu/copier"
@@ -15,7 +15,7 @@ import (
 type ArticleService struct{}
 
 // GetArticleDetail 查询文章详情
-// 在 admin 端用于查看和修改文章
+// 在 console 端用于查看和修改文章
 func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output.GetArticleDetail, err error) {
 	out = &output.GetArticleDetail{}
 

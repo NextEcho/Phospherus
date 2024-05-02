@@ -1,13 +1,13 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/request"
-	"phospherus/model/admin/response"
 	commonresp "phospherus/model/common/response"
-	"phospherus/service/admin"
+	"phospherus/model/console/input"
+	"phospherus/model/console/request"
+	"phospherus/model/console/response"
+	"phospherus/service/console"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -25,12 +25,12 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.CategoryServiceInstance.GetCategoryList(&input.GetCategoryList{
+	out, err := console.CategoryServiceInstance.GetCategoryList(&input.GetCategoryList{
 		PageNum:  req.PageNum,
 		PageSize: req.PageSize,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.CategoryServiceInstance.GetCategoryList Error", zap.Error(err))
+		global.LOGGER.Error("console.CategoryServiceInstance.GetCategoryList Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -52,13 +52,13 @@ func (*CategoryApi) CreateCategory(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.CategoryServiceInstance.CreateCategory(&input.CreateCategory{
+	_, err = console.CategoryServiceInstance.CreateCategory(&input.CreateCategory{
 		ParentId:  req.ParentId,
 		Name:      req.Name,
 		IsVisible: req.IsVisible,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.CategoryServiceInstance.CreateCategory Error", zap.Error(err))
+		global.LOGGER.Error("console.CategoryServiceInstance.CreateCategory Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -76,11 +76,11 @@ func (*CategoryApi) DeleteCategory(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.CategoryServiceInstance.DeleteCategory(&input.DeleteCategory{
+	_, err = console.CategoryServiceInstance.DeleteCategory(&input.DeleteCategory{
 		Ids: req.Ids,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.CategoryServiceInstance.DeleteCategory Error", zap.Error(err))
+		global.LOGGER.Error("console.CategoryServiceInstance.DeleteCategory Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
@@ -98,14 +98,14 @@ func (*CategoryApi) UpdateCategory(ctx *gin.Context) {
 		return
 	}
 
-	_, err = admin.CategoryServiceInstance.UpdateCategory(&input.UpdateCategory{
+	_, err = console.CategoryServiceInstance.UpdateCategory(&input.UpdateCategory{
 		Id:        req.Id,
 		ParentId:  req.ParentId,
 		Name:      req.Name,
 		IsVisible: req.IsVisible,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.CategoryServiceInstance.UpdateCategory Error", zap.Error(err))
+		global.LOGGER.Error("console.CategoryServiceInstance.UpdateCategory Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}

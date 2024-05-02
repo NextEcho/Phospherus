@@ -2,7 +2,7 @@ package router
 
 import (
 	"net/http"
-	"phospherus/api/admin"
+	admin "phospherus/api/console"
 	"phospherus/middleware"
 
 	"github.com/gin-gonic/gin"

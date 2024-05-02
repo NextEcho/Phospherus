@@ -1,13 +1,13 @@
-package admin
+package console
 
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	"phospherus/model/admin/input"
-	"phospherus/model/admin/request"
-	"phospherus/model/admin/response"
 	commonresp "phospherus/model/common/response"
-	"phospherus/service/admin"
+	"phospherus/model/console/input"
+	"phospherus/model/console/request"
+	"phospherus/model/console/response"
+	"phospherus/service/console"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -26,12 +26,12 @@ func (*UserApi) Login(ctx *gin.Context) {
 		return
 	}
 
-	out, err := admin.UserServiceInstance.Login(&input.Login{
+	out, err := console.UserServiceInstance.Login(&input.Login{
 		Passport: req.Passport,
 		Password: req.Password,
 	})
 	if err != nil {
-		global.LOGGER.Error("admin.UserServiceInstance.Login Error", zap.Error(err))
+		global.LOGGER.Error("console.UserServiceInstance.Login Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, err.Error())
 		return
 	}
