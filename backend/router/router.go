@@ -22,7 +22,7 @@ func Router() *gin.Engine {
 	RouteGroup := r.Group("api")
 
 	// admin module
-	adminRouteGroup := RouteGroup.Group("admin")
+	adminRouteGroup := RouteGroup.Group("console")
 	adminRouteGroup.POST("login", admin.UserApiInstance.Login)
 
 	adminRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
