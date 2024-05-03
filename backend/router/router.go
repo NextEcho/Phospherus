@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"phospherus/api/blog"
 	admin "phospherus/api/console"
 	"phospherus/middleware"
 
@@ -52,11 +53,9 @@ func Router() *gin.Engine {
 
 	// blog module
 	blogRouteGroup := RouteGroup.Group("blog")
-	blogArticleRouteGroup := blogRouteGroup.Group("article")
+	blogUserRouteGroup := blogRouteGroup.Group("user")
 	{
-		blogArticleRouteGroup.GET("/ping", func(ctx *gin.Context) {
-			ctx.Writer.WriteString("pong")
-		})
+		blogUserRouteGroup.POST("getUserInfo", blog.UserApiInstance.GetUserInfo)
 	}
 
 	return r

@@ -1,5 +1,6 @@
 package blog
 
 var (
-	UserApiInstance = new(UserApi)
+	UserApiInstance    = new(UserApi)
+	ArticleApiInstance = new(ArticleApi)
 )
