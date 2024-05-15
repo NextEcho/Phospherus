@@ -10,14 +10,13 @@ import (
 	"phospherus/service/blog"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/copier"
 	"go.uber.org/zap"
 )
 
-type ArticleApi struct{}
+type CategoryApi struct{}
 
-func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
-	req := request.GetArticleDetail{}
+func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
+	req := request.GetCategoryList{}
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -26,14 +25,19 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 		return
 	}
 
-	out, err := blog.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
+	out, err := blog.CategoryServiceInstance.GetCategoryList(&input.GetCategoryList{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
 	if err != nil {
-		global.LOGGER.Error("blog.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
+		global.LOGGER.Error("blog.CategoryServiceInstance.GetCategoryList Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	resp := response.GetArticleDetail{}
-	copier.Copy(&resp, out)
+	resp := response.GetCategoryList{
+		PageResponse: out.PageResponse,
+		CategoryList: out.CategoryList,
+	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
+	commonresp.OkWithDetail(ctx, biz.MsgGetCategoryListSuccess, resp)
 }
