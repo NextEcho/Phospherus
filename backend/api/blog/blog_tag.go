@@ -10,14 +10,13 @@ import (
 	"phospherus/service/blog"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/copier"
 	"go.uber.org/zap"
 )
 
-type ArticleApi struct{}
+type TagApi struct{}
 
-func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
-	req := request.GetArticleDetail{}
+func (*TagApi) GetTagList(ctx *gin.Context) {
+	req := request.GetTagList{}
 
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -26,14 +25,19 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 		return
 	}
 
-	out, err := blog.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
+	out, err := blog.TagServiceInstance.GetTagList(&input.GetTagList{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
 	if err != nil {
-		global.LOGGER.Error("blog.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
+		global.LOGGER.Error("blog.TagServiceInstance.GetTagList Error", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	resp := response.GetArticleDetail{}
-	copier.Copy(&resp, out)
+	resp := response.GetTagList{
+		PageResponse: out.PageResponse,
+		TagList:      out.TagList,
+	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
+	commonresp.OkWithDetail(ctx, biz.MsgGetTagListSuccess, resp)
 }
