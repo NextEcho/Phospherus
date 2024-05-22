@@ -37,3 +37,28 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 
 	commonresp.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
 }
+
+func (*ArticleApi) GetArticleList(ctx *gin.Context) {
+	req := request.GetArticleList{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	out, err := blog.ArticleServiceInstance.GetArticleList(&input.GetArticleList{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
+	if err != nil {
+		global.LOGGER.Error("blog.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	resp := response.GetArticleList{}
+	copier.Copy(&resp, out)
+
+	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+}

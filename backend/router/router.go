@@ -22,36 +22,40 @@ func Router() *gin.Engine {
 
 	RouteGroup := r.Group("api")
 
-	// admin module
-	adminRouteGroup := RouteGroup.Group("console")
-	adminRouteGroup.POST("login", admin.UserApiInstance.Login)
+	////////////////////////////////
+	// Console /////////////////////
+	////////////////////////////////
+	consoleRouteGroup := RouteGroup.Group("console")
+	consoleRouteGroup.POST("login", admin.UserApiInstance.Login)
 
-	adminRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
+	consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
 
-	adminArticleRouteGroup := adminRouteGroup.Group("article")
+	consoleArticleRouteGroup := consoleRouteGroup.Group("article")
 	{
-		adminArticleRouteGroup.POST("getArticleDetail", admin.ArticleApiInstance.GetArticleDetail)
-		adminArticleRouteGroup.POST("getArticleList", admin.ArticleApiInstance.GetArticleList)
-		adminArticleRouteGroup.POST("postArticle", admin.ArticleApiInstance.PostArticle)
-		adminArticleRouteGroup.POST("deleteArticle", admin.ArticleApiInstance.DeleteArticle)
-		adminArticleRouteGroup.POST("updateArticle", admin.ArticleApiInstance.UpdateArticle)
+		consoleArticleRouteGroup.POST("getArticleDetail", admin.ArticleApiInstance.GetArticleDetail)
+		consoleArticleRouteGroup.POST("getArticleList", admin.ArticleApiInstance.GetArticleList)
+		consoleArticleRouteGroup.POST("postArticle", admin.ArticleApiInstance.PostArticle)
+		consoleArticleRouteGroup.POST("deleteArticle", admin.ArticleApiInstance.DeleteArticle)
+		consoleArticleRouteGroup.POST("updateArticle", admin.ArticleApiInstance.UpdateArticle)
 	}
-	adminTagRouteGroup := adminRouteGroup.Group("tag")
+	consoleTagRouteGroup := consoleRouteGroup.Group("tag")
 	{
-		adminTagRouteGroup.POST("getTagList", admin.TagApiInstance.GetTagList)
-		adminTagRouteGroup.POST("createTag", admin.TagApiInstance.CreateTag)
-		adminTagRouteGroup.POST("deleteTag", admin.TagApiInstance.DeleteTag)
-		adminTagRouteGroup.POST("updateTag", admin.TagApiInstance.UpdateTag)
+		consoleTagRouteGroup.POST("getTagList", admin.TagApiInstance.GetTagList)
+		consoleTagRouteGroup.POST("createTag", admin.TagApiInstance.CreateTag)
+		consoleTagRouteGroup.POST("deleteTag", admin.TagApiInstance.DeleteTag)
+		consoleTagRouteGroup.POST("updateTag", admin.TagApiInstance.UpdateTag)
 	}
-	adminCategoryRouteGroup := adminRouteGroup.Group("category")
+	consoleCategoryRouteGroup := consoleRouteGroup.Group("category")
 	{
-		adminCategoryRouteGroup.POST("getCategoryList", admin.CategoryApiInstance.GetCategoryList)
-		adminCategoryRouteGroup.POST("createCategory", admin.CategoryApiInstance.CreateCategory)
-		adminCategoryRouteGroup.POST("deleteCategory", admin.CategoryApiInstance.DeleteCategory)
-		adminCategoryRouteGroup.POST("updateCategory", admin.CategoryApiInstance.UpdateCategory)
+		consoleCategoryRouteGroup.POST("getCategoryList", admin.CategoryApiInstance.GetCategoryList)
+		consoleCategoryRouteGroup.POST("createCategory", admin.CategoryApiInstance.CreateCategory)
+		consoleCategoryRouteGroup.POST("deleteCategory", admin.CategoryApiInstance.DeleteCategory)
+		consoleCategoryRouteGroup.POST("updateCategory", admin.CategoryApiInstance.UpdateCategory)
 	}
 
-	// blog module
+	////////////////////////////////
+	// Blog ////////////////////////
+	////////////////////////////////
 	blogRouteGroup := RouteGroup.Group("blog")
 	blogUserRouteGroup := blogRouteGroup.Group("user")
 	{
@@ -60,6 +64,7 @@ func Router() *gin.Engine {
 	blogArticleRouteGroup := blogRouteGroup.Group("article")
 	{
 		blogArticleRouteGroup.POST("getArticleDetail", blog.ArticleApiInstance.GetArticleDetail)
+		blogArticleRouteGroup.POST("getArticleList", blog.ArticleApiInstance.GetArticleList)
 	}
 	blogTagRouteGroup := blogRouteGroup.Group("tag")
 	{
