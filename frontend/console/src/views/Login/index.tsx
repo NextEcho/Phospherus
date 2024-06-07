@@ -1,14 +1,27 @@
-import styles from "./login.module.scss";
-import { Button } from "antd";
-import { DownCircleOutlined } from "@ant-design/icons";
-
+import styles from "@/views/Login/login.module.scss";
 const Login = () => {
     return (
         <>
-            <div className={styles.box}>This is a Login Page</div>
-            <div>Tow line</div>
-            <Button type="primary">button text</Button>
-            <DownCircleOutlined style={{ fontSize: "30px" }} />
+            <div className={styles.loginContainer}>
+                <div className={styles.loginBox}>
+                    <p className={styles.fontLg}>Welcome</p>
+                    <input
+                        className={styles.accountInput}
+                        type="text"
+                        placeholder="Your Account"
+                    />
+                    <input
+                        className={styles.passwordInput}
+                        type="password"
+                        placeholder="Your Password"
+                    />
+                    <button
+                        className={`${styles.loginButton} ${styles.fontMd} ${styles.cursorPointer}`}
+                    >
+                        Login
+                    </button>
+                </div>
+            </div>
         </>
     );
 };

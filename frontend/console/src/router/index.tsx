@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <Navigate to="/home" replace />,
+                element: <Navigate to="/console/home" replace />,
             },
             {
                 path: "home",
@@ -31,10 +31,19 @@ const router = createBrowserRouter([
                 path: "user",
                 element: withLoadingComponent(<User />),
             },
+            {
+                path: "other",
+                children: [
+                    {
+                        path: "role",
+                        element: withLoadingComponent(<User />),
+                    },
+                ],
+            },
         ],
     },
     {
-        path: "/login",
+        path: "/auth/login",
         element: withLoadingComponent(<Login />),
     },
 ]);
