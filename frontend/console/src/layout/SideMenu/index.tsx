@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { DesktopOutlined, UserOutlined } from "@ant-design/icons";
+import { DesktopOutlined, FileOutlined, UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { useNavigate, useLocation, Location } from "react-router-dom";
+import styles from "./index.module.scss";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -23,9 +24,7 @@ function getItem(
 const items: MenuItem[] = [
     getItem("Home", "/console/home", <DesktopOutlined />),
     getItem("User", "/console/user", <UserOutlined />),
-    getItem("Other", "/console/other", <UserOutlined />, [
-        getItem("Role", "/console/other/role", <UserOutlined />),
-    ]),
+    getItem("Article", "/console/article", <FileOutlined />),
 ];
 
 const SideMenu: React.FC = () => {
@@ -55,6 +54,7 @@ const SideMenu: React.FC = () => {
                 onClick={handleMenuClick}
                 openKeys={openKeys}
                 onOpenChange={handleOpenChange}
+                className={styles.sideMenuContainer}
             />
         </>
     );

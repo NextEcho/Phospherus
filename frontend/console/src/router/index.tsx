@@ -5,6 +5,7 @@ import AppLayout from "@/layout/index.tsx";
 const Login = React.lazy(() => import("@/views/Login/index.tsx"));
 const Home = React.lazy(() => import("@/views/Home/index.tsx"));
 const User = React.lazy(() => import("@/views/User/index.tsx"));
+const Article = React.lazy(() => import("@/views/Article/index.tsx"));
 
 const withLoadingComponent = (comp: JSX.Element) => {
     return <Suspense fallback={<div>Loading...</div>}>{comp}</Suspense>;
@@ -32,13 +33,8 @@ const router = createBrowserRouter([
                 element: withLoadingComponent(<User />),
             },
             {
-                path: "other",
-                children: [
-                    {
-                        path: "role",
-                        element: withLoadingComponent(<User />),
-                    },
-                ],
+                path: "article",
+                element: withLoadingComponent(<Article />),
             },
         ],
     },

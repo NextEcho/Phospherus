@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Breadcrumb, Layout } from "antd";
+import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import SideMenu from "./SideMenu";
+import NavBar from "./NavBar";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -22,17 +23,13 @@ const AppLayout: React.FC = () => {
                 <SideMenu />
             </Sider>
             <Layout>
-                <Header style={{ paddingLeft: "16px", background: "#fff" }}>
-                    <Breadcrumb style={{ lineHeight: "64px" }}>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
+                <Header style={{ padding: "0 16px", background: "#fff" }}>
+                    <NavBar />
                 </Header>
                 <Content
                     style={{
                         margin: "16px",
                         minHeight: "calc(100% - 144px)",
-                        backgroundColor: "#ccc",
                     }}
                 >
                     <Outlet></Outlet>

@@ -1,25 +1,19 @@
-import styles from "@/views/Login/login.module.scss";
+import styles from "@/views/Login/index.module.scss";
 const Login = () => {
     return (
         <>
-            <div className={styles.loginContainer}>
+            <div className={styles.container}>
                 <div className={styles.loginBox}>
-                    <p className={styles.fontLg}>Welcome</p>
-                    <input
-                        className={styles.accountInput}
-                        type="text"
-                        placeholder="Your Account"
-                    />
-                    <input
-                        className={styles.passwordInput}
-                        type="password"
-                        placeholder="Your Password"
-                    />
-                    <button
-                        className={`${styles.loginButton} ${styles.fontMd} ${styles.cursorPointer}`}
-                    >
-                        Login
-                    </button>
+                    <div className={styles.header}>Login</div>
+                    <div className={styles.formBox}>
+                        <input type="text" placeholder="Account" className={styles.inputItem} />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className={styles.inputItem}
+                        />
+                        <div className={styles.loginBtn}>Login</div>
+                    </div>
                 </div>
             </div>
         </>

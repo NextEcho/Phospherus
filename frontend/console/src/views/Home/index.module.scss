@@ -1,0 +1,33 @@
+.homeContainer {
+    .cards {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        .cardItem {
+            box-sizing: border-box;
+            width: 300px;
+            height: 170px;
+            padding: 30px;
+            margin: 20px;
+            background-color: #eee;
+            border-radius: 8px;
+            border: 1px solid #ccc3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .cardItem {
+        flex: 1 1 100%;
+    }
+}

@@ -1,11 +1,13 @@
-import { Button } from "antd";
+import { Table } from "antd";
 
-const Login = () => {
+const userData: any[] = [];
+
+const User = () => {
     return (
         <>
-            <Button type="primary">User Button </Button>
+            <Table dataSource={userData} />
         </>
     );
 };
 
-export default Login;
+export default User;
