@@ -28,7 +28,7 @@ func Router() *gin.Engine {
 	consoleRouteGroup := RouteGroup.Group("console")
 	consoleRouteGroup.POST("login", admin.UserApiInstance.Login)
 
-	consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
+	// consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
 
 	consoleArticleRouteGroup := consoleRouteGroup.Group("article")
 	{

@@ -11,13 +11,13 @@ create table `user` (
     `password` varchar(128) not null comment '用户密码',
     `avatar` varchar(128) not null comment '用户头像',
     `email` varchar(128) not null comment '用户邮箱',
-    `github` varchar(128) not null comment '用户github地址',
+    `github_url` varchar(128) not null comment '用户github地址',
     primary key (`id`)
 );
 
 -- table of article
 create table `article` (
-    `id` int not null auto_increment comment '文章ID',  
+    `id` int not null auto_increment comment '文章ID',
     `author_id` int not null comment '文章作者ID',
     `category_id` int not null comment '文章所属分类ID',
     `title` varchar(128) not null comment '文章标题',
