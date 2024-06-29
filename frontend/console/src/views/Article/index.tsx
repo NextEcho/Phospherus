@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const ArticleColumns = [
     {
-        title: "id",
+        title: "文章ID",
         dataIndex: "id",
         key: "id",
     },

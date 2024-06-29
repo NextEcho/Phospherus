@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DesktopOutlined, FileOutlined, UserOutlined } from "@ant-design/icons";
+import { DesktopOutlined, EditOutlined, FileOutlined, UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { useNavigate, useLocation, Location } from "react-router-dom";
@@ -22,9 +22,10 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem("Home", "/console/home", <DesktopOutlined />),
-    getItem("User", "/console/user", <UserOutlined />),
-    getItem("Article", "/console/article", <FileOutlined />),
+    getItem("主页面", "/console/home", <DesktopOutlined />),
+    getItem("用户管理", "/console/user", <UserOutlined />),
+    getItem("文章管理", "/console/article", <FileOutlined />),
+    getItem("文章编辑", "/console/edit-article", <EditOutlined />),
 ];
 
 const SideMenu: React.FC = () => {
@@ -39,6 +40,7 @@ const SideMenu: React.FC = () => {
         setOpenKeys([keys[keys.length - 1]]);
     };
 
+    // 菜单项点击事件
     const navigationTo = useNavigate();
     const handleMenuClick = (e: { key: string }) => {
         navigationTo(e.key);
