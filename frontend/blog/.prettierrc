@@ -6,7 +6,7 @@
     "singleQuote": false,
     "trailingComma": "all",
     "bracketSpacing": true,
-    "bracketSameLine": true,
+    "bracketSameLine": false,
     "arrowParens": "always",
     "htmlWhitespaceSensitivity": "ignore",
     "vueIndentScriptAndStyle": false,

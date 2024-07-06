@@ -1,9 +1,11 @@
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 function App() {
     return (
-        <>
-            <div>Hello world</div>
-            <div>world</div>
-        </>
+        <RouterProvider
+            router={router}
+            fallbackElement={<p>Performing initial data load</p>}
+        ></RouterProvider>
     );
 }
 
