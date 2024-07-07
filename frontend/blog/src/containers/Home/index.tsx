@@ -5,8 +5,8 @@ const Home: React.FC = () => {
     return (
         <>
             <div className="home">
-                <NavBar />
-                {/* TODO: 完善首页的布局 */}
+                <NavBar/>
+
             </div>
         </>
     );
