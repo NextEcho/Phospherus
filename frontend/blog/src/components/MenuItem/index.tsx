@@ -1,17 +1,9 @@
-const MenuItem: React.FC<{
-    title: string;
-    icon: string;
-    onClick: () => void;
-}> = ({ title, icon, onClick }) => {
-    return (
-        <div
-            className="flex flex-col items-center justify-center p-2 rounded-md cursor-pointer hover:bg-gray-100"
-            onClick={onClick}
-        >
-            <i className={`text-2xl ${icon}`} />
-            <span className="text-sm">{title}</span>
-        </div>
-    );
+const MenuItem: React.FC<{ title: string }> = ({ title }) => {
+  return (
+    <div className="transition duration-300 border border-solid border-slate-800 rounded-xl pl-3 pr-3 hover:bg-indigo-500 cursor-pointer text-sm mr-3 pt-1 pb-1 min-w-20 text-center">
+      {title}
+    </div>
+  )
 };
 
 export default MenuItem;

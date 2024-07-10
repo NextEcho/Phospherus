@@ -1,14 +1,11 @@
 import React from "react";
 import NavBar from "@/components/NavBar";
-import Banner from "@/components/Banner";
 
-const Home: React.FC = () => {
+const About: React.FC = () => {
     return (
         <>
             <div className="home">
                 <NavBar />
-                <Banner/>
-                {/* <div className="bg-nav w-100 h-96 text-slate-50">banner 部分</div> */}
                 <div
                     className="content text-slate-50"
                     style={{
@@ -41,4 +38,4 @@ const Home: React.FC = () => {
     );
 };
 
-export default Home;
+export default About;

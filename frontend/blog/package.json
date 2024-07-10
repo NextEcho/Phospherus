@@ -19,6 +19,7 @@
         "reset-css": "^5.0.2"
     },
     "devDependencies": {
+        "@types/node": "^20.14.10",
         "@types/react": "^18.2.66",
         "@types/react-dom": "^18.2.22",
         "@types/react-router-dom": "^5.3.3",
