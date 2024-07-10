@@ -7,10 +7,10 @@ const NavBar = () => {
         <div className="flex flex-row justify-between w-full bg-transparent text-black leading-8 max-w-5xl">
           <div className="flex text-slate-50 h-8">
             <img src={logo} alt="" style={{
-              width: "34px",
-              height: "34px",
+              width: "35px",
+              height: "35px",
             }} />
-            <div className="ml-2">NextEcho's Blog</div>
+            <div className="ml-2 font-serif">NextEcho's Blog</div>
           </div>
           <div className="text-slate-50 h-8 flex flex-row justify-center items-center">
             <MenuItem title="Home" />

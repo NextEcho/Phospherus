@@ -1,41 +1,32 @@
 import React from "react";
 import NavBar from "@/components/NavBar";
 import Banner from "@/components/Banner";
+import ArticleItem from "@/components/ArticleItem";
+import Footer from "@/components/Footer";
 
 const Home: React.FC = () => {
     return (
         <>
-            <div className="home">
+            <div className="home min-w-96">
                 <NavBar />
-                <Banner/>
-                {/* <div className="bg-nav w-100 h-96 text-slate-50">banner 部分</div> */}
+                <Banner />
                 <div
-                    className="content text-slate-50"
+                    className="blog-content w-full flex justify-center"
                     style={{
-                        display: "flex",
-                        width: "100%",
-                        height: "calc(100vh - 160px)",
+                        // height: "calc(100vh - 160px)",
                         backgroundColor: "#0E0E13",
-                        alignItems: "center",
-                        justifyContent: "center",
                     }}
                 >
-                    内容部分
+                    <div className="article-list flex flex-col item-center px-10 pt-32 pb-10 max-w-4xl text-slate-400">
+                        <ArticleItem />
+                        <ArticleItem />
+                        <ArticleItem />
+                        <ArticleItem />
+                        <ArticleItem />
+                        <ArticleItem />
+                    </div>
                 </div>
-                <div
-                    className="footer"
-                    style={{
-                        display: "flex",
-                        width: "100%",
-                        height: "100px",
-                        color: "#fff",
-                        backgroundColor: "#0E0E13",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    底部内容
-                </div>
+                <Footer/>
             </div>
         </>
     );
