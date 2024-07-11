@@ -1,38 +1,31 @@
-import React from "react";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
-const About: React.FC = () => {
+const About = (): JSX.Element => {
     return (
         <>
-            <div className="home">
+            <div className="about">
                 <NavBar />
-                <div
-                    className="content text-slate-50"
+                <div className="w-full h-[64px] bg-nav"></div>
+                <div className="content w-full h-full text-slate-200 min-h-screen"
                     style={{
-                        display: "flex",
-                        width: "100%",
-                        height: "calc(100vh - 160px)",
                         backgroundColor: "#0E0E13",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    内容部分
+                    }}>
+                    <div className="main flex">
+                        <div className="introduce">
+                            <h1>NextEcho</h1>
+                            <p>
+                                I am currently a product designer, junior developer, and aspire to become a design engineer.
+                                Having insights and practical experience in multiple industries such as cloud computing,
+                                low code, e-commerce, intelligent customer service, and zero trust.
+                            </p>
+                        </div>
+                        <div className="contact">
+                            <h3>Contact</h3>
+                        </div>
+                    </div>
                 </div>
-                <div
-                    className="footer"
-                    style={{
-                        display: "flex",
-                        width: "100%",
-                        height: "100px",
-                        color: "#fff",
-                        backgroundColor: "#0E0E13",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    底部内容
-                </div>
+                <Footer />
             </div>
         </>
     );

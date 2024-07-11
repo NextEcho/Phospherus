@@ -1,19 +1,18 @@
-import React from "react";
 import NavBar from "@/components/NavBar";
 import Banner from "@/components/Banner";
 import ArticleItem from "@/components/ArticleItem";
 import Footer from "@/components/Footer";
 
-const Home: React.FC = () => {
+function Home(): JSX.Element {
     return (
         <>
             <div className="home min-w-96">
                 <NavBar />
+                <div className="w-full h-[64px] bg-nav"></div>
                 <Banner />
                 <div
                     className="blog-content w-full flex justify-center"
                     style={{
-                        // height: "calc(100vh - 160px)",
                         backgroundColor: "#0E0E13",
                     }}
                 >
@@ -26,7 +25,7 @@ const Home: React.FC = () => {
                         <ArticleItem />
                     </div>
                 </div>
-                <Footer/>
+                <Footer />
             </div>
         </>
     );

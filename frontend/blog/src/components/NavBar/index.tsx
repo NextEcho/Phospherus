@@ -13,10 +13,10 @@ const NavBar = () => {
             <div className="ml-2 font-serif">NextEcho's Blog</div>
           </div>
           <div className="text-slate-50 h-8 flex flex-row justify-center items-center">
-            <MenuItem title="Home" />
-            <MenuItem title="Archive" />
-            <MenuItem title="Tag" />
-            <MenuItem title="About" />
+            <MenuItem title="Home" to="/" />
+            <MenuItem title="Archive" to="/archive" />
+            <MenuItem title="Tag" to="/tag" />
+            <MenuItem title="About" to="/about" />
           </div>
         </div>
       </div>
