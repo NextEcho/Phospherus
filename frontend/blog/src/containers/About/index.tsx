@@ -1,5 +1,8 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import Button from "@/components/Button";
+import Card from "@/components/Card";
+import CareerItem from "./CareerItem";
 
 const About = (): JSX.Element => {
     return (
@@ -7,12 +10,12 @@ const About = (): JSX.Element => {
             <div className="about">
                 <NavBar />
                 <div className="w-full h-[64px] bg-nav"></div>
-                <div className="content w-full h-full text-slate-200 min-h-screen flex flex-col items-center"
+                <div className="content w-full h-full text-slate-200 min-h-screen items-center"
                     style={{
                         backgroundColor: "#0E0E13",
                     }}
                 >
-                    <div className="top mx-24 px-80 pt-28 mb-10">
+                    <div className="top mx-20 px-64 pt-28 mb-10">
                         <div className="name text-4xl mb-6 font-serif">
                             NextEcho
                         </div>
@@ -26,14 +29,31 @@ const About = (): JSX.Element => {
                             </div>
                             <div className="contact px-16 basis-1/3">
                                 <p className="text-xl mb-6 font-serif">Contact</p>
-                                <p>
-                                    email: <a href="">nextecho@outlook.com</a>
-                                </p>
+                                <div className="email my-2">
+                                    Email: <a href="">nextecho@outlook.com</a>
+                                </div>
+                                <div className="github my-2">
+                                    Github: <a href="https://github.com/NextEcho">NextEcho</a>
+                                </div>
+                                <div className="resume my-2">
+                                    Resume(Download my resume):
+                                    <Button title="Download" to="" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="middle">作品数量统计</div>
-                    <div className="bottom">履历</div>
+                    <div className="middle mb-10">
+                        <div className="card-list flex px-[357px] flex-wrap">
+                            <Card />
+                            <Card />
+                            <Card />
+                        </div>
+                    </div>
+                    <div className="bottom mb-10">
+                        <div className="career-list px-[357px] px-2">
+                            <CareerItem />
+                        </div>
+                    </div>
                 </div>
                 <Footer />
             </div>
