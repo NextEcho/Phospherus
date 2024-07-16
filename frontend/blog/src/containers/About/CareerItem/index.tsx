@@ -18,7 +18,7 @@ const ProjectItem = () => {
 const CareerItem = () => {
     return (
         <>
-            <div className="career-item flex justify-around">
+            <div className="career-item flex justify-around mt-10">
                 <div className="time basis-1/4">❖ 2024.4 ~ now</div>
                 <div className="company basis-1/4">
                     <a href="" className="company-name">企业名称 ↗</a>

@@ -5,6 +5,15 @@ import Card from "@/components/Card";
 import CareerItem from "./CareerItem";
 
 const About = (): JSX.Element => {
+
+    const handleDownload = () => {
+        const link = document.createElement("a");
+        link.href = "https://typora-note-storage.oss-cn-shenzhen.aliyuncs.com/resume/Resume.pdf";
+        link.download = "Resume.pdf";
+        link.click();
+        console.log("Dowload!!!");
+    }
+
     return (
         <>
             <div className="about">
@@ -37,20 +46,22 @@ const About = (): JSX.Element => {
                                 </div>
                                 <div className="resume my-2">
                                     Resume(Download my resume):
-                                    <Button title="Download" to="" />
+                                    <Button title="Download" to="" handleClick={handleDownload} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="middle mb-10">
-                        <div className="card-list flex px-[357px] flex-wrap">
+                    <div className="middle mb-20">
+                        <div className="card-list flex px-[350px] flex-wrap">
                             <Card />
                             <Card />
                             <Card />
                         </div>
                     </div>
-                    <div className="bottom mb-10">
+                    <div className="bottom">
                         <div className="career-list px-[357px] px-2">
+                            <CareerItem />
+                            <CareerItem />
                             <CareerItem />
                         </div>
                     </div>
