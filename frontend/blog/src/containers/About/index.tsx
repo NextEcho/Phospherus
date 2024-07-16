@@ -11,7 +11,6 @@ const About = (): JSX.Element => {
         link.href = "https://typora-note-storage.oss-cn-shenzhen.aliyuncs.com/resume/Resume.pdf";
         link.download = "Resume.pdf";
         link.click();
-        console.log("Dowload!!!");
     }
 
     return (

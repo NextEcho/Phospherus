@@ -1,6 +1,10 @@
 import logo from "@/assets/images/logo.png";
 import MenuItem from "@/components/MenuItem/index";
+import { useLocation } from "react-router-dom";
 const NavBar = () => {
+
+  const currPath = useLocation();
+
   return (
     <>
       <div className="fixed top-0 left-0 flex flex-row justify-center items-center w-full h-16 bg-transparent px-10 backdrop-blur-md z-50">
