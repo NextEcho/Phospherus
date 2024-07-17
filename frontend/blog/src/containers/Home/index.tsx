@@ -8,7 +8,7 @@ function Home(): JSX.Element {
         <>
             <div className="home min-w-96">
                 <NavBar />
-                <div className="w-full h-[64px] bg-nav"></div>
+                <div className="w-full h-[64px] bg-[#0F161E]"></div>
                 <Banner />
                 <div
                     className="blog-content w-full flex justify-center"

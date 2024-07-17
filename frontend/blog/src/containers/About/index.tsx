@@ -17,7 +17,7 @@ const About = (): JSX.Element => {
         <>
             <div className="about">
                 <NavBar />
-                <div className="w-full h-[64px] bg-nav"></div>
+                <div className="w-full h-[64px] bg-[#0F161E]"></div>
                 <div className="content w-full h-full text-slate-200 min-h-screen items-center"
                     style={{
                         backgroundColor: "#0E0E13",
