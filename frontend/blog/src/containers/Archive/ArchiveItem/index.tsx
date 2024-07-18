@@ -1,3 +1,5 @@
+import Divider from "@/components/Divider";
+
 const ArchiveItem = () => {
     return (
         <>
@@ -19,6 +21,7 @@ const ArchiveItem = () => {
                     <div className="article-time mr-16">02-05</div>
                     <div className="article-title cursor-pointer">Title of Article</div>
                 </div>
+                <Divider/>
             </div>
         </>
     )
