@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import React, { Suspense } from "react";
 
-const Home = React.lazy(() => import("@/containers/Home/index.tsx"));
-const Archive = React.lazy(() => import("@/containers/Archive/index.tsx"));
-const Tag = React.lazy(() => import("@/containers/Tag/index.tsx"));
-const About = React.lazy(() => import("@/containers/About/index.tsx"));
-const Article = React.lazy(() => import("@/containers/Article/index.tsx"));
+const Home = React.lazy(() => import("@/views/Home"));
+const Archive = React.lazy(() => import("@/views/Archive"));
+const Tag = React.lazy(() => import("@/views/Tag"));
+const About = React.lazy(() => import("@/views/About"));
+const Article = React.lazy(() => import("@/views/Article"));
 
 const withLoadingComponent = (comp: JSX.Element) => {
     return <Suspense fallback={<div>Loading...</div>}>{comp}</Suspense>;

@@ -1,31 +1,19 @@
-import Divider from "@/components/Divider";
+import React from "react";
 
-const ArticleItem = () => {
-    return (
-        <>
-            <div className="article-item w-full h-48">
-                <div className="article-text">
-                    <div className="tip flex justify-between">
-                        <div className="title cursor-pointer">
-                            文章标题
-                        </div>
-                        <div className="tags cursor-pointer">
-                            标签
-                        </div>
-                    </div>
-                    <div className="description my-2.5 cursor-pointer">
-                        你可以了解我在沉淀设计资产方面的相关经验、多年设计工作以来日积月累的丰富实战经验、
-                        作为重度观影爱好者的无聊记录、对这个世界充满敬畏而收集的奇思妙想。
-                    </div>
-                </div>
-                <div className="work-info flex">
-                    <div className="author mr-2">NextEcho</div>
-                    <div className="create-time">1970-01-01</div>
-                </div>
-                <Divider />
-            </div>
-        </>
-    )
+interface ArticleItemProps {
+  id: number;
+  title: string;
 }
+
+const ArticleItem: React.FC<ArticleItemProps> = ({ id, title }) => {
+  return (
+    <div className="article-item w-full py-2 my-2 flex justify-around items-center font-main">
+      <a href="" className="title text-2xl basis-2/3 text-slate-50 min-w-[512px] truncate">
+        {id}. {title}
+      </a>
+      <span className="time basis-1/3 text-slate-500 text-right min-w-28">Sep 27 2023</span>
+    </div>
+  );
+};
 
 export default ArticleItem;
