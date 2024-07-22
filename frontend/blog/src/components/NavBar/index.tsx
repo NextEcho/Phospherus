@@ -14,7 +14,7 @@ const NavBar = () => {
                 height: "35px",
               }}
             />
-            <div className="ml-2 font-serif text-green-50">NextEcho's Blog</div>
+            <div className="ml-2 text-green-50 font-code">NextEcho's Blog</div>
           </div>
           <div className="menu-zone text-slate-50 h-8 flex flex-row justify-center items-center">
             <MenuItem title="Home" to="/" />
