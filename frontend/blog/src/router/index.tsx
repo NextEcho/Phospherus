@@ -5,7 +5,7 @@ const Home = React.lazy(() => import("@/views/Home"));
 const Archive = React.lazy(() => import("@/views/Archive"));
 const Tag = React.lazy(() => import("@/views/Tag"));
 const About = React.lazy(() => import("@/views/About"));
-const Article = React.lazy(() => import("@/views/Article"));
+const ArticleDetail = React.lazy(() => import("@/views/ArticleDetail"));
 
 const withLoadingComponent = (comp: JSX.Element) => {
     return <Suspense fallback={<div>Loading...</div>}>{comp}</Suspense>;
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/article/:title",
-        element: withLoadingComponent(<Article />)
+        element: withLoadingComponent(<ArticleDetail />)
     }
 ]);
 

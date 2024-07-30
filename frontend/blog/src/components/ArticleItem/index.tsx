@@ -11,7 +11,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, title }) => {
       <a href="" className="title text-2xl basis-2/3 text-slate-50 min-w-[512px] truncate">
         {id}. {title}
       </a>
-      <span className="time basis-1/3 text-slate-500 text-right min-w-28">Sep 27 2023</span>
+      <span className="time basis-1/3 text-slate-500 text-right min-w-28 font-code">Sep 27 2023</span>
     </div>
   );
 };

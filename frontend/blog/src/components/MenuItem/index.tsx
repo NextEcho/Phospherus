@@ -17,8 +17,8 @@ const MenuItem: React.FC<MenuItemProps> = ({ title, to }) => {
   return (
     <>
       <a
-        className={`transition duration-300  pl-3 pr-3 hover:bg-violet-400 
-      cursor-pointer text-sm mr-3 pt-1 pb-1 min-w-20 text-center font-code ${
+        className={`transition duration-300  pl-3 pr-3 hover:bg-indigo-400 
+      cursor-pointer text-sm mx-1 pt-1 pb-1 min-w-20 text-center font-code ${
         isActive ? "bg-indigo-500" : ""
       }`}
         onClick={handleClick}

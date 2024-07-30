@@ -32,7 +32,7 @@ const About = () => {
           <div className="owner-link flex flex-col items-center justify-around">
             <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vue,go" />
             <img src="https://skillicons.dev/icons?i=rust,solidity,mongodb,redis,docker,kafka" />
-            <img src="https://skillicons.dev/icons?i=tailwindcss,git,neovim,vscode,github" />
+            <img src="https://skillicons.dev/icons?i=tailwind,git,neovim,vscode,github" />
           </div>
         </div>
         <div className="lower flex flex-row flex-1 px-20 py-10 mx-24 my-10 h-96 font-code">
