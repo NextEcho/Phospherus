@@ -59,7 +59,7 @@ const Tag = () => {
       <div className="navigation">
         <NavBar />
       </div>
-      <div className="content bg-[#1A1823] w-full h-full flex flex-1 flex-col px-96 pt-24 pb-8">
+      <div className="content bg-main w-full h-full flex flex-1 flex-col px-96 pt-24 pb-8">
         <div className="tag-list flex flex-wrap justify-center">
           {tagList.map((item, idx) => {
             return (

@@ -3,7 +3,7 @@ import MenuItem from "@/components/MenuItem/index";
 const NavBar = () => {
   return (
     <>
-      <div className="flex flex-row justify-center items-center w-full h-16 px-10 z-50 bg-[#1A1823]">
+      <div className="flex flex-row justify-center items-center w-full h-16 px-10 z-50 bg-main">
         <div className="flex flex-row justify-between w-full bg-transparent text-black leading-8 max-w-5xl">
           <div className="logo-zone flex h-8">
             <img

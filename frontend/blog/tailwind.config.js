@@ -7,7 +7,12 @@ export default {
         main: ["'NotoSansM Nerd Font', 'LXGW WenKai Screen'"],
         code: ["'NotoSansM Nerd Font', 'Consolas'"]
       },
+      backgroundColor: {
+        main: "#1A1823",
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"),
+  ],
 };

@@ -7,7 +7,7 @@ const Button: React.FC<ButtonProps> = ({ title, to, handleClick }) => {
   return (
     <>
       <button
-        className="block bg-indigo-500 text-slate-300 rounded-md px-3 py-2 my-2 hover:opacity-90"
+        className="block btn-primary"
         onClick={handleClick}
       >
         {title}

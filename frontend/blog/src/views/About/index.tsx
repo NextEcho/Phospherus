@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 import Divider from "@/components/Divider";
 
 const About = () => {
-  // download button handler
+  // download button handle:
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = "https://typora-note-storage.oss-cn-shenzhen.aliyuncs.com/resume/Resume.pdf";
@@ -18,7 +18,7 @@ const About = () => {
       <div className="navigation">
         <NavBar />
       </div>
-      <div className="content bg-[#1A1823] w-full h-full flex-col flex-1 items-center text-slate-200">
+      <div className="content bg-main w-full h-full flex-col flex-1 items-center text-slate-200">
         <div className="upper flex flex-row flex-1 justify-around px-20 py-10 mx-24 my-10 h-64">
           <div className="owner-outline flex">
             <div className="avatar">
@@ -26,7 +26,7 @@ const About = () => {
             </div>
             <div className="info-text ml-10 flex-col font-main">
               <div className="name text-3xl">NextEcho</div>
-              <div className="signature pt-6 text-xl">Become one's own believer</div>
+              <div className="signature pt-6 text-xl">Become your own believer</div>
             </div>
           </div>
           <div className="owner-link flex flex-col items-center justify-around">
@@ -35,7 +35,7 @@ const About = () => {
             <img src="https://skillicons.dev/icons?i=tailwind,git,neovim,vscode,github" />
           </div>
         </div>
-        <div className="lower flex flex-row flex-1 px-20 py-10 mx-24 my-10 h-96 font-code">
+        <div className="lower flex flex-row flex-1 px-24 py-10 mx-24 my-10 h-96 font-code">
           <div className="detail basis-2/3 pr-20 text-base">
             <p className="">
               This is detail about blog owner, you can put discripition in this zone. This is
@@ -44,7 +44,6 @@ const About = () => {
               you can put discripition in this zone. This is detail about blog owner, you can put
               discripition in this zone. This is detail about blog owner, you can put discripition
               in this zone. This is detail about blog owner, you can put discripition in this zone.
-              This is detail about blog owner, you can put discripition in this zone.
             </p>
           </div>
           <div className="contact-resume basis-1/3">
