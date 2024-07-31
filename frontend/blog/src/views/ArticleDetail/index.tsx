@@ -3,8 +3,7 @@ import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-// import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-// import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useEffect, useState } from "react";
 
 const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
   return (
@@ -13,67 +12,18 @@ const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
       children={markdown}
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
-      // components={{
-      //   code({ node, className, children, ...props }) {
-      //     const match = /language-(\w+)/.exec(className || "");
-
-      //     return match ? (
-      //       <SyntaxHighlighter
-      //         children={String(children).replace(/\n$/, "")}
-      //         style={tomorrow}
-      //         language={match[1]}
-      //         PreTag="div"
-      //         {...props}
-      //       />
-      //     ) : (
-      //       <code className={className} {...props}>
-      //         {children}
-      //       </code>
-      //     );
-      //   },
-      // }}
     />
   );
 };
 
 const ArticleDetail = () => {
-  const markdown = `
-# 🍀 安装 NeoVim
 
-## ArchLinux 安装 Neovim
+  useEffect(() => {
+    
+  })
 
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
-这是一段对话，他的内容很长
+  const [content, setContent] = useState("");
 
-这是第二段对话
-
-1. THis is list
-2. askdaskldjs
-
-- code 1
-- code2 
-
-Just a link: www.nasa.gov.
-
-~~~go
-func main() {
-    fmt.Println("Hello, world")
-}
-~~~
-
-> This is a callout
-
-## This is heading 2 also
-
-- [ ] Task list 1
-- [ ] Task List 2
-`;
   return (
     <>
       <div className="article-detail-page flex flex-col min-h-screen">
@@ -85,7 +35,7 @@ func main() {
             <div className="title text-4xl w-full flex justify-center">
               <span>文章标题</span>
             </div>
-            <MarkdownRenderer markdown={markdown} />
+            <MarkdownRenderer markdown={content} />
           </div>
         </div>
         <div className="bottom">
