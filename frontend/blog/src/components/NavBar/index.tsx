@@ -18,10 +18,10 @@ const NavBar = () => {
           </div>
           <div className="menu-zone text-slate-50 h-8 flex flex-row justify-center items-center">
             <MenuItem title="Home" to="/" />
+            <MenuItem title="About" to="/about" />
             <MenuItem title="Archive" to="/archive" />
             <MenuItem title="Tag" to="/tag" />
             <MenuItem title="FriendLink" to="/friendlink" />
-            <MenuItem title="About" to="/about" />
           </div>
         </div>
       </div>
