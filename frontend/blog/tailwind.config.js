@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        main: ["LXGW WenKai Screen"],
-        code: ["NotoSansM Nerd Font"]
+        main: ["'NotoSansM Nerd Font', 'LXGW WenKai Screen'"],
+        code: ["'NotoSansM Nerd Font', 'Consolas'"]
       },
     },
   },
