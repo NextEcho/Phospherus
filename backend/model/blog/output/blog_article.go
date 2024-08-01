@@ -3,17 +3,21 @@ package output
 import (
 	"phospherus/model"
 	commonresp "phospherus/model/common/response"
+	"time"
 )
 
 type ArticleItem struct {
-	Id           int      `json:"id"`
-	CategoryId   int      `json:"categoryId"`
-	TagIds       []int    `json:"tagIds"`
-	Title        string   `json:"title"`
-	Cover        string   `json:"cover"`
-	Description  string   `json:"description"`
-	CategoryName string   `json:"categoryName"`
-	TagNames     []string `json:"tagNames"`
+	Id              int       `json:"id"`
+	CategoryId      int       `json:"categoryId"`
+	Title           string    `json:"title"`
+	Cover           string    `json:"cover"`
+	Description     string    `json:"description"`
+	CategoryName    string    `json:"categoryName"`
+	LatestUpdatedAt string    `json:"latestUpdatedAt"`
+	TagIds          []int     `json:"tagIds"`
+	TagNames        []string  `json:"tagNames"`
+	CreatedAt       time.Time `json:"createdAt"`
+	UpdatedAt       time.Time `json:"updatedAt"`
 }
 
 type GetArticleDetail struct {

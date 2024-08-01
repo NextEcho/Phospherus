@@ -1,11 +1,14 @@
 package blog
 
 import (
+	"fmt"
 	"phospherus/global"
 	"phospherus/model"
 	"phospherus/model/blog/input"
 	"phospherus/model/blog/output"
 	commonresp "phospherus/model/common/response"
+	"phospherus/pkg"
+	"strings"
 
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
@@ -126,6 +129,15 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 
 		return nil
 	})
+	if err != nil {
+		return
+	}
+
+	// process time format
+	for i := 0; i < len(out.ArticleList); i++ {
+		strs := strings.Split(pkg.Time2String(out.ArticleList[i].UpdatedAt), " ")
+		out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
+	}
 
 	return
 }
