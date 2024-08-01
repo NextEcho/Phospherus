@@ -23,8 +23,8 @@ const get = <T>(
   config?: AxiosRequestConfig,
 ): Promise<CustomSuccessData<T>> => {
   config = {
-    method: "get", // `method` 是创建请求时使用的方法
-    url, // `url` 是用于请求的服务器 URL
+    method: "get",
+    url,
     ...config,
   };
   if (params) {

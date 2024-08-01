@@ -1,7 +1,7 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface ArticleItemProps {
   id: number;
@@ -10,8 +10,8 @@ interface ArticleItemProps {
 }
 
 const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title }) => {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const handleClick = (id: number, title: string) => {
     navigate(`/article/${title}?id=${id}`);
   };
@@ -55,7 +55,7 @@ const Home = () => {
           {articleList.map((item, idx) => {
             return (
               <>
-                <ArticleItem key={idx} order={idx+1} id={idx + 1} title={item.title} />
+                <ArticleItem key={idx} order={idx + 1} id={idx + 1} title={item.title} />
                 <Divider />
               </>
             );

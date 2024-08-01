@@ -30,8 +30,8 @@ const ArticleDetail = () => {
     const articleId = articleIdString ? parseInt(articleIdString as string, 10) : 0;
 
     const fetchData = async () => {
-      const response = await getArticleDetailAPI({ id: articleId });
-      const articleData = response.data.data;
+      const jsonResp = await getArticleDetailAPI({ id: articleId });
+      const articleData = jsonResp.data;
 
       setTitle(articleData.title);
       setContent(articleData.content);

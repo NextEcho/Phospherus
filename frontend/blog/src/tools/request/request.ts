@@ -9,14 +9,12 @@ const request = axios.create({
   },
 });
 
-axios.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
     const token = "";
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error: AxiosError) => {
@@ -24,10 +22,10 @@ axios.interceptors.request.use(
   },
 );
 
-axios.interceptors.response.use(
+request.interceptors.response.use(
   (response: AxiosResponse) => {
     const { status, data } = response;
-    if (status == 200) {
+    if (status === 200) {
       if (data.code === 0) {
         return data;
       } else {
