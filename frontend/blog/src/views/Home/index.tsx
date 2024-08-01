@@ -2,6 +2,9 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getArticleListAPI } from "@/api/article";
+import { articleItem } from "@/api/article/types";
 
 interface ArticleItemProps {
   id: number;
@@ -10,7 +13,6 @@ interface ArticleItemProps {
 }
 
 const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title }) => {
-
   const navigate = useNavigate();
   const handleClick = (id: number, title: string) => {
     navigate(`/article/${title}?id=${id}`);
@@ -35,15 +37,18 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title }) => {
 };
 
 const Home = () => {
-  const articleList = [
-    { title: "这是 123 一段标题" },
-    { title: "这是一段标题 " },
-    { title: "这是一段标题 " },
-    { title: "这是一段标题 " },
-    { title: "这是一段标题 " },
-    { title: "这是一段标题 " },
-    { title: "这是一段标题 " },
-  ];
+  const [articles, setArticles] = useState<articleItem[]>([] as articleItem[]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const jsonResp = await getArticleListAPI({ pageNum: 1, pageSize: 10 });
+      const articleListData = jsonResp.data;
+
+      setArticles(articleListData.articleList)
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="home-page flex flex-col min-h-screen">
@@ -52,12 +57,12 @@ const Home = () => {
       </div>
       <div className="content bg-main w-full h-full flex flex-1 flex-col items-center px-96 pt-24 pb-8">
         <div className="article-list flex flex-col items-center w-5/6 max-w-[80rem] min-w-[720px]">
-          {articleList.map((item, idx) => {
+          {articles.map((item, idx) => {
             return (
-              <>
-                <ArticleItem key={idx} order={idx + 1} id={idx + 1} title={item.title} />
+              <div key={idx}>
+                <ArticleItem order={idx + 1} id={item.id} title={item.title} />
                 <Divider />
-              </>
+              </div>
             );
           })}
         </div>

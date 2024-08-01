@@ -1,5 +1,5 @@
 import http from "@/tools/request";
-import { getArticleDetailReq, getArticleDetailResp } from "./types";
+import { getArticleDetailReq, getArticleDetailResp, getArticleListReq, getArticleListResp } from "./types";
 import { CustomSuccessData } from "@/tools/request";
 
 enum API {
@@ -13,3 +13,9 @@ export const getArticleDetailAPI = (
   // return http.post<{ token: string }>(api.get_article_detail, data);
   return http.post<getArticleDetailResp>(API.ARTICLE_DETAIL_URL, data);
 };
+
+export const getArticleListAPI = (
+  data: getArticleListReq
+): Promise<CustomSuccessData<getArticleListResp>> => {
+  return http.post(API.ARTICLE_LIST_URL, data)
+}

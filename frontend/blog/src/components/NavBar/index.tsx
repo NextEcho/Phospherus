@@ -1,11 +1,15 @@
 import logo from "@/assets/images/logo.png";
 import MenuItem from "@/components/MenuItem/index";
 const NavBar = () => {
+  const handleClickLogo = () => {
+    console.log("click logo");
+  };
+
   return (
     <>
       <div className="flex flex-row justify-center items-center w-full h-16 px-10 z-50 bg-main">
         <div className="flex flex-row justify-between w-full bg-transparent text-black leading-8 max-w-5xl">
-          <div className="logo-zone flex h-8">
+          <div className="logo-zone flex h-8 hover:cursor-pointer" onClick={handleClickLogo}>
             <img
               src={logo}
               alt=""

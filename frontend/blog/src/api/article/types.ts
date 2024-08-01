@@ -1,3 +1,15 @@
+export interface articleItem {
+  id: number;
+  categoryId: number;
+  tagIds: number[];
+  title: string;
+  cover: string;
+  description: string;
+  categoryName: string;
+  tagNames: string[];
+}
+
+// getArticleDetail Request and Response
 export interface getArticleDetailReq {
   id: number;
 }
@@ -18,4 +30,17 @@ export interface getArticleDetailResp {
   authorName: string;
   categoryName: string;
   tagNames: string[];
+}
+
+// getArticleList Request and Response
+export interface getArticleListReq {
+  pageNum: number;
+  pageSize: number;
+}
+
+export interface getArticleListResp {
+  pageNum: number;
+  pageSize: number;
+  total: number;
+  articleList: articleItem[];
 }
