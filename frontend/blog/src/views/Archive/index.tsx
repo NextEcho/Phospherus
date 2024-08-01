@@ -20,8 +20,8 @@ const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
         {articleList.map((item, index) => {
           return (
             <div key={index}>
-              <div className="article flex pl-4 transition-all hover:bg-indigo-900 py-4 w-full rounded-md">
-                <div className="article-time mr-16 font-code">{item.time}</div>
+              <div className="article flex text-lg transition-all duration-200 px-4 py-4 w-full rounded-md hover:shadow-lg hover:shadow-gray-950/50">
+                <div className="article-time mr-10 font-code">{item.time}</div>
                 <div className="article-title cursor-pointer font-main">{item.title}</div>
               </div>
             </div>
@@ -33,6 +33,7 @@ const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
 };
 
 const Archive = () => {
+
   const archiveItems = [
     {
       year: "2024",
@@ -78,7 +79,7 @@ const Archive = () => {
         {archiveItems.map((one, idx) => {
           return (
             <div key={idx}>
-              <ArchiveItem year={one.year} articleList={one.items}/>
+              <ArchiveItem year={one.year} articleList={one.items} />
             </div>
           );
         })}
