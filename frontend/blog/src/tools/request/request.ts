@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { message } from "antd";
 
 const request = axios.create({
-  baseURL: "http://127.0.0.1:9090/api/blog",
+  baseURL: "http://localhost:8989/api/blog",
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",

@@ -14,7 +14,7 @@ const TagItem: React.FC<TagItemProps> = ({ title, count, backgroundColor }) => {
     <>
       <div
         className={`flex justify-center items-center text-slate-400 border-solid rounded-lg 
-                py-2 px-3 shadow-lg shadow-[0_10px_120px_15px_rgb(40,40,61)] mx-4 
+                py-2 px-3 shadow-[0_10px_120px_15px_rgb(40,40,61)] mx-4 
                 flex-nowrap cursor-pointer my-3`}
         style={bgColor}
       >

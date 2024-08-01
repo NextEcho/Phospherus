@@ -1,3 +1,5 @@
+import { emit } from "process";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
@@ -5,14 +7,12 @@ export default {
     extend: {
       fontFamily: {
         main: ["'NotoSansM Nerd Font', 'LXGW WenKai Screen'"],
-        code: ["'NotoSansM Nerd Font', 'Consolas'"]
+        code: ["'NotoSansM Nerd Font', 'Consolas'"],
       },
       backgroundColor: {
         main: "#1A1823",
-      }
+      },
     },
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-  ],
+  plugins: [require("@tailwindcss/typography")],
 };
