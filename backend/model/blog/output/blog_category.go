@@ -7,5 +7,5 @@ import (
 
 type GetCategoryList struct {
 	commonresp.PageResponse
-	CategoryList []model.Category `json:"category_list"`
+	CategoryList []model.Category `json:"categoryList"`
 }

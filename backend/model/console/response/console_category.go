@@ -4,13 +4,13 @@ import commonresp "phospherus/model/common/response"
 
 type GetCategoryList struct {
 	commonresp.PageResponse
-	CategoryList any `json:"category_list"`
+	CategoryList any `json:"categoryList"`
 }
 
 type CreateCategory struct {
-	ParentId  int    `json:"parent_id"`
+	ParentId  int    `json:"parentId"`
 	Name      string `json:"name"`
-	IsVisible int    `json:"is_visible"`
+	IsVisible int    `json:"isVisible"`
 }
 
 type DeleteCategory struct {
@@ -19,7 +19,7 @@ type DeleteCategory struct {
 
 type UpdateCategory struct {
 	Id        int    `json:"id"`
-	ParentId  int    `json:"parent_id"`
+	ParentId  int    `json:"parentId"`
 	Name      string `json:"name"`
-	IsVisible int    `json:"is_visible"`
+	IsVisible int    `json:"isVisible"`
 }

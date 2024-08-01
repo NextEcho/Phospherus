@@ -10,5 +10,5 @@ type UserItem struct {
 }
 
 type GetUserInfo struct {
-	UserItem `json:"user_item"`
+	UserItem `json:"userItem"`
 }

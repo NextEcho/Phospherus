@@ -29,7 +29,7 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	out, err := blog.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
 	if err != nil {
 		global.LOGGER.Error("blog.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		commonresp.FailWithMessage(ctx, biz.ErrArticleNotFound.Error())
 		return
 	}
 	resp := response.GetArticleDetail{}

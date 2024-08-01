@@ -8,20 +8,20 @@ type GetArticleDetail struct {
 
 type GetArticleList struct {
 	commonreq.PageRequest
-	Title      string `json:"title,omitempty"`       // 通过 Title 过滤文章列表
-	CategoryId int    `json:"category_id,omitempty"` // 通过 CategoryId 过滤文章列表
-	TagIds     []int  `json:"tag_ids,omitempty"`     // 通过 TagIds 过滤文章列表
+	Title      string `json:"title,omitempty"`      // 通过 Title 过滤文章列表
+	CategoryId int    `json:"categoryId,omitempty"` // 通过 CategoryId 过滤文章列表
+	TagIds     []int  `json:"tagIds,omitempty"`     // 通过 TagIds 过滤文章列表
 }
 
 type PostArticle struct {
 	Title      string `json:"title"`
 	Cover      string `json:"cover"`
 	Content    string `json:"content"`
-	AuthorId   int    `json:"author_id"`
-	CategoryId int    `json:"category_id"`
-	IsVisible  int    `json:"is_visible"`
-	IsAbout    int    `json:"is_about"`
-	TagIds     []int  `json:"tag_ids"`
+	AuthorId   int    `json:"authorId"`
+	CategoryId int    `json:"categoryId"`
+	IsVisible  int    `json:"isVisible"`
+	IsAbout    int    `json:"isAbout"`
+	TagIds     []int  `json:"tagIds"`
 }
 
 type DeleteArticle struct {
@@ -33,9 +33,9 @@ type UpdateArticle struct {
 	Title      string `json:"title"`
 	Cover      string `json:"cover"`
 	Content    string `json:"content"`
-	AuthorId   int    `json:"author_id"`
-	CategoryId int    `json:"category_id"`
-	IsVisible  int    `json:"is_visible"`
-	IsAbout    int    `json:"is_about"`
-	TagIds     []int  `json:"tag_ids"`
+	AuthorId   int    `json:"authorId"`
+	CategoryId int    `json:"categoryId"`
+	IsVisible  int    `json:"isVisible"`
+	IsAbout    int    `json:"isAbout"`
+	TagIds     []int  `json:"tagIds"`
 }

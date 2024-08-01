@@ -4,16 +4,16 @@ import "time"
 
 type Article struct {
 	Id          int       `json:"id"`
-	AuthorId    int       `json:"author_id"`
-	CategoryId  int       `json:"category_id"`
+	AuthorId    int       `json:"authorId"`
+	CategoryId  int       `json:"categoryId"`
 	Title       string    `json:"title"`
 	Content     string    `json:"content"`
 	Cover       string    `json:"cover"`
 	Description string    `json:"description"`
-	IsVisible   int       `json:"is_visible"`
-	IsAbout     int       `json:"is_about"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	IsVisible   int       `json:"isVisible"`
+	IsAbout     int       `json:"isAbout"`
+	CreatedAt   time.Time `json:"createdAt"`
+	UpdatedAt   time.Time `json:"updatedAt"`
 }
 
 func (*Article) TableName() string {

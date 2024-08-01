@@ -8,7 +8,7 @@ type GetTagList struct {
 
 type CreateTag struct {
 	Name      string `json:"name"`
-	IsVisible int    `json:"is_visible"`
+	IsVisible int    `json:"isVisible"`
 }
 
 type DeleteTag struct {
@@ -18,5 +18,5 @@ type DeleteTag struct {
 type UpdateTag struct {
 	Id        int    `json:"id"`
 	Name      string `json:"name"`
-	IsVisible int    `json:"is_visible"`
+	IsVisible int    `json:"isVisible"`
 }

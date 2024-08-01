@@ -8,12 +8,12 @@ import (
 type GetArticleDetail struct {
 	model.Article
 	Avatar       string   `json:"avatar"`
-	AuthorName   string   `json:"author_name"`
-	CategoryName string   `json:"category_name"`
-	TagNames     []string `json:"tag_names"`
+	AuthorName   string   `json:"authorName"`
+	CategoryName string   `json:"categoryName"`
+	TagNames     []string `json:"tagNames"`
 }
 
 type GetArticleList struct {
 	commonresp.PageResponse
-	ArticleList any `json:"article_lsit"`
+	ArticleList any `json:"articleList"`
 }

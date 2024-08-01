@@ -7,15 +7,15 @@ type GetCategoryList struct {
 }
 
 type CreateCategory struct {
-	ParentId  int    `json:"parent_id"`
-	IsVisible int    `json:"is_visible"`
+	ParentId  int    `json:"parentId"`
+	IsVisible int    `json:"isVisible"`
 	Name      string `json:"name"`
 }
 
 type UpdateCategory struct {
 	Id        int    `json:"id"`
-	ParentId  int    `json:"parent_id"`
-	IsVisible int    `json:"is_visible"`
+	ParentId  int    `json:"parentId"`
+	IsVisible int    `json:"isVisible"`
 	Name      string `json:"name"`
 }
 

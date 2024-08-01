@@ -4,5 +4,5 @@ import commonresp "phospherus/model/common/response"
 
 type GetCategoryList struct {
 	commonresp.PageResponse
-	CategoryList any `json:"category_list"`
+	CategoryList any `json:"categoryList"`
 }

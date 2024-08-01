@@ -7,26 +7,26 @@ import (
 
 type ArticleItem struct {
 	Id           int      `json:"id"`
-	CategoryId   int      `json:"category_id"`
-	TagIds       []int    `json:"tag_ids"`
+	CategoryId   int      `json:"categoryId"`
+	TagIds       []int    `json:"tagIds"`
 	Title        string   `json:"title"`
 	Cover        string   `json:"cover"`
 	Description  string   `json:"description"`
-	CategoryName string   `json:"category_name"`
-	TagNames     []string `json:"tag_names"`
+	CategoryName string   `json:"categoryName"`
+	TagNames     []string `json:"tagNames"`
 }
 
 type GetArticleDetail struct {
 	model.Article
 	Avatar       string   `json:"avatar"`
-	AuthorName   string   `json:"author_name"`
-	CategoryName string   `json:"category_name"`
-	TagNames     []string `json:"tag_names"`
+	AuthorName   string   `json:"authorName"`
+	CategoryName string   `json:"categoryName"`
+	TagNames     []string `json:"tagNames"`
 }
 
 type GetArticleList struct {
 	commonresp.PageResponse
-	ArticleList []ArticleItem `json:"article_list"`
+	ArticleList []ArticleItem `json:"articleList"`
 }
 
 type PostArticle struct {

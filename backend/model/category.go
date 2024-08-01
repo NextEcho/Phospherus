@@ -2,9 +2,9 @@ package model
 
 type Category struct {
 	Id        int    `json:"id"`
-	ParentId  int    `json:"parent_id"`
+	ParentId  int    `json:"parentId"`
 	Name      string `json:"name"`
-	IsVisible int    `json:"is_visible"`
+	IsVisible int    `json:"isVisible"`
 }
 
 func (*Category) TableName() string {
