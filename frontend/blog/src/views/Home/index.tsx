@@ -10,9 +10,10 @@ interface ArticleItemProps {
   id: number;
   order: number;
   title: string;
+  time: string;
 }
 
-const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title }) => {
+const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title, time }) => {
   const navigate = useNavigate();
   const handleClick = (id: number, title: string) => {
     navigate(`/article/${title}?id=${id}`);
@@ -30,7 +31,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title }) => {
         {order}. {title}
       </a>
       <span className="time basis-1/3 text-slate-500 text-right min-w-28 font-code">
-        Sep 27 2023
+        {time}
       </span>
     </div>
   );
@@ -44,7 +45,7 @@ const Home = () => {
       const jsonResp = await getArticleListAPI({ pageNum: 1, pageSize: 10 });
       const articleListData = jsonResp.data;
 
-      setArticles(articleListData.articleList)
+      setArticles(articleListData.articleList);
     };
 
     fetchData();
@@ -60,7 +61,7 @@ const Home = () => {
           {articles.map((item, idx) => {
             return (
               <div key={idx}>
-                <ArticleItem order={idx + 1} id={item.id} title={item.title} />
+                <ArticleItem order={idx + 1} id={item.id} title={item.title} time={item.latestUpdatedAt}/>
                 <Divider />
               </div>
             );

@@ -7,6 +7,7 @@ export interface articleItem {
   description: string;
   categoryName: string;
   tagNames: string[];
+  latestUpdatedAt: string;
 }
 
 // getArticleDetail Request and Response
