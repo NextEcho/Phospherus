@@ -1,8 +1,12 @@
 import logo from "@/assets/images/logo.png";
 import MenuItem from "@/components/MenuItem/index";
-const NavBar = () => {
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+const NavBar: React.FC = () => {
+  const navigate = useNavigate();
   const handleClickLogo = () => {
-    console.log("click logo");
+    navigate("/")
   };
 
   return (
@@ -25,7 +29,6 @@ const NavBar = () => {
             <MenuItem title="About" to="/about" />
             <MenuItem title="Archive" to="/archive" />
             <MenuItem title="Tag" to="/tag" />
-            <MenuItem title="FriendLink" to="/friendlink" />
           </div>
         </div>
       </div>

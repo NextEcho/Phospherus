@@ -21,18 +21,18 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title, time }) => 
 
   return (
     <div className="article-item w-full py-2 my-2 flex justify-around items-center font-main">
-      <a
-        className="title text-2xl basis-2/3 text-slate-50 min-w-[512px] truncate"
-        onClick={(e) => {
-          e.preventDefault();
-          handleClick(id, title);
-        }}
-      >
-        {order}. {title}
+      <a className="title text-2xl basis-2/3 text-slate-50 min-w-[512px] truncate">
+        <span
+          className="hover:cursor-pointer"
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick(id, title);
+          }}
+        >
+          {order}.{title}
+        </span>
       </a>
-      <span className="time basis-1/3 text-slate-500 text-right min-w-28 font-code">
-        {time}
-      </span>
+      <span className="time basis-1/3 text-slate-500 text-right min-w-28 font-code">{time}</span>
     </div>
   );
 };
@@ -61,7 +61,12 @@ const Home = () => {
           {articles.map((item, idx) => {
             return (
               <div key={idx}>
-                <ArticleItem order={idx + 1} id={item.id} title={item.title} time={item.latestUpdatedAt}/>
+                <ArticleItem
+                  order={idx + 1}
+                  id={item.id}
+                  title={item.title}
+                  time={item.latestUpdatedAt}
+                />
                 <Divider />
               </div>
             );
