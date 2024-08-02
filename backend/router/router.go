@@ -69,7 +69,7 @@ func Router() *gin.Engine {
 	}
 	blogTagRouteGroup := blogRouteGroup.Group("tag")
 	{
-		blogTagRouteGroup.POST("getTagList", blog.TagApiInstance.GetTagList)
+		blogTagRouteGroup.GET("getTagList", blog.TagApiInstance.GetTagList)
 	}
 	blogCategoryRouteGroup := blogRouteGroup.Group("category")
 	{
