@@ -1,5 +1,8 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import React, { useEffect, useState } from "react";
+import { getTagListAPI } from "@/api/tag";
+import { tagItem } from "@/api/tag/types";
 
 interface TagItemProps {
   title: string; // 标签名称
@@ -8,7 +11,7 @@ interface TagItemProps {
 }
 
 const TagItem: React.FC<TagItemProps> = ({ title, count, backgroundColor }) => {
-  const bgColor = { backgroundColor: backgroundColor };
+  const tagBgColor = { backgroundColor: backgroundColor };
 
   return (
     <>
@@ -16,7 +19,7 @@ const TagItem: React.FC<TagItemProps> = ({ title, count, backgroundColor }) => {
         className={`flex justify-center items-center text-slate-400 border-solid rounded-lg 
                 py-2 px-3 shadow-[0_10px_120px_15px_rgb(40,40,61)] mx-4 
                 flex-nowrap cursor-pointer my-3`}
-        style={bgColor}
+        style={tagBgColor}
       >
         <div className="tag-name text-neutral-300 text-lg font-main">{title}</div>
         <div className="tag-article-count text-sm text-fuchsia-400 ml-1 font-code">{count}</div>
@@ -25,34 +28,19 @@ const TagItem: React.FC<TagItemProps> = ({ title, count, backgroundColor }) => {
   );
 };
 
-const Tag = () => {
-  const tagList = [
-    {
-      title: "Rust",
-      count: 20,
-      backgroundColor: "#6366f1",
-    },
-    {
-      title: "ArchLinux",
-      count: 20,
-      backgroundColor: "#6366f1",
-    },
-    {
-      title: "NixOS",
-      count: 20,
-      backgroundColor: "#6366f1",
-    },
-    {
-      title: "系统优化以及参数调整",
-      count: 20,
-      backgroundColor: "#6366f1",
-    },
-    {
-      title: "桌面美化",
-      count: 20,
-      backgroundColor: "#6366f1",
-    },
-  ];
+const Tag: React.FC = () => {
+  const [tagList, setTagList] = useState<tagItem[]>([] as tagItem[]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const jsonResp = await getTagListAPI();
+      const tagListData = jsonResp.data;
+
+      setTagList(tagListData.tagList)
+    };
+
+    fetchData();
+  });
 
   return (
     <div className="archive-page flex flex-col min-h-screen">
@@ -65,7 +53,7 @@ const Tag = () => {
             return (
               <div key={idx}>
                 <TagItem
-                  title={item.title}
+                  title={item.name}
                   count={item.count}
                   backgroundColor={item.backgroundColor}
                 />
