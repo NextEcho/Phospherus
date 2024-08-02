@@ -1,6 +1,7 @@
 $color: #eee;
 
 body {
+    box-sizing: border-box;
     background-color: $color;
     user-select: none; // 禁用文字选中
 }
