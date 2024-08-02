@@ -4,6 +4,11 @@ import (
 	"phospherus/model"
 )
 
+type TagItem struct {
+	model.Tag
+	Count int `json:"count"`
+}
+
 type GetTagList struct {
-	TagList []model.Tag `json:"tagList"`
+	TagList []TagItem `json:"tagList"`
 }
