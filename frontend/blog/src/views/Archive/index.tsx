@@ -1,15 +1,12 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import React from "react";
-
-interface articleListProps {
-  time: string;
-  title: string;
-}
+import React, { useEffect, useState } from "react";
+import { getArchiveListAPI } from "@/api/article";
+import { archiveItem, miniArticleItem } from "@/api/article/types";
 
 interface ArchiveItemProps {
   year: string;
-  articleList: articleListProps[];
+  articleList: miniArticleItem[];
 }
 
 const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
@@ -21,7 +18,7 @@ const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
           return (
             <div key={index}>
               <div className="article flex text-lg transition-all duration-200 px-4 py-4 w-full rounded-md hover:shadow-lg hover:shadow-gray-950/50">
-                <div className="article-time mr-10 font-code">{item.time}</div>
+                <div className="article-time mr-10 font-code">{item.dateTime}</div>
                 <div className="article-title cursor-pointer font-main">{item.title}</div>
               </div>
             </div>
@@ -33,53 +30,28 @@ const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
 };
 
 const Archive = () => {
+  const [archiveList, setArchiveList] = useState<archiveItem[]>([] as archiveItem[]);
 
-  const archiveItems = [
-    {
-      year: "2024",
-      items: [
-        {
-          time: "02-04",
-          title: "关于 Go 语言的编写规范",
-        },
-        {
-          time: "02-05",
-          title: "Title of Article",
-        },
-        {
-          time: "02-07",
-          title: "Title of Article",
-        },
-      ],
-    },
-    {
-      year: "2022",
-      items: [
-        {
-          time: "12-04",
-          title: "关于 Rust 语言的编写规范",
-        },
-        {
-          time: "06-05",
-          title: "Title of Article",
-        },
-        {
-          time: "02-07",
-          title: "Title of Article",
-        },
-      ],
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const jsonResp = await getArchiveListAPI();
+      const archiveListData = jsonResp.data;
+      setArchiveList(archiveListData.archiveList);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="archive-page flex flex-col min-h-screen">
       <div className="navigation">
         <NavBar />
       </div>
       <div className="content bg-main w-full h-full flex flex-1 flex-col px-96 pt-24 pb-8">
-        {archiveItems.map((one, idx) => {
+        {archiveList.map((archiveItem, idx) => {
           return (
             <div key={idx}>
-              <ArchiveItem year={one.year} articleList={one.items} />
+              <ArchiveItem year={archiveItem.year} articleList={archiveItem.articleList} />
             </div>
           );
         })}

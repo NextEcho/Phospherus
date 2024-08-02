@@ -10,6 +10,16 @@ export interface articleItem {
   latestUpdatedAt: string;
 }
 
+export interface miniArticleItem {
+  dateTime: string;
+  title: string;
+}
+
+export interface archiveItem {
+  year: string;
+  articleList: miniArticleItem[];
+}
+
 // getArticleDetail Request and Response
 export interface getArticleDetailReq {
   id: number;
@@ -44,4 +54,11 @@ export interface getArticleListResp {
   pageSize: number;
   total: number;
   articleList: articleItem[];
+}
+
+// getArchiveList Request and Response
+export interface getArchiveListReq {}
+
+export interface getArchiveListResp {
+  archiveList: archiveItem[];
 }
