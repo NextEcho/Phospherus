@@ -9,3 +9,6 @@ type GetArticleDetail struct {
 type GetArticleList struct {
 	commonreq.PageRequest
 }
+
+type GetArchiveList struct {
+}

@@ -62,3 +62,16 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 
 	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
+
+func (*ArticleApi) GetArchiveList(ctx *gin.Context) {
+	out, err := blog.ArticleServiceInstance.GetArchiveList()
+	if err != nil {
+		global.LOGGER.Error("blog.ArticleServiceInstance.GetArchiveList Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	resp := response.GetArchiveList{}
+	copier.Copy(&resp, out)
+
+	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+}

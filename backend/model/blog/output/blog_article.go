@@ -20,6 +20,16 @@ type ArticleItem struct {
 	UpdatedAt       time.Time `json:"updatedAt"`
 }
 
+type ArchiveItem struct {
+	Year            string            `json:"year"`
+	MiniArticleList []MiniArticleItem `json:"articleList"`
+}
+
+type MiniArticleItem struct {
+	DateTime string `json:"dateTime"`
+	Title    string `json:"title"`
+}
+
 type GetArticleDetail struct {
 	model.Article
 	Avatar       string   `json:"avatar"`
@@ -31,4 +41,8 @@ type GetArticleDetail struct {
 type GetArticleList struct {
 	commonresp.PageResponse
 	ArticleList []ArticleItem `json:"articleList"`
+}
+
+type GetArchiveList struct {
+	ArchiveList []ArchiveItem `json:"archiveList"`
 }

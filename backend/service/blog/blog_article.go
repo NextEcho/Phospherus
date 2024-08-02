@@ -9,6 +9,7 @@ import (
 	commonresp "phospherus/model/common/response"
 	"phospherus/pkg"
 	"strings"
+	"time"
 
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
@@ -135,8 +136,53 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 
 	// process time format
 	for i := 0; i < len(out.ArticleList); i++ {
-		strs := strings.Split(pkg.Time2String(out.ArticleList[i].UpdatedAt), " ")
+		strs := strings.Split(pkg.Time2String(out.ArticleList[i].UpdatedAt, time.RFC1123), " ")
 		out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
+	}
+
+	return
+}
+
+// 获取归档文章列表 GetArchiveList
+func (*ArticleService) GetArchiveList() (out *output.GetArchiveList, err error) {
+	out = &output.GetArchiveList{
+		ArchiveList: make([]output.ArchiveItem, 0),
+	}
+
+	articleList := []*model.Article{}
+	err = global.DB.Table("article").Find(&articleList).Error
+	if err != nil {
+		return
+	}
+
+	// group article data by year
+	yearGroup := make(map[string][]*model.Article, 0)
+	for i := 0; i < len(articleList); i++ {
+		timeStrs := strings.Split(pkg.Time2String(articleList[i].CreatedAt, time.DateTime), "-")
+		if _, ok := yearGroup[timeStrs[0]]; !ok {
+			yearGroup[timeStrs[0]] = make([]*model.Article, 0)
+		}
+		yearGroup[timeStrs[0]] = append(yearGroup[timeStrs[0]], articleList[i])
+	}
+
+	// fill out element
+	for year, articles := range yearGroup {
+
+		archiveItem := output.ArchiveItem{
+			Year:            year,
+			MiniArticleList: make([]output.MiniArticleItem, 0),
+		}
+		for _, article := range articles {
+			firstTimeStrs := strings.Split(pkg.Time2String(article.CreatedAt, time.DateTime), " ")
+			secondTimeStrs := strings.Split(firstTimeStrs[0], "-")
+			miniArticle := output.MiniArticleItem{
+				DateTime: strings.Join([]string{secondTimeStrs[1], secondTimeStrs[2]}, "-"),
+				Title:    article.Title,
+			}
+			archiveItem.MiniArticleList = append(archiveItem.MiniArticleList, miniArticle)
+		}
+
+		out.ArchiveList = append(out.ArchiveList, archiveItem)
 	}
 
 	return
