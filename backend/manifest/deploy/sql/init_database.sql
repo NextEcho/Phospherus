@@ -35,6 +35,7 @@ create table `article` (
 create table `tag` (
     `id` int not null auto_increment comment '标签ID',
     `name` varchar(64) not null comment '标签名称',
+    `background_color` varchar(7) not null default '#6366f1' comment '标签背景颜色',
     `is_visible` tinyint not null default 1 comment '标签是否可见 1-可见 0-不可见',
     primary key (`id`)
 );
