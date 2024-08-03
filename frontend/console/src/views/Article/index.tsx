@@ -1,5 +1,5 @@
 import { reqGetArticleList } from "@/api/article";
-import { ArticleItem, GetArticleListReq } from "@/api/article/type";
+import { ArticleItem, GetArticleListReq } from "@/api/article/types";
 import { Table, Card } from "antd";
 import { useEffect, useState } from "react";
 

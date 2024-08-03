@@ -1,5 +1,5 @@
 import request from "@/tools/request";
-import { GetArticleListReq, GetArticleListResp } from "./type";
+import { GetArticleListReq, GetArticleListResp } from "./types";
 
 enum API {
     GET_ARTICLE_DETAIL = "/article/getArticleDetail",
