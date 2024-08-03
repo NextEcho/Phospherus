@@ -9,6 +9,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+    if (passport == "" || password == "") {
+      message.error("用户名和密码不能为空", 1);
+      return
+    }
+
     const jsonResp = await userLoginAPI({ passport: passport, password: password });
     console.log(" resp => ", jsonResp);
     if (jsonResp.code === 0) {
@@ -17,7 +22,7 @@ const Login = () => {
         navigate("/console");
       }, 1000);
     } else {
-      message.error(jsonResp.message, 1);
+      message.error("用户名或密码错误", 1);
     }
   };
 
@@ -25,9 +30,9 @@ const Login = () => {
     <>
       <div className="login-page w-screen h-screen bg-zinc-800 relative bg-login bg-center bg-cover">
         <div
-          className="login-wrapper bg-slate-400/80 absolute inset-2/4 
+          className="login-wrapper bg-slate-400/30 absolute inset-2/4 
                      -translate-x-2/4 -translate-y-2/4 w-1/4 h-96 
-                     font-mono rounded-xl"
+                     font-mono rounded-xl backdrop-blur-xl"
         >
           <div className="greeter mt-10 mb-8 text-3xl flex justify-center text-slate-50">
             <span>Login</span>

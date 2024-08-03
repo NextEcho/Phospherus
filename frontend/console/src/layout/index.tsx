@@ -7,39 +7,29 @@ import NavBar from "./NavBar";
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppLayout: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(false);
-
-    return (
-        <Layout style={{ minHeight: "100vh" }}>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div
-                    style={{
-                        lineHeight: "64px",
-                        height: "32px",
-                        margin: "16px",
-                        backgroundColor: "#fff3",
-                    }}
-                ></div>
-                <SideMenu />
-            </Sider>
-            <Layout>
-                <Header style={{ padding: "0 16px", background: "#fff" }}>
-                    <NavBar />
-                </Header>
-                <Content
-                    style={{
-                        margin: "16px",
-                        minHeight: "calc(100% - 144px)",
-                    }}
-                >
-                    <Outlet></Outlet>
-                </Content>
-                <Footer style={{ textAlign: "center", padding: 0, lineHeight: "48px" }}>
-                    Ant Design ©{new Date().getFullYear()} Created by Ant UED
-                </Footer>
-            </Layout>
-        </Layout>
-    );
+  const [collapsed, setCollapsed] = useState(true);
+  return (
+    <Layout className="min-h-screen h-full bg-[#222943]">
+      <Sider
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        className="bg-[#272E48]"
+      >
+        <SideMenu />
+      </Sider>
+      <Layout>
+        <Header className="h-40 text-slate-50 bg-[#1F243A] p-0">
+          <NavBar />
+        </Header>
+        <Content className="bg-[#222943] p-4 text-slate-200">
+          <Outlet></Outlet>
+        </Content>
+        <Footer className="text-center p-0 leading-[48px] bg-[#222943] text-slate-200 font-sans">
+          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>
+  );
 };
 
 export default AppLayout;

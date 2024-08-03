@@ -4,10 +4,12 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "login": "url('@/assets/images/login-bg.png')"
-      }
+        logo: "url('@/assets/images/logo.png')",
+        login: "url('@/assets/images/login-bg.png')",
+        nav: "url('@/assets/images/nav-bg.jpg')",
+        avatar: "url('@/assets/images/avatar.jpg')",
+      },
     },
   },
   plugins: [],
-}
-
+};

@@ -1,20 +1,20 @@
-import request from "@/tools/request";
-import { GetArticleListReq, GetArticleListResp } from "./types";
+import { CustomSuccessData } from "@/tools/request";
+import { getArticleListReq, getArticleListResp, postArticleReq, postArticleResp } from "./types";
+import http from "@/tools/request";
 
 enum API {
-    GET_ARTICLE_DETAIL = "/article/getArticleDetail",
-    GET_ARTICLE_LIST = "/article/getArticleList",
-    POST_ARTICLE = "/article/postArticle",
-    DELETE_ARTICLE = "/article/deleteArticle",
-    UPDATE_ARTICLE = "/article/updateArticle",
+  ARTICLE_LIST = "/article/getArticleList", // 文章列表接口
+  POST_ARTICLE = "/article/postArticle", // 发布文章接口
 }
 
-// 获取文章列表的请求
-export const reqGetArticleList = (
-    getArticleListReq: GetArticleListReq,
-): Promise<GetArticleListResp> => {
-    return request.post<any, GetArticleListResp>(
-        API.GET_ARTICLE_LIST,
-        JSON.stringify(getArticleListReq),
-    );
+export const getArticleListAPI = (
+  data: getArticleListReq,
+): Promise<CustomSuccessData<getArticleListResp>> => {
+  return http.post<getArticleListResp>(API.ARTICLE_LIST, data);
+};
+
+export const postArticleAPI = (
+  data: postArticleReq,
+): Promise<CustomSuccessData<postArticleResp>> => {
+  return http.post<postArticleResp>(API.POST_ARTICLE, data);
 };

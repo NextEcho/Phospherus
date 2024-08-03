@@ -1,31 +1,38 @@
-export interface ResponseData {
-    code: number;
-    message: string;
+export interface articleItem {
+  id: number;
+  categoryId: number;
+  tagIds: number[];
+  title: string;
+  cover: string;
+  description: string;
+  categoryName: string;
+  tagNames: string[];
 }
 
-export interface ArticleItem {
-    id: number;
-    title: string;
-    content: string;
-    cover: string;
-    description: string;
-    isVisible: number;
-    tagList: number[];
-    authorId: number;
+// getArticleList Request and Response
+export interface getArticleListReq {
+  pageNum: number;
+  pageSize: number;
 }
 
-// 获取文章列表请求
-export interface GetArticleListReq {
-    page_num: number;
-    page_size: number;
+export interface getArticleListResp {
+  pageNum: number;
+  pageSize: number;
+  total: number;
+  articleList: articleItem[];
 }
 
-// 获取文章列表响应
-export interface GetArticleListResp extends ResponseData {
-    data: {
-        page_num: number;
-        page_size: number;
-        total: number;
-        article_list: ArticleItem[];
-    };
+// postArticle Request And Response
+
+export interface postArticleReq {
+  title: string;
+  content: string;
+  cover: string;
+  authorId: number;
+  categoryId: number;
+  isVisible: number;
+}
+
+export interface postArticleResp {
+
 }
