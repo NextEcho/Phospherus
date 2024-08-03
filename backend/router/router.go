@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 	"phospherus/api/blog"
-	admin "phospherus/api/console"
+	"phospherus/api/console"
 	"phospherus/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -26,31 +26,36 @@ func Router() *gin.Engine {
 	// Console /////////////////////
 	////////////////////////////////
 	consoleRouteGroup := RouteGroup.Group("console")
-	consoleRouteGroup.POST("login", admin.UserApiInstance.Login)
+	consoleRouteGroup.POST("login", console.UserApiInstance.Login)
 
 	// consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
 
+	consoleFileRouteGroup := consoleRouteGroup.Group("file")
+	{
+		consoleFileRouteGroup.POST("upload", console.FileApiInstance.Upload)
+	}
+
 	consoleArticleRouteGroup := consoleRouteGroup.Group("article")
 	{
-		consoleArticleRouteGroup.POST("getArticleDetail", admin.ArticleApiInstance.GetArticleDetail)
-		consoleArticleRouteGroup.POST("getArticleList", admin.ArticleApiInstance.GetArticleList)
-		consoleArticleRouteGroup.POST("postArticle", admin.ArticleApiInstance.PostArticle)
-		consoleArticleRouteGroup.POST("deleteArticle", admin.ArticleApiInstance.DeleteArticle)
-		consoleArticleRouteGroup.POST("updateArticle", admin.ArticleApiInstance.UpdateArticle)
+		consoleArticleRouteGroup.POST("getArticleDetail", console.ArticleApiInstance.GetArticleDetail)
+		consoleArticleRouteGroup.POST("getArticleList", console.ArticleApiInstance.GetArticleList)
+		consoleArticleRouteGroup.POST("postArticle", console.ArticleApiInstance.PostArticle)
+		consoleArticleRouteGroup.POST("deleteArticle", console.ArticleApiInstance.DeleteArticle)
+		consoleArticleRouteGroup.POST("updateArticle", console.ArticleApiInstance.UpdateArticle)
 	}
 	consoleTagRouteGroup := consoleRouteGroup.Group("tag")
 	{
-		consoleTagRouteGroup.POST("getTagList", admin.TagApiInstance.GetTagList)
-		consoleTagRouteGroup.POST("createTag", admin.TagApiInstance.CreateTag)
-		consoleTagRouteGroup.POST("deleteTag", admin.TagApiInstance.DeleteTag)
-		consoleTagRouteGroup.POST("updateTag", admin.TagApiInstance.UpdateTag)
+		consoleTagRouteGroup.POST("getTagList", console.TagApiInstance.GetTagList)
+		consoleTagRouteGroup.POST("createTag", console.TagApiInstance.CreateTag)
+		consoleTagRouteGroup.POST("deleteTag", console.TagApiInstance.DeleteTag)
+		consoleTagRouteGroup.POST("updateTag", console.TagApiInstance.UpdateTag)
 	}
 	consoleCategoryRouteGroup := consoleRouteGroup.Group("category")
 	{
-		consoleCategoryRouteGroup.POST("getCategoryList", admin.CategoryApiInstance.GetCategoryList)
-		consoleCategoryRouteGroup.POST("createCategory", admin.CategoryApiInstance.CreateCategory)
-		consoleCategoryRouteGroup.POST("deleteCategory", admin.CategoryApiInstance.DeleteCategory)
-		consoleCategoryRouteGroup.POST("updateCategory", admin.CategoryApiInstance.UpdateCategory)
+		consoleCategoryRouteGroup.POST("getCategoryList", console.CategoryApiInstance.GetCategoryList)
+		consoleCategoryRouteGroup.POST("createCategory", console.CategoryApiInstance.CreateCategory)
+		consoleCategoryRouteGroup.POST("deleteCategory", console.CategoryApiInstance.DeleteCategory)
+		consoleCategoryRouteGroup.POST("updateCategory", console.CategoryApiInstance.UpdateCategory)
 	}
 
 	////////////////////////////////
