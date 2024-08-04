@@ -25,14 +25,15 @@ export interface getArticleListResp {
 // postArticle Request And Response
 
 export interface postArticleReq {
+  authorId: number;
   title: string;
   content: string;
   cover: string;
-  authorId: number;
+  description: string;
   categoryId: number;
   isVisible: number;
+  tagIds: number[];
+  status: number;
 }
 
-export interface postArticleResp {
-
-}
+export interface postArticleResp {}
