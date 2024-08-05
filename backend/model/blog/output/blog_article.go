@@ -9,6 +9,7 @@ import (
 type ArticleItem struct {
 	Id              int       `json:"id"`
 	CategoryId      int       `json:"categoryId"`
+	IsVisible       int       `json:"isVisible"`
 	Title           string    `json:"title"`
 	Cover           string    `json:"cover"`
 	Description     string    `json:"description"`
@@ -30,6 +31,7 @@ type MiniArticleItem struct {
 	Title    string `json:"title"`
 }
 
+// GetArticleDetail
 type GetArticleDetail struct {
 	model.Article
 	Avatar       string   `json:"avatar"`
@@ -38,11 +40,13 @@ type GetArticleDetail struct {
 	TagNames     []string `json:"tagNames"`
 }
 
+// GetArticleList
 type GetArticleList struct {
 	commonresp.PageResponse
 	ArticleList []ArticleItem `json:"articleList"`
 }
 
+// GetArchiveList
 type GetArchiveList struct {
 	ArchiveList []ArchiveItem `json:"archiveList"`
 }

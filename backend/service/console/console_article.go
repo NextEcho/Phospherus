@@ -166,7 +166,6 @@ func (*ArticleService) PostArticle(in *input.PostArticle) (out *output.PostArtic
 			CategoryId:  in.CategoryId,
 			Title:       in.Title,
 			IsVisible:   in.IsVisible,
-			IsAbout:     in.IsAbout,
 			Content:     in.Content,
 			Cover:       in.Cover,
 			AuthorId:    in.AuthorId,

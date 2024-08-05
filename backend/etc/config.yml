@@ -29,3 +29,9 @@ redis:
 jwt:
   secretKey: "phospherus"
   expireTime: 3
+
+oss:
+  aliyun:
+    accessKey:
+    secretKey:
+    bucket: 

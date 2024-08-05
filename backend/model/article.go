@@ -11,7 +11,6 @@ type Article struct {
 	Cover       string    `json:"cover"`
 	Description string    `json:"description"`
 	IsVisible   int       `json:"isVisible"`
-	IsAbout     int       `json:"isAbout"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
 }

@@ -19,13 +19,15 @@ create table `user` (
 create table `article` (
     `id` int not null auto_increment comment '文章ID',
     `author_id` int not null comment '文章作者ID',
-    `category_id` int not null comment '文章所属分类ID',
+    `category_id` int not null default 0 comment '文章所属分类ID 0-无分类',
     `title` varchar(128) not null comment '文章标题',
     `content` text not null comment '文章内容',
     `cover` varchar(128) default '' comment '文章图片封面',
     `description` varchar(1024) default '暂无文章概述' comment '文章概述',
     `is_visible` tinyint not null default 1 comment '文章是否可见 1-可见 0-不可见',
-    `is_about` tinyint not null default 0 comment '文章是否为博主关于页面 0-不是 1-是',
+    `status` tinyint not null default 0 comment '文章状态 0-草稿 1-已发布 2-垃圾箱',
+    `view_count` int not null default 0 comment '文章浏览量',
+    `like_count` int not null default 0 comment '文章点赞量',
     `created_at` timestamp not null default current_timestamp comment '创建时间',
     `updated_at` timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
     primary key (`id`)
