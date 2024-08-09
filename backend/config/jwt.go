@@ -1,6 +1,6 @@
 package config
 
 type JwtConfig struct {
-	SecretKey  string `mapstructure:"secretKey"`
+	Secret     string `mapstructure:"secret"`
 	ExpireTime int    `mapstructure:"expireTime"`
 }

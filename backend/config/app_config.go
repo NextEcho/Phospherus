@@ -6,4 +6,5 @@ type AppConfig struct {
 	*MysqlConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
 	*JwtConfig   `mapstructure:"jwt"`
+	*OssConfig   `mapstructure:"oss"`
 }

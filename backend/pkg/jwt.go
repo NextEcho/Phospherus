@@ -29,7 +29,7 @@ func CreateToken(passport string) (string, error) {
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, myClaims)
 
-	tokenStr, err := token.SignedString([]byte(global.APP_CONFIG.JwtConfig.SecretKey))
+	tokenStr, err := token.SignedString([]byte(global.APP_CONFIG.JwtConfig.Secret))
 	if err != nil {
 		return "", err
 	}
@@ -40,7 +40,7 @@ func CreateToken(passport string) (string, error) {
 func VerifyToken(tokenStr string) (*MyClaims, error) {
 
 	token, err := jwt.ParseWithClaims(tokenStr, &MyClaims{}, func(t *jwt.Token) (interface{}, error) {
-		return []byte(global.APP_CONFIG.JwtConfig.SecretKey), nil
+		return []byte(global.APP_CONFIG.JwtConfig.Secret), nil
 	})
 	if err != nil {
 		return nil, err

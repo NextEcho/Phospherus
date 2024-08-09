@@ -9,6 +9,9 @@ var (
 	ErrJwtInvalid       = errors.New("JWT无效")
 	ErrCreateJwt        = errors.New("创建JWT失败")
 	ErrRecordNotFound   = errors.New("数据不存在")
+	ErrFormFile         = errors.New("解析表单文件失败")
+	ErrIOReadAll        = errors.New("读取文件失败")
+	ErrUploadFile       = errors.New("上传文件失败")
 )
 
 // Article Error

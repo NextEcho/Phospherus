@@ -27,11 +27,11 @@ redis:
   port: 6379
 
 jwt:
-  secretKey: "phospherus"
+  secret: "phospherus"
   expireTime: 3
 
 oss:
-  aliyun:
-    accessKey:
-    secretKey:
-    bucket: 
+  accessKey: ""
+  secretKey: ""
+  endpoint: ""
+  bucket: ""

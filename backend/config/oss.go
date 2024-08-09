@@ -1,11 +1,8 @@
 package config
 
-type Oss struct {
-	*Aliyun `mapstructure:"aliyun"`
-}
-
-type Aliyun struct {
-	SecretKey string `mapstructure:"secretKey" json:"secretKey"`
+type OssConfig struct {
 	AccessKey string `mapstructure:"accessKey" json:"accessKey"`
+	SecretKey string `mapstructure:"secretKey" json:"secretKey"`
+	Endpoint  string `mapstructure:"endpoint" json:"endpoint"`
 	Bucket    string `mapstructure:"bucket" json:"bucket"`
 }
