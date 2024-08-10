@@ -3,7 +3,6 @@ create database `phospherus`;
 use `phospherus`;
 
 -- table of user
--- 用于存储博主信息
 create table `user` (
     `id` int not null auto_increment comment '用户ID',
     `passport` varchar(64) not null comment '用户账户',
@@ -47,15 +46,6 @@ create table `article_tag` (
     `article_id` int not null comment '文章ID',
     `tag_id` int not null comment '标签ID',
     primary key (`article_id`, `tag_id`)
-);
-
--- table of category
-create table `category` (
-    `id` int not null auto_increment comment '分类ID',
-    `parent_id` int not null default 0 comment '父分类ID 0-无父分类',
-    `name` varchar(64) not null comment '分类名称',
-    `is_visible` tinyint not null default 1 comment '分类是否可见 1-可见 0-不可见',
-    primary key (`id`)
 );
 
 -- table of friend_link

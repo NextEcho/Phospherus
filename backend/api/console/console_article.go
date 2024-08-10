@@ -104,11 +104,16 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 		return
 	}
 
+	if req.Title == "" || req.Content == "" || req.Cover == "" {
+		global.LOGGER.Error("Title or Content or Cover cannot be empty", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
 	_, err = console.ArticleServiceInstance.PostArticle(&input.PostArticle{
 		AuthorId:   req.AuthorId,
 		CategoryId: req.CategoryId,
 		IsVisible:  req.IsVisible,
-		IsAbout:    req.IsAbout,
 		TagIds:     req.TagIds,
 		Title:      req.Title,
 		Cover:      req.Cover,
@@ -139,7 +144,6 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 		AuthorId:   req.AuthorId,
 		CategoryId: req.CategoryId,
 		IsVisible:  req.IsVisible,
-		IsAbout:    req.IsAbout,
 		TagIds:     req.TagIds,
 		Title:      req.Title,
 		Cover:      req.Cover,

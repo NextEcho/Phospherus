@@ -37,9 +37,9 @@ func UploadFile(objectName string, localFile io.Reader) (string, error) {
 
 // 获取上传的文件的 URL
 func GetFileUrl(objectName string) string {
-	return fmt.Sprintf("%s/%s/%s",
-		global.APP_CONFIG.OssConfig.Endpoint,
+	return fmt.Sprintf("https://%s.%s/%s",
 		global.APP_CONFIG.OssConfig.Bucket,
+		global.APP_CONFIG.OssConfig.Endpoint,
 		objectName,
 	)
 }

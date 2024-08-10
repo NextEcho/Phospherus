@@ -1,6 +1,8 @@
 export interface tagItem {
   id: number;
-  name: number;
+  name: string;
+  value: string;
+  label: string;
   backgroundColor: string;
   isVisible: number;
 }

@@ -20,7 +20,6 @@ type PostArticle struct {
 	AuthorId   int    `json:"authorId"`
 	CategoryId int    `json:"categoryId"`
 	IsVisible  int    `json:"isVisible"`
-	IsAbout    int    `json:"isAbout"`
 	TagIds     []int  `json:"tagIds"`
 }
 
@@ -36,6 +35,5 @@ type UpdateArticle struct {
 	AuthorId   int    `json:"authorId"`
 	CategoryId int    `json:"categoryId"`
 	IsVisible  int    `json:"isVisible"`
-	IsAbout    int    `json:"isAbout"`
 	TagIds     []int  `json:"tagIds"`
 }

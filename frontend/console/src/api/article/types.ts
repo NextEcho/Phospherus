@@ -1,6 +1,5 @@
 export interface articleItem {
   id: number;
-  categoryId: number;
   tagIds: number[];
   title: string;
   cover: string;
@@ -30,7 +29,6 @@ export interface postArticleReq {
   content: string;
   cover: string;
   description: string;
-  categoryId: number;
   isVisible: number;
   tagIds: number[];
   status: number;

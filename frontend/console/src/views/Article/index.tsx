@@ -58,7 +58,6 @@ const Article = () => {
       const jsonResp = await getArticleListAPI(params);
 
       if (jsonResp.code === 0) {
-        console.log(jsonResp.data.articleList);
         setArticleList(jsonResp.data.articleList);
       }
     };

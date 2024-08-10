@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"fmt"
 	"phospherus/global"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -9,7 +10,7 @@ import (
 
 func Oss() *oss.Client {
 	client, err := oss.New(
-		global.APP_CONFIG.Endpoint,
+		fmt.Sprintf("https://%s", global.APP_CONFIG.Endpoint),
 		global.APP_CONFIG.AccessKey,
 		global.APP_CONFIG.SecretKey,
 	)
