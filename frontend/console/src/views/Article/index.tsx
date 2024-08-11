@@ -1,6 +1,8 @@
 import { deleteArticleAPI, getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
 import { Table, Card, Tag, message, ConfigProvider, theme, Space } from "antd";
+import { ColumnsType } from "antd/es/table";
+import { TableRowSelection } from "antd/es/table/interface";
 import { useEffect, useState } from "react";
 
 const Article = () => {
@@ -30,13 +32,18 @@ const Article = () => {
     };
 
     const ArticleColumns = [
-        { title: "文章ID", dataIndex: "id", key: "id" },
-        { title: "文章标题", dataIndex: "title", key: "title" },
+        { title: "文章ID", dataIndex: "id", key: "id", align: "center" },
+        { title: "文章标题", dataIndex: "title", key: "title", align: "center" },
         {
             title: "文章封面图",
             dataIndex: "cover",
             key: "cover",
-            render: (cover: string) => <img src={cover} alt="cover" width={100} height={70} className="bg-cover bg-center"/>,
+            render: (cover: string) => (
+                <div className="flex justify-center">
+                    <img src={cover} width={100} height={70} className="bg-cover bg-center" />
+                </div>
+            ),
+            align: "center",
         },
         {
             title: "所属标签",
@@ -57,6 +64,7 @@ const Article = () => {
                     })}
                 </>
             ),
+            align: "center",
         },
         {
             title: "Action",
@@ -71,8 +79,9 @@ const Article = () => {
                     </a>
                 </Space>
             ),
+            align: "center",
         },
-    ];
+    ] as ColumnsType<articleItem>;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,20 +101,35 @@ const Article = () => {
         fetchData();
     }, []);
 
+    // TODO: batchDelete
+    const rowSelection: TableRowSelection<articleItem> = {};
+
     return (
-        <>
+        <div>
             <button className="btn-orange my-4">批量删除文章</button>
             <button className="btn-green my-4">创作文章</button>
             <Card className="bg-[#272E48] border-none">
                 <ConfigProvider
                     theme={{
                         algorithm: theme.darkAlgorithm,
+                        components: {
+                            Table: {
+                                headerBg: "#1D2339",
+                                rowHoverBg: "#222942",
+                            },
+                        },
                     }}
                 >
-                    <Table columns={ArticleColumns} dataSource={articleList} rowKey="id" />
+                    <Table
+                        columns={ArticleColumns}
+                        dataSource={articleList}
+                        rowKey="id"
+                        className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-mono"
+                        rowSelection={rowSelection}
+                    />
                 </ConfigProvider>
             </Card>
-        </>
+        </div>
     );
 };
 
