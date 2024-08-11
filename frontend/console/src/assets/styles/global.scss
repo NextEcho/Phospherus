@@ -5,7 +5,3 @@ body {
     background-color: $color;
     user-select: none; // 禁用文字选中
 }
-
-img {
-    -webkit-user-drag: none; // 禁止拖动图片
-}

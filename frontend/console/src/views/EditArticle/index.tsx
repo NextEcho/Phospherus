@@ -27,12 +27,12 @@ const EditArticle = () => {
             content: mdContent,
             cover: cover,
             isVisible: visible ? 1 : 0,
-            tagIds: [1, 2, 3],
+            tagIds: tags.map((tag: tagItem) => tag.id),
             status: status,
             description: "这是默认的description", // 后端会自动截取，后续可在此处优化，比如使用 AI 自动生成
         };
 
-        const fetchData = async () => {
+        const sendData = async () => {
             const jsonResp = await postArticleAPI(params);
 
             if (jsonResp.code === 0) {
@@ -46,7 +46,7 @@ const EditArticle = () => {
             }
         };
 
-        fetchData();
+        sendData();
     };
 
     const showProps = () => {

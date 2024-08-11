@@ -22,7 +22,6 @@ export interface getArticleListResp {
 }
 
 // postArticle Request And Response
-
 export interface postArticleReq {
   authorId: number;
   title: string;
@@ -35,3 +34,10 @@ export interface postArticleReq {
 }
 
 export interface postArticleResp {}
+
+// deleteArticle Request And Response
+export interface deleteArticleReq {
+  ids: number[];
+}
+
+export interface deleteArticleResp {}
