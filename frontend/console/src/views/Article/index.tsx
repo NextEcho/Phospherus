@@ -104,10 +104,17 @@ const Article = () => {
     // TODO: batchDelete
     const rowSelection: TableRowSelection<articleItem> = {};
 
+    // navigatie to edit-article page
+    const handleAddArticle = () => {
+        window.location.href = "/console/edit-article";
+    };
+
     return (
         <div>
             <button className="btn-orange my-4">批量删除文章</button>
-            <button className="btn-green my-4">创作文章</button>
+            <button className="btn-green my-4" onClick={handleAddArticle}>
+                创作文章
+            </button>
             <Card className="bg-[#272E48] border-none">
                 <ConfigProvider
                     theme={{

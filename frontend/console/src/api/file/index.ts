@@ -1,5 +1,5 @@
 import http, { CustomSuccessData } from "@/tools/request";
-import { uploadFileResp } from "./type";
+import { uploadFileResp } from "./types";
 
 enum API {
     UPLOAD_FILE = "/file/upload",

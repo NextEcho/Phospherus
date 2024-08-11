@@ -5,6 +5,7 @@ import AppLayout from "@/layout/index.tsx";
 const Login = React.lazy(() => import("@/views/Login/index.tsx"));
 const Home = React.lazy(() => import("@/views/Home/index.tsx"));
 const User = React.lazy(() => import("@/views/User/index.tsx"));
+const Tag = React.lazy(() => import("@/views/Tag/index.tsx"));
 const Article = React.lazy(() => import("@/views/Article/index.tsx"));
 const EditArticle = React.lazy(() => import("@/views/EditArticle/index.tsx"));
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "user",
                 element: withLoadingComponent(<User />),
+            },
+            {
+                path: "tag",
+                element: withLoadingComponent(<Tag />),
             },
             {
                 path: "article",

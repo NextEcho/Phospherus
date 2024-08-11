@@ -56,7 +56,7 @@ const Login = () => {
                 setPassword(e.target.value);
               }}
             />
-            <button className="login-btn btn-primary mb-8 w-3/4" onClick={handleLogin}>
+            <button className="login-btn btn-violet mb-8 w-3/4" onClick={handleLogin}>
               Login
             </button>
           </div>
