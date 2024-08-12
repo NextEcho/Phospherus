@@ -10,4 +10,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"), // 将 '@' 设置为 'src' 目录的别名
     },
   },
+  server: {
+    port: 10000,
+  },
 });
