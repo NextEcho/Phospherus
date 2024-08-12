@@ -53,8 +53,8 @@ func (*TagApi) CreateTag(ctx *gin.Context) {
 	}
 
 	_, err = console.TagServiceInstance.CreateTag(&input.CreateTag{
-		Name:      req.Name,
-		IsVisible: req.IsVisible,
+		Name:            req.Name,
+		BackgroundColor: req.BackgroundColor,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.CreateTag Error", zap.Error(err))
@@ -98,9 +98,8 @@ func (*TagApi) UpdateTag(ctx *gin.Context) {
 	}
 
 	_, err = console.TagServiceInstance.UpdateTag(&input.UpdateTag{
-		Id:        req.Id,
-		Name:      req.Name,
-		IsVisible: req.IsVisible,
+		Id:   req.Id,
+		Name: req.Name,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.UpdateTag Error", zap.Error(err))

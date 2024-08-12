@@ -33,7 +33,7 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 			return err
 		}
 
-		// 再查询文章的作者信息，也就是博主信息
+		// 查询文章的作者信息，也就是博主信息
 		userEntity := model.User{}
 		err = tx.Table("user").Where("id = ?", articleEntity.AuthorId).First(&userEntity).Error
 		if err != nil {
@@ -41,14 +41,6 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 		}
 		out.AuthorName = userEntity.Nickname // 博主昵称
 		out.Avatar = userEntity.Avatar       // 博主头像
-
-		// 查询文章的分类信息
-		categoryEntity := model.Category{}
-		err = tx.Table("category").Where("id = ?", articleEntity.CategoryId).First(&categoryEntity).Error
-		if err != nil {
-			return err
-		}
-		out.CategoryName = categoryEntity.Name
 
 		// 查询文章的标签信息
 		tagEntityArr := []*model.Tag{}
@@ -94,16 +86,6 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 			return err
 		}
 		copier.Copy(&out.ArticleList, articleList)
-
-		// 查询文章所属分类
-		for idx, article := range out.ArticleList {
-			categoryEntity := model.Category{}
-			err := tx.Table("category").Where("id = ?", article.CategoryId).First(&categoryEntity).Error
-			if err != nil {
-				return err
-			}
-			out.ArticleList[idx].CategoryName = categoryEntity.Name
-		}
 
 		// 查询文章所属标签数组
 		for idx, article := range out.ArticleList {

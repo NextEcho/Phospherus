@@ -7,10 +7,9 @@ import (
 
 type GetArticleDetail struct {
 	model.Article
-	Avatar       string   `json:"avatar"`
-	AuthorName   string   `json:"authorName"`
-	CategoryName string   `json:"categoryName"`
-	TagNames     []string `json:"tagNames"`
+	Avatar     string   `json:"avatar"`
+	AuthorName string   `json:"authorName"`
+	TagNames   []string `json:"tagNames"`
 }
 
 type GetArticleList struct {

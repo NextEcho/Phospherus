@@ -39,14 +39,6 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 		out.AuthorName = userEntity.Nickname // 博主昵称
 		out.Avatar = userEntity.Avatar       // 博主头像
 
-		// 查询文章的分类信息
-		categoryEntity := model.Category{}
-		err = tx.Table("category").Where("id = ?", articleEntity.CategoryId).First(&categoryEntity).Error
-		if err != nil {
-			return err
-		}
-		out.CategoryName = categoryEntity.Name
-
 		// 查询文章的标签信息
 		tagEntityArr := []*model.Tag{}
 		tagNames := []string{}
@@ -70,8 +62,6 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 }
 
 // GetArticleList 分页获取文章列表
-// TODO: 需要实现根据 title 过滤文章列表
-// 后续还需要实现聚合查询，title、categoryId、tagIds
 func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.GetArticleList, err error) {
 	out = &output.GetArticleList{
 		PageResponse: commonresp.PageResponse{
@@ -93,16 +83,6 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 			return err
 		}
 		copier.Copy(&out.ArticleList, articleList)
-
-		// 查询文章所属分类
-		for idx, article := range out.ArticleList {
-			categoryEntity := model.Category{}
-			err := tx.Table("category").Where("id = ?", article.CategoryId).First(&categoryEntity).Error
-			if err != nil {
-				return err
-			}
-			out.ArticleList[idx].CategoryName = categoryEntity.Name
-		}
 
 		// 查询文章所属标签数组
 		for idx, article := range out.ArticleList {
@@ -163,12 +143,12 @@ func (*ArticleService) PostArticle(in *input.PostArticle) (out *output.PostArtic
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
 		// 插入文章数据
 		article := model.Article{
-			CategoryId:  in.CategoryId,
 			Title:       in.Title,
 			IsVisible:   in.IsVisible,
 			Content:     in.Content,
 			Cover:       in.Cover,
 			AuthorId:    in.AuthorId,
+			Status:      in.Status,
 			Description: pkg.GenDescription(in.Content),
 		}
 		err := tx.Create(&article).Error
@@ -200,13 +180,13 @@ func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.Updat
 
 		// 更新文章数据
 		err := tx.Model(&model.Article{}).Where("id = ?", in.Id).Updates(map[string]interface{}{
-			"category_id": in.CategoryId,
 			"title":       in.Title,
 			"is_visible":  in.IsVisible,
 			"is_about":    in.IsAbout,
 			"content":     in.Content,
 			"cover":       in.Cover,
 			"author_id":   in.AuthorId,
+			"status":      in.Status,
 			"description": pkg.GenDescription(in.Content),
 		}).Error
 		if err != nil {

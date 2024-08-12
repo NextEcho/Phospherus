@@ -6,6 +6,8 @@ import (
 	commonresp "phospherus/model/common/response"
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
+
+	"gorm.io/gorm"
 )
 
 type TagService struct{}
@@ -16,6 +18,7 @@ func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},
+		TagList: []output.TagItem{},
 	}
 
 	// 查询标签总数
@@ -30,7 +33,25 @@ func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err
 	if err != nil {
 		return
 	}
-	out.TagList = tagList
+
+	// 查询标签下的文章数量
+	for _, tag := range tagList {
+
+		var count int64
+		err = global.DB.Table("article_tag").Where("tag_id =?", tag.Id).Count(&count).Error
+		if err != nil {
+			return
+		}
+
+		var tagItem = output.TagItem{
+			Id:              tag.Id,
+			Name:            tag.Name,
+			BackgroundColor: tag.BackgroundColor,
+		}
+
+		tagItem.ArticleCount = int(count)
+		out.TagList = append(out.TagList, tagItem)
+	}
 
 	return
 }
@@ -39,8 +60,8 @@ func (*TagService) CreateTag(in *input.CreateTag) (out *output.CreateTag, err er
 	out = &output.CreateTag{}
 
 	err = global.DB.Table("tag").Create(&model.Tag{
-		Name:      in.Name,
-		IsVisible: in.IsVisible,
+		Name:            in.Name,
+		BackgroundColor: in.BackgroundColor,
 	}).Error
 
 	return
@@ -49,7 +70,17 @@ func (*TagService) CreateTag(in *input.CreateTag) (out *output.CreateTag, err er
 func (*TagService) DeleteTag(in *input.DeleteTag) (out *output.DeleteTag, err error) {
 	out = &output.DeleteTag{}
 
-	err = global.DB.Where("id in (?)", in.Ids).Delete(&model.Tag{}).Error
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Where("id in (?)", in.Ids).Delete(&model.Tag{}).Error; err != nil {
+			return err
+		}
+
+		if err := tx.Where("tag_id in (?)", in.Ids).Delete(&model.ArticleTag{}).Error; err != nil {
+			return err
+		}
+
+		return nil
+	})
 
 	return
 }
@@ -60,8 +91,8 @@ func (*TagService) UpdateTag(in *input.UpdateTag) (out *output.UpdateTag, err er
 	// 因为 gorm 对于零值，使用结构体更新是无效的
 	// 这里使用 map[string]interface{} 来更新字段
 	err = global.DB.Table("tag").Where("id = ?", in.Id).Updates(map[string]interface{}{
-		"name":       in.Name,
-		"is_visible": in.IsVisible,
+		"name":             in.Name,
+		"background_color": in.BackgroundColor,
 	}).Error
 
 	return

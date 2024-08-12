@@ -1,13 +1,19 @@
 package output
 
 import (
-	"phospherus/model"
 	commonresp "phospherus/model/common/response"
 )
 
+type TagItem struct {
+	Id              int    `json:"id"`
+	Name            string `json:"name"`
+	BackgroundColor string `json:"backgroundColor"`
+	ArticleCount    int    `json:"articleCount"`
+}
+
 type GetTagList struct {
 	commonresp.PageResponse
-	TagList []model.Tag `json:"tagList"`
+	TagList []TagItem `json:"tagList"`
 }
 
 type CreateTag struct {

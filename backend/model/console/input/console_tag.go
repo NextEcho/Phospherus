@@ -6,8 +6,8 @@ type GetTagList struct {
 }
 
 type CreateTag struct {
-	Name      string `json:"name"`
-	IsVisible int    `json:"isVisible"`
+	Name            string `json:"name"`
+	BackgroundColor string `json:"backgroundColor"`
 }
 
 type DeleteTag struct {
@@ -15,7 +15,7 @@ type DeleteTag struct {
 }
 
 type UpdateTag struct {
-	Id        int    `json:"id"`
-	Name      string `json:"name"`
-	IsVisible int    `json:"isVisible"`
+	Id              int    `json:"id"`
+	Name            string `json:"name"`
+	BackgroundColor string `json:"backgroundColor"`
 }

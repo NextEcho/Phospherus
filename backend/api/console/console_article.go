@@ -51,11 +51,10 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	}
 
 	out, err := console.ArticleServiceInstance.GetArticleList(&input.GetArticleList{
-		PageNum:    req.PageNum,
-		PageSize:   req.PageSize,
-		Title:      req.Title,
-		CategoryId: req.CategoryId,
-		TagIds:     req.TagIds,
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+		Title:    req.Title,
+		TagIds:   req.TagIds,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
@@ -71,7 +70,6 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 }
 
 // DeleteArticle 删除文章，可批量删除和删除单个
-// 请求的文章 ID 以 string 传递，以逗号分隔
 func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
 	req := request.DeleteArticle{}
 
@@ -111,13 +109,13 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 	}
 
 	_, err = console.ArticleServiceInstance.PostArticle(&input.PostArticle{
-		AuthorId:   req.AuthorId,
-		CategoryId: req.CategoryId,
-		IsVisible:  req.IsVisible,
-		TagIds:     req.TagIds,
-		Title:      req.Title,
-		Cover:      req.Cover,
-		Content:    req.Content,
+		AuthorId:  req.AuthorId,
+		IsVisible: req.IsVisible,
+		TagIds:    req.TagIds,
+		Title:     req.Title,
+		Cover:     req.Cover,
+		Content:   req.Content,
+		Status:    req.Status,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.PostArticle Error", zap.Error(err))
@@ -140,14 +138,13 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 	}
 
 	_, err = console.ArticleServiceInstance.UpdateArticle(&input.UpdateArticle{
-		Id:         req.Id,
-		AuthorId:   req.AuthorId,
-		CategoryId: req.CategoryId,
-		IsVisible:  req.IsVisible,
-		TagIds:     req.TagIds,
-		Title:      req.Title,
-		Cover:      req.Cover,
-		Content:    req.Content,
+		Id:        req.Id,
+		AuthorId:  req.AuthorId,
+		IsVisible: req.IsVisible,
+		TagIds:    req.TagIds,
+		Title:     req.Title,
+		Cover:     req.Cover,
+		Content:   req.Content,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.UpdateArticle Error", zap.Error(err))
