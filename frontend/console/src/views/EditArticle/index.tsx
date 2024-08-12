@@ -14,22 +14,23 @@ const EditArticle = () => {
     const [mdContent, setMdContent] = useState("");
     const [visible, setVisible] = useState(true);
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
-    const [tags, setTags] = useState<tagItem[]>([]);
+    const [tags, setTags] = useState<tagItem[]>([] as tagItem[]);
 
     const handleSetCover = useCallback((newCover: string) => {
         setCover(newCover);
     }, []);
 
     const handlePostArtcile = (status: number) => {
+        console.log("tagids is", selectedTags);
         const params: postArticleReq = {
             authorId: 1,
             title: title,
             content: mdContent,
             cover: cover,
             isVisible: visible ? 1 : 0,
-            tagIds: tags.map((tag: tagItem) => tag.id),
+            tagIds: selectedTags,
             status: status,
-            description: "这是默认的description", // 后端会自动截取，后续可在此处优化，比如使用 AI 自动生成
+            description: "", // 后端会自动截取，后续可在此处优化，比如使用 AI 自动生成
         };
 
         const sendData = async () => {
@@ -42,6 +43,7 @@ const EditArticle = () => {
                     message.success("发布文章成功", 1);
                 }
             } else {
+                console.log(jsonResp);
                 message.error("出现错误", 1);
             }
         };

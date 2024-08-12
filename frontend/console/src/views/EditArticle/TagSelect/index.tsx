@@ -1,5 +1,5 @@
 import { getTagListAPI } from "@/api/tag";
-import { tagItem } from "@/api/tag/type";
+import { tagItem } from "@/api/tag/types";
 import { ConfigProvider, message, Select, SelectProps, theme } from "antd";
 import { useEffect } from "react";
 
@@ -38,7 +38,7 @@ const TagSelect: React.FC<TagSelectProps> = ({ selectedTags, setSelectedTags, ta
             if (jsonResp.code === 0) {
                 const handledTags = jsonResp.data.tagList.map((tag: tagItem) => ({
                     ...tag,
-                    value: tag.id.toString(),
+                    value: tag.id,
                     label: tag.name,
                 }));
                 setTags(handledTags);

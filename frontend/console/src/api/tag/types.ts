@@ -1,10 +1,10 @@
 export interface tagItem {
     id: number;
     name: string;
-    value: string;
-    label: string;
     backgroundColor: string;
     articleCount: number;
+    value?: number;
+    label?: string;
 }
 
 // getTagList Request and Response
