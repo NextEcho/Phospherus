@@ -31,3 +31,11 @@ export interface deleteTagResp {
     total: number;
     tagList: tagItem[];
 }
+
+// createTag Request And Response
+export interface createTagReq {
+    name: string;
+    backgroundColor: string;
+}
+
+export interface createTagResp {}

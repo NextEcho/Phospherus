@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Card, message } from "antd";
 import { postArticleAPI } from "@/api/article";
 import { postArticleReq } from "@/api/article/types";
@@ -6,7 +6,7 @@ import MDEditor from "@uiw/react-md-editor";
 import ImageUploader from "./ImageUploader";
 import TagSelect from "./TagSelect";
 import PublicSwitcher from "./PublicSwitcher";
-import { tagItem } from "@/api/tag/type";
+import { tagItem } from "@/api/tag/types";
 
 const EditArticle = () => {
     const [title, setTitle] = useState("");

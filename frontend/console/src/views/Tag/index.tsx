@@ -1,11 +1,27 @@
-import { deleteTagAPI, getTagListAPI } from "@/api/tag";
+import { createTagAPI, deleteTagAPI, getTagListAPI } from "@/api/tag";
 import { tagItem } from "@/api/tag/types";
-import { Card, ConfigProvider, message, Space, Table, theme } from "antd";
+import {
+    Card,
+    ColorPicker,
+    ConfigProvider,
+    Input,
+    message,
+    Modal,
+    Space,
+    Table,
+    theme,
+} from "antd";
+import { Color } from "antd/es/color-picker";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 
 const Tag = () => {
     const [tagList, setTagList] = useState<tagItem[]>([]);
+    const [open, setOpen] = useState(false);
+
+    const [name, setName] = useState("");
+    const [color, setColor] = useState("#7939E7");
+    const [confirmLoading, setConfirmLoading] = useState(false);
 
     // getTagList
     useEffect(() => {
@@ -30,10 +46,27 @@ const Tag = () => {
     }, []);
 
     // createTag
-    const handleCreateTag = async () => {
+    const handleCreateTag = () => {
+        const params = {
+            name: name,
+            backgroundColor: color,
+        };
+
         const createTag = async () => {
             try {
-            } catch (error) {}
+                setConfirmLoading(true);
+                const jsonResp = await createTagAPI(params);
+
+                if (jsonResp.code === 0) {
+                    setConfirmLoading(false);
+                    setOpen(false);
+                    message.success("创建标签成功", 1);
+                } else {
+                    message.error("创建标签失败", 1);
+                }
+            } catch (error) {
+                message.error("创建标签时发生错误，请稍后重试", 1);
+            }
         };
 
         createTag();
@@ -106,7 +139,7 @@ const Tag = () => {
 
     return (
         <div>
-            <button className="btn-green my-4" onClick={handleCreateTag}>
+            <button className="btn-green my-4" onClick={() => setOpen(true)}>
                 创建标签
             </button>
             <Card className="bg-[#272E48] border-none">
@@ -129,6 +162,56 @@ const Tag = () => {
                     />
                 </ConfigProvider>
             </Card>
+
+            <ConfigProvider
+                theme={{
+                    algorithm: theme.darkAlgorithm,
+                    components: {
+                        Modal: {
+                            headerBg: "#1D2339",
+                            contentBg: "#1D2339",
+                            footerBg: "#1D2339",
+                            titleFontSize: 20,
+                            lineHeight: 2,
+                        },
+                    },
+                }}
+            >
+                <Modal
+                    title="Create New Tag"
+                    centered
+                    open={open}
+                    onOk={handleCreateTag}
+                    onCancel={() => setOpen(false)}
+                    okText="提交"
+                    cancelText="取消"
+                    confirmLoading={confirmLoading}
+                    width={700}
+                >
+                    <div className="font-mono px-1 py-4 text-lg">
+                        <div className="form">
+                            <div className="tag-name flex mb-4 pr-10">
+                                <span className="whitespace-nowrap mr-4">标签名称:</span>
+                                <Input
+                                    value={name}
+                                    onChange={(e) => {
+                                        setName(e.target.value);
+                                    }}
+                                />
+                            </div>
+                            <div className="backgroud-color flex mb-4 pr-10 items-center">
+                                <span className="whitespace-nowrap mr-4">标签背景色:</span>
+                                <ColorPicker
+                                    defaultValue="#7939E7"
+                                    disabledAlpha
+                                    value={color}
+                                    onChange={(_: Color, hex: string) => setColor(hex)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+            </ConfigProvider>
         </div>
     );
 };

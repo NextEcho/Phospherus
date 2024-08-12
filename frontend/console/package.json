@@ -14,7 +14,6 @@
         "@uiw/react-md-editor": "^4.0.4",
         "antd": "^5.18.0",
         "axios": "^1.7.2",
-        "mdui": "^2.1.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.23.1",
