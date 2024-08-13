@@ -22,13 +22,13 @@ func Router() *gin.Engine {
 
 	RouteGroup := r.Group("api")
 
-	////////////////////////////////
-	// Console /////////////////////
-	////////////////////////////////
+	//////////////////
+	// Console ///////
+	//////////////////
 	consoleRouteGroup := RouteGroup.Group("console")
 	consoleRouteGroup.POST("login", console.UserApiInstance.Login)
 
-	// consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
+	consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
 
 	consoleFileRouteGroup := consoleRouteGroup.Group("file")
 	{
@@ -58,9 +58,9 @@ func Router() *gin.Engine {
 		consoleCategoryRouteGroup.POST("updateCategory", console.CategoryApiInstance.UpdateCategory)
 	}
 
-	////////////////////////////////
-	// Blog ////////////////////////
-	////////////////////////////////
+	//////////////
+	// Blog //////
+	//////////////
 	blogRouteGroup := RouteGroup.Group("blog")
 	blogUserRouteGroup := blogRouteGroup.Group("user")
 	{

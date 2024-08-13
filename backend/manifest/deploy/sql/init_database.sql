@@ -18,7 +18,6 @@ create table `user` (
 create table `article` (
     `id` int not null auto_increment comment '文章ID',
     `author_id` int not null comment '文章作者ID',
-    `category_id` int not null default 0 comment '文章所属分类ID 0-无分类',
     `title` varchar(128) not null comment '文章标题',
     `content` text not null comment '文章内容',
     `cover` varchar(128) default '' comment '文章图片封面',
@@ -37,7 +36,6 @@ create table `tag` (
     `id` int not null auto_increment comment '标签ID',
     `name` varchar(64) not null comment '标签名称',
     `background_color` varchar(7) not null default '#6366f1' comment '标签背景颜色',
-    `is_visible` tinyint not null default 1 comment '标签是否可见 1-可见 0-不可见',
     primary key (`id`)
 );
 
