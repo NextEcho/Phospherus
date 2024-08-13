@@ -40,7 +40,7 @@ const Tag: React.FC = () => {
     };
 
     fetchData();
-  });
+  }, []);
 
   return (
     <div className="archive-page flex flex-col min-h-screen">

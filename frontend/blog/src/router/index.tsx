@@ -12,26 +12,11 @@ const withLoadingComponent = (comp: JSX.Element) => {
 };
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: withLoadingComponent(<Home />),
-    },
-    {
-        path: "/archive",
-        element: withLoadingComponent(<Archive />),
-    },
-    {
-        path: "/tag",
-        element: withLoadingComponent(<Tag />),
-    },
-    {
-        path: "/about",
-        element: withLoadingComponent(<About />),
-    },
-    {
-        path: "/article/:title",
-        element: withLoadingComponent(<ArticleDetail />)
-    }
+    { path: "/", element: withLoadingComponent(<Home />) },
+    { path: "/archive", element: withLoadingComponent(<Archive />) },
+    { path: "/tag", element: withLoadingComponent(<Tag />) },
+    { path: "/about", element: withLoadingComponent(<About />) },
+    { path: "/article/:title", element: withLoadingComponent(<ArticleDetail />) },
 ]);
 
 export default router;
