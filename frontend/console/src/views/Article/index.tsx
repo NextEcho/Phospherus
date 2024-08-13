@@ -131,7 +131,7 @@ const Article = () => {
                         columns={ArticleColumns}
                         dataSource={articleList}
                         rowKey="id"
-                        className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-mono"
+                        className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
                         rowSelection={rowSelection}
                     />
                 </ConfigProvider>

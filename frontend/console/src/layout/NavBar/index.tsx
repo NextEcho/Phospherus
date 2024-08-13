@@ -9,7 +9,7 @@ const NavBar = () => {
       >
         <div className="left-zone flex">
           <div className="avatar bg-avatar bg-cover w-24 h-24 rounded-full"></div>
-          <div className="info ml-4 font-mono text-lg flex flex-1 flex-col justify-around">
+          <div className="info ml-4 font-main text-lg flex flex-1 flex-col justify-around">
             <div className="name">NextEcho</div>
             <div className="career text-xs text-gray-400">Web3 Developer</div>
           </div>

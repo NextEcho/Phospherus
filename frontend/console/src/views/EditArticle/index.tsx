@@ -2,11 +2,11 @@ import { useCallback, useState } from "react";
 import { Card, message } from "antd";
 import { postArticleAPI } from "@/api/article";
 import { postArticleReq } from "@/api/article/types";
+import { tagItem } from "@/api/tag/types";
 import MDEditor from "@uiw/react-md-editor";
 import ImageUploader from "./ImageUploader";
 import TagSelect from "./TagSelect";
 import PublicSwitcher from "./PublicSwitcher";
-import { tagItem } from "@/api/tag/types";
 
 const EditArticle = () => {
     const [title, setTitle] = useState("");
@@ -16,12 +16,15 @@ const EditArticle = () => {
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     const [tags, setTags] = useState<tagItem[]>([] as tagItem[]);
 
+    const handleEditorChange = (value?: string) => {
+        setMdContent(value || "");
+    };
+
     const handleSetCover = useCallback((newCover: string) => {
         setCover(newCover);
     }, []);
 
     const handlePostArtcile = (status: number) => {
-        console.log("tagids is", selectedTags);
         const params: postArticleReq = {
             authorId: 1,
             title: title,
@@ -43,7 +46,6 @@ const EditArticle = () => {
                     message.success("发布文章成功", 1);
                 }
             } else {
-                console.log(jsonResp);
                 message.error("出现错误", 1);
             }
         };
@@ -73,7 +75,7 @@ const EditArticle = () => {
                     上传本地文件
                 </button>
             </div>
-            <Card className="bg-[#272E48] border-none font-sans">
+            <Card className="bg-[#272E48] border-none font-main">
                 <div className="post-article">
                     <input
                         placeholder="Title of article"
@@ -81,20 +83,20 @@ const EditArticle = () => {
                         onChange={(e) => setTitle(e.target.value)}
                         className="peer h-full w-full border-b-4 border-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal 
                 text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-indigo-300 
-                focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 mb-5 font-mono text-slate-50 pl-2"
+                focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 mb-5 font-main text-slate-50 pl-2"
                     />
                 </div>
                 <div className="md-container h-full" data-color-mode="dark">
-                    <MDEditor height={590} value={mdContent} onChange={setMdContent} />
+                    <MDEditor height={590} value={mdContent} onChange={handleEditorChange} />
                 </div>
             </Card>
 
             <div className="flex">
-                <Card className="bg-[#272E48] border-none font-sans mt-4 mr-4 w-1/3 h-[110px]">
+                <Card className="bg-[#272E48] border-none font-main mt-4 mr-4 w-1/3 h-[110px]">
                     <ImageUploader onSetCover={handleSetCover} />
                 </Card>
 
-                <Card className="bg-[#272E48] border-none font-sans mt-4 text-slate-50 w-1/3 mr-4 h-[110px]">
+                <Card className="bg-[#272E48] border-none font-main mt-4 text-slate-50 w-1/3 mr-4 h-[110px]">
                     <TagSelect
                         selectedTags={selectedTags}
                         setSelectedTags={setSelectedTags}
@@ -103,7 +105,7 @@ const EditArticle = () => {
                     />
                 </Card>
 
-                <Card className="bg-[#272E48] border-none font-sans mt-4 text-slate-50 w-1/3 h-[110px]">
+                <Card className="bg-[#272E48] border-none font-main mt-4 text-slate-50 w-1/3 h-[110px]">
                     <PublicSwitcher visible={visible} setVisible={setVisible} />
                 </Card>
             </div>

@@ -158,7 +158,7 @@ const Tag = () => {
                         columns={TagColumns}
                         dataSource={tagList}
                         rowKey="id"
-                        className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-mono"
+                        className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
                     />
                 </ConfigProvider>
             </Card>
@@ -188,7 +188,7 @@ const Tag = () => {
                     confirmLoading={confirmLoading}
                     width={700}
                 >
-                    <div className="font-mono px-1 py-4 text-lg">
+                    <div className="font-main px-1 py-4 text-lg">
                         <div className="form">
                             <div className="tag-name flex mb-4 pr-10">
                                 <span className="whitespace-nowrap mr-4">标签名称:</span>

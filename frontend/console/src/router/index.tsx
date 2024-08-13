@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import React, { Suspense } from "react";
 import AppLayout from "@/layout/index.tsx";
+import AuthRoute from "./AuthRoute";
 
 const Login = React.lazy(() => import("@/views/Login/index.tsx"));
 const Home = React.lazy(() => import("@/views/Home/index.tsx"));
@@ -14,44 +15,26 @@ const withLoadingComponent = (comp: JSX.Element) => {
 };
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Navigate to="/console" replace />,
-    },
+    { path: "/", element: <Navigate to="/console/home" replace /> },
     {
         path: "/console",
-        element: <AppLayout />,
+        element: <AuthRoute />,
         children: [
             {
-                path: "",
-                element: <Navigate to="/console/home" replace />,
-            },
-            {
-                path: "home",
-                element: withLoadingComponent(<Home />),
-            },
-            {
-                path: "user",
-                element: withLoadingComponent(<User />),
-            },
-            {
-                path: "tag",
-                element: withLoadingComponent(<Tag />),
-            },
-            {
-                path: "article",
-                element: withLoadingComponent(<Article />),
-            },
-            {
-                path: "edit-article",
-                element: withLoadingComponent(<EditArticle />),
+                element: <AppLayout />,
+                children: [
+                    // 设置 index 为 true，否则会出现重定向到 /console/home
+                    { index: true , element: <Navigate to="/console/home" replace /> },
+                    { path: "home", element: withLoadingComponent(<Home />) },
+                    { path: "user", element: withLoadingComponent(<User />) },
+                    { path: "tag", element: withLoadingComponent(<Tag />) },
+                    { path: "article", element: withLoadingComponent(<Article />) },
+                    { path: "edit-article", element: withLoadingComponent(<EditArticle />) },
+                ],
             },
         ],
     },
-    {
-        path: "/auth/login",
-        element: withLoadingComponent(<Login />),
-    },
+    { path: "/auth/login", element: withLoadingComponent(<Login />) },
 ]);
 
 export default router;
