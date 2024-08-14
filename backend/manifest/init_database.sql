@@ -1,5 +1,3 @@
-create database `phospherus`;
-
 use `phospherus`;
 
 -- table of user

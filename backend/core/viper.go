@@ -2,16 +2,22 @@ package core
 
 import (
 	"fmt"
+	"os"
 	"phospherus/global"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
-// LoadFileConfig 加载配置文件
+// Viper 加载配置文件
 func Viper() {
-	// 加载配置文件, 配置文件路径: etc/config.yml
-	viper.SetConfigFile("etc/config.yml")
+
+	appEnv := "dev"
+	if os.Getenv("RUN_ENV") != "" {
+		appEnv = os.Getenv("RUN_ENV")
+	}
+	viper.SetConfigFile(fmt.Sprintf("etc/config-%s.yml", appEnv))
+
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			panic("Config file not found!")

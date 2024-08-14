@@ -4,15 +4,17 @@ import (
 	"net/http"
 	"phospherus/api/blog"
 	"phospherus/api/console"
+	"phospherus/global"
 	"phospherus/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func Router() *gin.Engine {
+	gin.SetMode(global.APP_CONFIG.Mode)
 	r := gin.Default()
 
-	r.Use(middleware.Cors(), middleware.ZapLogger())
+	r.Use(middleware.Cors(), middleware.ZapLogger(), middleware.ZapLogger())
 
 	r.NoRoute(func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
@@ -28,7 +30,7 @@ func Router() *gin.Engine {
 	consoleRouteGroup := RouteGroup.Group("console")
 	consoleRouteGroup.POST("login", console.UserApiInstance.Login)
 
-	consoleRouteGroup.Use(middleware.Auth()) // 使用 JWT 中间件进行请求校验
+	consoleRouteGroup.Use(middleware.Auth()) // JWT 请求校验
 
 	consoleFileRouteGroup := consoleRouteGroup.Group("file")
 	{

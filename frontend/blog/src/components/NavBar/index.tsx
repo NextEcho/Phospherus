@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
     };
 
     const handleOpenConsole = () => {
-        window.open(import.meta.env.VITE_CONSOLE_URL, "_blank");
+        window.open("http://127.0.0.1:9000", "_blank");
     };
 
     return (

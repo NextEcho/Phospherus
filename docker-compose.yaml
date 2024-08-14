@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  phospherus-console:
+    build:
+      context: ./frontend/console
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - phospherus-server
+    networks:
+      phospherus-network:
+
+  phospherus-blog:
+    build:
+      context: ./frontend/blog
+      dockerfile: Dockerfile
+    ports:
+      - "10000:10000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - phospherus-server
+    networks:
+      phospherus-network:
+
+  phospherus-server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: on-failure:3
+    ports:
+      - "8989:8989"
+    environment:
+      - RUN_ENV=prod
+    networks:
+      phospherus-network:
+    depends_on:
+      phospherus-db:
+        condition: service_healthy
+
+  phospherus-db:
+    image: mysql:8.4
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=phospherus
+    networks:
+      phospherus-network:
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./backend/manifest/init_database.sql:/docker-entrypoint-initdb.d/init_database.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  dbdata:
+
+networks:
+  phospherus-network:
