@@ -61,6 +61,7 @@ const Tag = () => {
                     setConfirmLoading(false);
                     setOpen(false);
                     message.success("创建标签成功", 1);
+                    window.location.reload();
                 } else {
                     message.error("创建标签失败", 1);
                 }

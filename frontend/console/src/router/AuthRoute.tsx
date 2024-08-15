@@ -14,7 +14,7 @@ const AuthRoute = () => {
         } else {
             setIsAuthenticated(true);
         }
-    }, [navigateTo]);
+    }, []);
 
     if (isAuthenticated === null) {
         return <div>Loading...</div>;

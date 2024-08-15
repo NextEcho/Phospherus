@@ -24,7 +24,7 @@ const router = createBrowserRouter([
                 element: <AppLayout />,
                 children: [
                     // 设置 index 为 true，否则会出现重定向到 /console/home
-                    { index: true , element: <Navigate to="/console/home" replace /> },
+                    { index: true, element: <Navigate to="/console/home" /> },
                     { path: "home", element: withLoadingComponent(<Home />) },
                     { path: "user", element: withLoadingComponent(<User />) },
                     { path: "tag", element: withLoadingComponent(<Tag />) },

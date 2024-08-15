@@ -15,12 +15,11 @@ const Login = () => {
         }
 
         const jsonResp = await userLoginAPI({ passport: passport, password: password });
-        console.log(" resp => ", jsonResp);
         if (jsonResp.code === 0) {
             message.success("登录成功", 1);
             localStorage.setItem("token", jsonResp.data.token);
             setInterval(() => {
-                navigate("/console/home");
+                navigate("/");
             }, 1000);
         } else {
             message.error("用户名或密码错误", 1);
