@@ -23,26 +23,26 @@ const Tag = () => {
     const [color, setColor] = useState("#7939E7");
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    // getTagList
-    useEffect(() => {
+    const getTagList = async () => {
         const params = {
             pageNum: 1,
             pageSize: 10,
         };
-        const fetchData = async () => {
-            try {
-                const jsonResp = await getTagListAPI(params);
-                if (jsonResp.code === 0) {
-                    setTagList(jsonResp.data.tagList);
-                } else {
-                    message.error("查询标签列表失败", 1);
-                }
-            } catch (err) {
-                console.log("捕获 error:", err);
+        try {
+            const jsonResp = await getTagListAPI(params);
+            if (jsonResp.code === 0) {
+                setTagList(jsonResp.data.tagList);
+            } else {
+                message.error("查询标签列表失败", 1);
             }
-        };
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
+    };
 
-        fetchData();
+    // getTagList
+    useEffect(() => {
+        getTagList();
     }, []);
 
     // createTag
@@ -61,7 +61,7 @@ const Tag = () => {
                     setConfirmLoading(false);
                     setOpen(false);
                     message.success("创建标签成功", 1);
-                    window.location.reload();
+                    await getTagList();
                 } else {
                     message.error("创建标签失败", 1);
                 }
