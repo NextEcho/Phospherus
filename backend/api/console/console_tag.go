@@ -1,6 +1,7 @@
 package console
 
 import (
+	"errors"
 	"phospherus/global"
 	"phospherus/global/biz"
 	commonresp "phospherus/model/common/response"
@@ -58,6 +59,11 @@ func (*TagApi) CreateTag(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.CreateTag Error", zap.Error(err))
+		if errors.Is(err, biz.ErrTagExist) {
+			commonresp.FailWithMessage(ctx, biz.ErrTagExist.Error())
+			return
+		}
+
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}

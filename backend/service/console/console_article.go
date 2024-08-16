@@ -72,7 +72,6 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 	}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
-
 		// 查询文章总数 Total
 		tx.Table("article").Count(&out.Total)
 
@@ -177,7 +176,6 @@ func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.Updat
 	out = &output.UpdateArticle{}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
-
 		// 更新文章数据
 		err := tx.Model(&model.Article{}).Where("id = ?", in.Id).Updates(map[string]interface{}{
 			"title":       in.Title,

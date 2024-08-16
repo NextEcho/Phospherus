@@ -18,3 +18,9 @@ var (
 var (
 	ErrArticleNotFound = errors.New("文章不存在")
 )
+
+// Tag Error
+
+var (
+	ErrTagExist = errors.New("标签已存在")
+)

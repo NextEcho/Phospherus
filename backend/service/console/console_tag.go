@@ -2,6 +2,7 @@ package console
 
 import (
 	"phospherus/global"
+	"phospherus/global/biz"
 	"phospherus/model"
 	commonresp "phospherus/model/common/response"
 	"phospherus/model/console/input"
@@ -43,7 +44,7 @@ func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err
 			return
 		}
 
-		var tagItem = output.TagItem{
+		tagItem := output.TagItem{
 			Id:              tag.Id,
 			Name:            tag.Name,
 			BackgroundColor: tag.BackgroundColor,
@@ -58,6 +59,16 @@ func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err
 
 func (*TagService) CreateTag(in *input.CreateTag) (out *output.CreateTag, err error) {
 	out = &output.CreateTag{}
+
+	// 判断标签名是否存在
+	var count int64
+	if err = global.DB.Table("tag").Where("name =?", in.Name).Count(&count).Error; err != nil {
+		return
+	}
+	if count != 0 {
+		err = biz.ErrTagExist
+		return
+	}
 
 	err = global.DB.Table("tag").Create(&model.Tag{
 		Name:            in.Name,
