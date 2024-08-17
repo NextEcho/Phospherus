@@ -57,8 +57,9 @@ const SideMenu: React.FC = () => {
         window.location.reload();
     };
 
+
     return (
-        <>
+        <div>
             <div
                 className="logo w-full h-8 flex justify-center my-4 hover:cursor-pointer"
                 onClick={handleClickLogo}
@@ -74,7 +75,7 @@ const SideMenu: React.FC = () => {
                 openKeys={openKeys}
                 onOpenChange={handleOpenChange}
             />
-        </>
+        </div>
     );
 };
 
