@@ -36,3 +36,8 @@ type UpdateArticle struct {
 	Status    int    `json:"status"`
 	TagIds    []int  `json:"tagIds"`
 }
+
+type GetArticleListByTag struct {
+	commonreq.PageRequest
+	TagId int `json:"tagId"`
+}

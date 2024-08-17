@@ -127,7 +127,6 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 
 // UpdateArticle 更新文章
 func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
-
 	req := request.UpdateArticle{}
 
 	err := ctx.ShouldBindJSON(&req)
@@ -152,4 +151,32 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 		return
 	}
 	commonresp.OkWithMessage(ctx, biz.MsgUpdateArticleSuccess)
+}
+
+func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
+	req := request.GetArticleListByTag{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	out, err := console.ArticleServiceInstance.GetArticleListByTag(&input.GetArticleListByTag{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+		TagId:    req.TagId,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleListByTag Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	resp := response.GetArticleListByTag{
+		PageResponse: out.PageResponse,
+		ArticleList:  out.ArticleList,
+	}
+
+	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }

@@ -10,5 +10,9 @@ type GetArticleList struct {
 	commonreq.PageRequest
 }
 
-type GetArchiveList struct {
+type GetArticleListByTag struct {
+	commonreq.PageRequest
+	TagId int `json:"tagId"`
 }
+
+type GetArchiveList struct{}

@@ -63,6 +63,34 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
 
+func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
+	req := request.GetArticleListByTag{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	out, err := blog.ArticleServiceInstance.GetArticleListByTag(&input.GetArticleListByTag{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+		TagId:    req.TagId,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleListByTag Error", zap.Error(err))
+		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+	resp := response.GetArticleListByTag{
+		PageResponse: out.PageResponse,
+		ArticleList:  out.ArticleList,
+	}
+
+	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+}
+
 func (*ArticleApi) GetArchiveList(ctx *gin.Context) {
 	out, err := blog.ArticleServiceInstance.GetArchiveList()
 	if err != nil {

@@ -15,8 +15,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ArticleService struct {
-}
+type ArticleService struct{}
 
 // GetArticleDetail 查询文章详情
 func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output.GetArticleDetail, err error) {
@@ -75,7 +74,6 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 	}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
-
 		// 查询文章总数 Total
 		tx.Table("article").Count(&out.Total)
 
@@ -121,6 +119,49 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 		strs := strings.Split(pkg.Time2String(out.ArticleList[i].UpdatedAt, time.RFC1123), " ")
 		out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
 	}
+
+	return
+}
+
+// GetArticleListByTag 获取标签下的文章列表
+func (*ArticleService) GetArticleListByTag(in *input.GetArticleListByTag) (out *output.GetArticleListByTag, err error) {
+	out = &output.GetArticleListByTag{
+		PageResponse: commonresp.PageResponse{
+			PageNum:  in.PageNum,
+			PageSize: in.PageSize,
+		},
+		ArticleList: make([]output.ArticleItem, 0),
+	}
+
+	err = global.DB.Transaction(func(tx *gorm.DB) error {
+		// 根据 tagId 查询文章列表
+		articleList := []model.Article{}
+		err := tx.Table("article").
+			Select("article.id, article.author_id, article.title, article.cover, article.created_at").
+			Joins("left join article_tag on article.id = article_tag.article_id").
+			Where("article_tag.tag_id = ?", in.TagId).
+			Find(&articleList).Error
+		if err != nil {
+			return err
+		}
+		if len(articleList) == 0 {
+			return nil
+		}
+
+		out.Total = int64(len(articleList))
+		err = copier.Copy(&out.ArticleList, articleList)
+		if err != nil {
+			return err
+		}
+
+		// 处理时间
+		for i := 0; i < len(out.ArticleList); i++ {
+			strs := strings.Split(pkg.Time2String(out.ArticleList[i].CreatedAt, time.RFC1123), " ")
+			out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
+		}
+
+		return nil
+	})
 
 	return
 }

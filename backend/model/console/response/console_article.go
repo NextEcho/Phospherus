@@ -22,3 +22,8 @@ type PostArticle struct{}
 type DeleteArticle struct{}
 
 type UpdateArticle struct{}
+
+type GetArticleListByTag struct {
+	commonresp.PageResponse
+	ArticleList any `json:"articleList"`
+}

@@ -8,12 +8,10 @@ import (
 
 type ArticleItem struct {
 	Id              int       `json:"id"`
-	CategoryId      int       `json:"categoryId"`
 	IsVisible       int       `json:"isVisible"`
 	Title           string    `json:"title"`
 	Cover           string    `json:"cover"`
 	Description     string    `json:"description"`
-	CategoryName    string    `json:"categoryName"`
 	LatestUpdatedAt string    `json:"latestUpdatedAt"`
 	TagIds          []int     `json:"tagIds"`
 	TagNames        []string  `json:"tagNames"`
@@ -34,14 +32,18 @@ type MiniArticleItem struct {
 // GetArticleDetail
 type GetArticleDetail struct {
 	model.Article
-	Avatar       string   `json:"avatar"`
-	AuthorName   string   `json:"authorName"`
-	CategoryName string   `json:"categoryName"`
-	TagNames     []string `json:"tagNames"`
+	Avatar     string   `json:"avatar"`
+	AuthorName string   `json:"authorName"`
+	TagNames   []string `json:"tagNames"`
 }
 
 // GetArticleList
 type GetArticleList struct {
+	commonresp.PageResponse
+	ArticleList []ArticleItem `json:"articleList"`
+}
+
+type GetArticleListByTag struct {
 	commonresp.PageResponse
 	ArticleList []ArticleItem `json:"articleList"`
 }

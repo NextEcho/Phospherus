@@ -64,6 +64,7 @@ func Router() *gin.Engine {
 	// Blog //////
 	//////////////
 	blogRouteGroup := RouteGroup.Group("blog")
+
 	blogUserRouteGroup := blogRouteGroup.Group("user")
 	{
 		blogUserRouteGroup.POST("getUserInfo", blog.UserApiInstance.GetUserInfo)
@@ -72,6 +73,7 @@ func Router() *gin.Engine {
 	{
 		blogArticleRouteGroup.POST("getArticleDetail", blog.ArticleApiInstance.GetArticleDetail)
 		blogArticleRouteGroup.POST("getArticleList", blog.ArticleApiInstance.GetArticleList)
+		blogArticleRouteGroup.POST("getArticleListByTag", blog.ArticleApiInstance.GetArticleListByTag)
 		blogArticleRouteGroup.GET("getArchiveList", blog.ArticleApiInstance.GetArchiveList)
 	}
 	blogTagRouteGroup := blogRouteGroup.Group("tag")

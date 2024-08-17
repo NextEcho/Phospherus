@@ -18,6 +18,11 @@ type GetArticleList struct {
 	ArticleList any `json:"articleList"`
 }
 
+type GetArticleListByTag struct {
+	commonresp.PageResponse
+	ArticleList any `json:"articleList"`
+}
+
 type GetArchiveList struct {
 	ArchiveList any `json:"archiveList"`
 }
