@@ -116,7 +116,7 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 
 	// process time format
 	for i := 0; i < len(out.ArticleList); i++ {
-		strs := strings.Split(pkg.Time2String(out.ArticleList[i].UpdatedAt, time.RFC1123), " ")
+		strs := strings.Split(pkg.Time2String(out.ArticleList[i].CreatedAt, time.RFC1123), " ")
 		out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
 	}
 
