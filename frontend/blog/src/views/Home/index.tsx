@@ -16,7 +16,10 @@ interface ArticleItemProps {
 const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title, time }) => {
     const navigate = useNavigate();
     const handleClick = (id: number, title: string) => {
-        navigate(`/article/${title}?id=${id}`);
+        const data = {
+            id: id,
+        };
+        navigate(`/article/${title}`, { state: data });
     };
 
     return (
@@ -69,7 +72,7 @@ const Home = () => {
                         order={idx + 1}
                         id={item.id}
                         title={item.title}
-                        time={item.latestUpdatedAt}
+                        time={item.createdAt}
                     />
                     <Divider />
                 </div>

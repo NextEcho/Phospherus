@@ -1,19 +1,25 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
-import { getArchiveListAPI } from "@/api/article";
+import { useLocation } from "react-router-dom";
+import ArchiveItem from "../Archive/ArchiveItem";
 import { archiveItem } from "@/api/article/types";
-import ArchiveItem from "./ArchiveItem";
+import { getArticleListByTagAPI } from "@/api/article";
 
-const Archive = () => {
-    const [archiveList, setArchiveList] = useState<archiveItem[]>([] as archiveItem[]);
+const TagArticles = () => {
+    const [archiveList, setArchiveList] = useState<archiveItem[]>([]);
+    const location = useLocation();
+    const { state } = location;
 
     useEffect(() => {
         const fetchData = async () => {
-            const jsonResp = await getArchiveListAPI();
+            const jsonResp = await getArticleListByTagAPI({
+                pageNum: 1,
+                pageSize: 10,
+                tagId: state.id as number,
+            });
             const archiveListData = jsonResp.data;
-            console.log("data is ==>", archiveListData);
-            setArchiveList(archiveListData.archiveList);
+            setArchiveList(archiveListData.articleList);
         };
 
         fetchData();
@@ -43,4 +49,4 @@ const Archive = () => {
     );
 };
 
-export default Archive;
+export default TagArticles;

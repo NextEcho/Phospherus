@@ -3,7 +3,6 @@ export interface tagItem {
   name: string;
   count: number;
   backgroundColor: string;
-  isVisible: number;
 }
 
 // getTagList Request and Response
