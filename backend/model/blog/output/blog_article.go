@@ -9,6 +9,7 @@ type ArticleItem struct {
 	IsVisible   int      `json:"isVisible"`
 	Title       string   `json:"title"`
 	Cover       string   `json:"cover"`
+	Content     string   `json:"content"`
 	Description string   `json:"description"`
 	CreatedAt   string   `json:"createdAt"`
 	UpdatedAt   string   `json:"updatedAt"`
