@@ -32,14 +32,21 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 			return err
 		}
 
+		// process time format
+		createdAtStrs := strings.Split(pkg.Time2String(articleEntity.CreatedAt, time.DateTime), " ")
+		updatedAtStrs := strings.Split(pkg.Time2String(articleEntity.UpdatedAt, time.DateTime), " ")
+
+		out.CreatedAt = createdAtStrs[0]
+		out.UpdatedAt = updatedAtStrs[0]
+
 		// 查询文章的作者信息，也就是博主信息
 		userEntity := model.User{}
 		err = tx.Table("user").Where("id = ?", articleEntity.AuthorId).First(&userEntity).Error
 		if err != nil {
 			return err
 		}
-		out.AuthorName = userEntity.Nickname // 博主昵称
-		out.Avatar = userEntity.Avatar       // 博主头像
+		out.AuthorName = userEntity.Nickname
+		out.Avatar = userEntity.Avatar
 
 		// 查询文章的标签信息
 		tagEntityArr := []*model.Tag{}
@@ -95,6 +102,7 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 			if err != nil {
 				return err
 			}
+
 			// 填充 tagIds
 			out.ArticleList[idx].TagIds = make([]int, 0)
 			for _, tag := range tagEntityArr {
@@ -108,16 +116,16 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 			}
 		}
 
+		// process time format
+		for i := 0; i < len(articleList); i++ {
+			strs := strings.Split(pkg.Time2String(articleList[i].CreatedAt, time.RFC1123), " ")
+			out.ArticleList[i].CreatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
+		}
+
 		return nil
 	})
 	if err != nil {
 		return
-	}
-
-	// process time format
-	for i := 0; i < len(out.ArticleList); i++ {
-		strs := strings.Split(pkg.Time2String(out.ArticleList[i].CreatedAt, time.RFC1123), " ")
-		out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
 	}
 
 	return
@@ -154,10 +162,10 @@ func (*ArticleService) GetArticleListByTag(in *input.GetArticleListByTag) (out *
 			return err
 		}
 
-		// 处理时间
-		for i := 0; i < len(out.ArticleList); i++ {
-			strs := strings.Split(pkg.Time2String(out.ArticleList[i].CreatedAt, time.RFC1123), " ")
-			out.ArticleList[i].LatestUpdatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
+		// process time format
+		for i := 0; i < len(articleList); i++ {
+			strs := strings.Split(pkg.Time2String(articleList[i].CreatedAt, time.RFC1123), " ")
+			out.ArticleList[i].CreatedAt = fmt.Sprintf("%s %s %s", strs[1], strs[2], strs[3])
 		}
 
 		return nil
@@ -177,8 +185,11 @@ func (*ArticleService) GetArchiveList() (out *output.GetArchiveList, err error) 
 	if err != nil {
 		return
 	}
+	if len(articleList) == 0 {
+		return
+	}
 
-	// group article data by year
+	// Articles are grouped according to year.
 	yearGroup := make(map[string][]*model.Article, 0)
 	for i := 0; i < len(articleList); i++ {
 		timeStrs := strings.Split(pkg.Time2String(articleList[i].CreatedAt, time.DateTime), "-")
@@ -188,21 +199,25 @@ func (*ArticleService) GetArchiveList() (out *output.GetArchiveList, err error) 
 		yearGroup[timeStrs[0]] = append(yearGroup[timeStrs[0]], articleList[i])
 	}
 
-	// fill out element
+	// traverse and fill the out.ArchiveList
 	for year, articles := range yearGroup {
-
 		archiveItem := output.ArchiveItem{
-			Year:            year,
-			MiniArticleList: make([]output.MiniArticleItem, 0),
+			Year:        year,
+			ArticleList: make([]output.ArticleItem, 0),
 		}
 		for _, article := range articles {
-			firstTimeStrs := strings.Split(pkg.Time2String(article.CreatedAt, time.DateTime), " ")
-			secondTimeStrs := strings.Split(firstTimeStrs[0], "-")
-			miniArticle := output.MiniArticleItem{
-				DateTime: strings.Join([]string{secondTimeStrs[1], secondTimeStrs[2]}, "-"),
-				Title:    article.Title,
+			timeStrs := strings.Split(pkg.Time2String(article.CreatedAt, time.DateTime), " ")
+			// timeStrs -> ["2022-01-01" "12:00:00"]
+			firstHalf := strings.Split(timeStrs[0], "-")
+			article := output.ArticleItem{
+				Id:          article.Id,
+				IsVisible:   article.IsVisible,
+				Cover:       article.Cover,
+				Description: article.Description,
+				Title:       article.Title,
+				CreatedAt:   strings.Join([]string{firstHalf[1], firstHalf[2]}, "-"),
 			}
-			archiveItem.MiniArticleList = append(archiveItem.MiniArticleList, miniArticle)
+			archiveItem.ArticleList = append(archiveItem.ArticleList, article)
 		}
 
 		out.ArchiveList = append(out.ArchiveList, archiveItem)

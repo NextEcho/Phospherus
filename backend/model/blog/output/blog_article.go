@@ -1,43 +1,33 @@
 package output
 
 import (
-	"phospherus/model"
 	commonresp "phospherus/model/common/response"
-	"time"
 )
 
 type ArticleItem struct {
-	Id              int       `json:"id"`
-	IsVisible       int       `json:"isVisible"`
-	Title           string    `json:"title"`
-	Cover           string    `json:"cover"`
-	Description     string    `json:"description"`
-	LatestUpdatedAt string    `json:"latestUpdatedAt"`
-	TagIds          []int     `json:"tagIds"`
-	TagNames        []string  `json:"tagNames"`
-	CreatedAt       time.Time `json:"createdAt"`
-	UpdatedAt       time.Time `json:"updatedAt"`
+	Id          int      `json:"id"`
+	IsVisible   int      `json:"isVisible"`
+	Title       string   `json:"title"`
+	Cover       string   `json:"cover"`
+	Description string   `json:"description"`
+	CreatedAt   string   `json:"createdAt"`
+	UpdatedAt   string   `json:"updatedAt"`
+	TagNames    []string `json:"tagNames"`
+	TagIds      []int    `json:"tagIds"`
 }
 
 type ArchiveItem struct {
-	Year            string            `json:"year"`
-	MiniArticleList []MiniArticleItem `json:"articleList"`
+	Year        string        `json:"year"`
+	ArticleList []ArticleItem `json:"articleList"`
 }
 
-type MiniArticleItem struct {
-	DateTime string `json:"dateTime"`
-	Title    string `json:"title"`
-}
-
-// GetArticleDetail
 type GetArticleDetail struct {
-	model.Article
+	ArticleItem
 	Avatar     string   `json:"avatar"`
 	AuthorName string   `json:"authorName"`
 	TagNames   []string `json:"tagNames"`
 }
 
-// GetArticleList
 type GetArticleList struct {
 	commonresp.PageResponse
 	ArticleList []ArticleItem `json:"articleList"`
@@ -48,7 +38,6 @@ type GetArticleListByTag struct {
 	ArticleList []ArticleItem `json:"articleList"`
 }
 
-// GetArchiveList
 type GetArchiveList struct {
 	ArchiveList []ArchiveItem `json:"archiveList"`
 }
