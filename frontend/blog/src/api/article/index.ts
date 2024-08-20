@@ -14,7 +14,7 @@ enum API {
     ARTICLE_DETAIL_URL = "/article/getArticleDetail", // 文章内容接口
     ARTICLE_LIST_URL = "/article/getArticleList", // 文章列表接口
     ARCHIVE_LIST_URL = "/article/getArchiveList", // 归档文章列表接口
-    ARTICLE_LIST_BY_TAGURL = "/article/getArticleListByTag", // 查询标签下的文章
+    ARTICLE_LIST_BY_TAG_URL = "/article/getArticleListByTag", // 查询标签下的文章
 }
 
 export const getArticleDetailAPI = (
@@ -26,15 +26,15 @@ export const getArticleDetailAPI = (
 export const getArticleListAPI = (
     data: getArticleListReq,
 ): Promise<CustomSuccessData<getArticleListResp>> => {
-    return http.post(API.ARTICLE_LIST_URL, data);
+    return http.post<getArticleListResp>(API.ARTICLE_LIST_URL, data);
 };
 
 export const getArticleListByTagAPI = (
     data: getArticleListByTagReq,
 ): Promise<CustomSuccessData<getArticleListByTagResp>> => {
-    return http.post(API.ARTICLE_LIST_URL, data);
+    return http.post<getArticleListByTagResp>(API.ARTICLE_LIST_BY_TAG_URL, data);
 };
 
 export const getArchiveListAPI = (): Promise<CustomSuccessData<getArchiveListResp>> => {
-    return http.get(API.ARCHIVE_LIST_URL);
+    return http.get<getArchiveListResp>(API.ARCHIVE_LIST_URL);
 };

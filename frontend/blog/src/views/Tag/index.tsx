@@ -19,6 +19,8 @@ const TagItem: React.FC<TagItemProps> = ({ id, name, count, backgroundColor }) =
     const handleClickTag = (name: string) => {
         const data = {
             id: id,
+            name: name,
+            backgroundColor: backgroundColor,
         };
         navigate(`/tag/${name}`, { state: data });
     };

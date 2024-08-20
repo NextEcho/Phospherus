@@ -70,5 +70,5 @@ export interface getArticleListByTagResp {
     pageNum: number;
     pageSize: number;
     total: number;
-    articleList: archiveItem[];
+    articleList: articleItem[];
 }
