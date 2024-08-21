@@ -2,9 +2,9 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-cmd = "go build -o ./tmp/main ."
-bin = "tmp/main"
-full_bin = "APP_ENV=dev APP_USER=air ./tmp/main"
+cmd = "go build -o ./tmp/phospherus ."
+bin = "tmp/phospherus"
+full_bin = "APP_ENV=dev APP_USER=air ./tmp/phospherus"
 include_ext = ["go", "tpl", "tmpl", "html"]
 exclude_dir = ["assets", "tmp", "vendor", "frontend/node_modules"]
 include_dir = []

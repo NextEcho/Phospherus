@@ -102,7 +102,7 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 		return
 	}
 
-	if req.Title == "" || req.Content == "" || req.Cover == "" {
+	if req.Title == "" || req.Content == "" {
 		global.LOGGER.Error("Title or Content or Cover cannot be empty", zap.Error(err))
 		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
