@@ -43,21 +43,15 @@ const About = () => {
                     <div className="detail basis-2/3 pr-20 text-base">
                         <p className="">
                             This is detail about blog owner, you can put discripition in this zone.
-                            This is detail about blog owner, you can put discripition in this zone.
-                            This is detail about blog owner, you can put discripition in this zone.
-                            This is detail about blog owner, you can put discripition in this zone.
-                            This is detail about blog owner, you can put discripition in this zone.
-                            This is detail about blog owner, you can put discripition in this zone.
-                            This is detail about blog owner, you can put discripition in this zone.
                         </p>
                     </div>
                     <div className="contact-resume basis-1/3">
                         <div className="contact">
                             📲 Contact me:
                             <ul>
-                                <li className="mx-2 mt-2 cursor-pointer">
+                                <li className="mx-2 mt-2">
                                     Mail:{" "}
-                                    <a className="hover:underline underline-offset-4 hover:text-indigo-400 decoration-indigo-400">
+                                    <a className="hover:underline underline-offset-4 hover:text-indigo-400 decoration-indigo-400 cursor-pointer">
                                         nextecho@outlook.com
                                     </a>
                                 </li>

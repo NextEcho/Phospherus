@@ -10,8 +10,8 @@ export default {
                 avatar: "url('@/assets/images/avatar.jpg')",
             },
             fontFamily: {
-                main: ["'NotoSansM Nerd Font', 'LXGW WenKai Screen'"],
-                code: ["'NotoSansM Nerd Font', 'Consolas'"],
+                main: ["'Monaspace Neon', 'LXGW WenKai Screen'"],
+                code: ["'Monaspace Neon', 'Consolas', 'monospace'"],
             },
         },
     },

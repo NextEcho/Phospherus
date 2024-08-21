@@ -1,11 +1,4 @@
-import { useEffect } from "react";
-
 const NavBar = () => {
-    useEffect(() => {
-        // 获取博主信息
-        console.log("get blog owner infomation")
-    }, []);
-
     const handleOpenBlog = () => {
         window.location.href = "http://127.0.0.1:10000";
     };
