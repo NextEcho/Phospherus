@@ -8,12 +8,11 @@ import { articleItem } from "@/api/article/types";
 
 interface ArticleItemProps {
     id: number;
-    order: number;
     title: string;
     time: string;
 }
 
-const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title, time }) => {
+const ArticleItem: React.FC<ArticleItemProps> = ({ id, title, time }) => {
     const navigate = useNavigate();
     const handleClick = (id: number, title: string) => {
         const data = {
@@ -26,13 +25,13 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, order, title, time }) => 
         <div className="article-item w-full py-2 my-2 flex justify-around items-center font-main">
             <a className="title text-2xl basis-2/3 text-slate-50 min-w-[512px] truncate">
                 <span
-                    className="hover:cursor-pointer"
+                    className="transition duration-75 hover:cursor-pointer hover:text-indigo-500"
                     onClick={(e) => {
                         e.preventDefault();
                         handleClick(id, title);
                     }}
                 >
-                    {order}.{title}
+                    {title}
                 </span>
             </a>
             <span className="time basis-1/3 text-slate-500 text-right min-w-28 font-code">
@@ -67,9 +66,8 @@ const Home = () => {
 
         return articles.map((item, idx) => {
             return (
-                <div key={idx}>
+                <div key={idx} className="w-full">
                     <ArticleItem
-                        order={idx + 1}
                         id={item.id}
                         title={item.title}
                         time={item.createdAt}

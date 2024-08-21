@@ -37,7 +37,7 @@ const NavBar: React.FC = () => {
                         <MenuItem title="Archive" to="/archive" />
                         <MenuItem title="Tag" to="/tag" />
                         <div
-                            className="console-entrance cursor-pointer ml-4"
+                            className="console-entrance cursor-pointer ml-4 transition duration-300 hover:scale-125 opacity-50 hover:opacity-100"
                             onClick={handleOpenConsole}
                         >
                             <a>
