@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import SideMenu from "./SideMenu";
@@ -7,14 +6,9 @@ import NavBar from "./NavBar";
 const { Header, Content, Footer, Sider } = Layout;
 
 const AppLayout: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(true);
     return (
         <Layout className="min-h-screen h-full bg-[#222943]">
-            <Sider
-                collapsed={collapsed}
-                onCollapse={(value) => setCollapsed(value)}
-                className="bg-[#272E48]"
-            >
+            <Sider collapsed style={{ backgroundColor: "#252F4A" }}>
                 <SideMenu />
             </Sider>
             <Layout>

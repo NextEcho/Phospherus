@@ -29,7 +29,7 @@ const router = createBrowserRouter([
                     { path: "user", element: withLoadingComponent(<User />) },
                     { path: "tag", element: withLoadingComponent(<Tag />) },
                     { path: "article", element: withLoadingComponent(<Article />) },
-                    { path: "edit-article", element: withLoadingComponent(<EditArticle />) },
+                    { path: "edit", element: withLoadingComponent(<EditArticle />) },
                 ],
             },
         ],
