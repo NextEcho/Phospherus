@@ -1,15 +1,10 @@
-import Card from "@/components/Card";
 
 const Home = () => {
-  return (
-    <>
-      <div className="home-page">
-        <div className="quick-access">
-          <Card />
+    return (
+        <div className="font-main">
+            <div className="home-page">There is no data...</div>
         </div>
-      </div>
-    </>
-  );
+    );
 };
 
 export default Home;
