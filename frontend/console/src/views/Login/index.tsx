@@ -18,7 +18,7 @@ const Login = () => {
         if (jsonResp.code === 0) {
             message.success("登录成功", 1);
             localStorage.setItem("token", jsonResp.data.token);
-            setInterval(() => {
+            setTimeout(() => {
                 navigate("/");
             }, 1000);
         } else {
