@@ -20,7 +20,6 @@ const SideMenu: React.FC = () => {
 
     const handleClickLogo = () => {
         navigationTo("/console/home");
-        window.location.reload();
     };
 
     return (

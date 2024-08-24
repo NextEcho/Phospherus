@@ -128,7 +128,7 @@ const Tag = () => {
                 <Space size="middle" onClick={() => handleDeleteTagItem(record.id)}>
                     <a
                         type="text"
-                        className="bg-indigo-500 px-2 py-1 rounded-md hover:bg-indigo-300"
+                        className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
                     >
                         Delete
                     </a>
@@ -139,7 +139,7 @@ const Tag = () => {
     ] as ColumnsType<tagItem>;
 
     return (
-        <div>
+        <div className="font-main">
             <button className="btn-green my-4" onClick={() => setOpen(true)}>
                 创建标签
             </button>

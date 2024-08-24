@@ -63,7 +63,7 @@ const EditArticle = () => {
     };
 
     return (
-        <div className="edit-article h-full text-slate-50">
+        <div className="edit h-full text-slate-50 font-main">
             <div>
                 <button className="btn-green my-4" onClick={() => handlePostArtcile(1)}>
                     发布文章

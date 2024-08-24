@@ -73,7 +73,7 @@ const Article = () => {
                 <Space size="middle" onClick={() => handleDeleteArticleItem(record.id)}>
                     <a
                         type="text"
-                        className="bg-indigo-500 px-2 py-1 rounded-md hover:bg-indigo-300"
+                        className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
                     >
                         Delete
                     </a>
@@ -106,11 +106,11 @@ const Article = () => {
 
     // navigatie to edit-article page
     const handleAddArticle = () => {
-        window.location.href = "/console/edit-article";
+        window.location.href = "/console/edit";
     };
 
     return (
-        <div>
+        <div className="font-main">
             <button className="btn-orange my-4">批量删除文章</button>
             <button className="btn-green my-4" onClick={handleAddArticle}>
                 创作文章
