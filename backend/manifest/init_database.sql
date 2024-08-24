@@ -2,13 +2,14 @@ use `phospherus`;
 
 -- table of user
 create table `user` (
-    `id` int not null auto_increment comment '用户ID',
-    `passport` varchar(64) not null comment '用户账户',
-    `nickname` varchar(64) not null comment '用户昵称',
-    `password` varchar(128) not null comment '用户密码',
-    `avatar` varchar(128) not null comment '用户头像',
-    `email` varchar(128) not null comment '用户邮箱',
+    `id` int not null auto_increment comment '博主ID',
+    `passport` varchar(64) not null comment '博主账户',
+    `nickname` varchar(64) not null comment '博主昵称',
+    `password` varchar(128) not null comment '博主密码',
+    `avatar` varchar(128) not null comment '博主头像',
+    `email` varchar(128) not null comment '博主邮箱',
     `github_url` varchar(128) not null comment '用户github地址',
+    `introduction` text not null comment '博主简介',
     primary key (`id`)
 );
 
