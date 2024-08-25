@@ -4,29 +4,31 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { articleItem } from "@/api/article/types";
 import { getArticleListByTagAPI } from "@/api/article";
+import { ConfigProvider, Pagination, theme } from "antd";
 
 // TagArticles 标签下的文章概览
 const TagArticles = () => {
-    const [articleList, setArticleList] = useState<articleItem[]>([]);
     const location = useLocation();
     const navigate = useNavigate();
     const { state } = location;
+    const [articleList, setArticleList] = useState<articleItem[]>([]);
+    const [pageNum, setPageNum] = useState(1);
+    const [total, setTotal] = useState(0);
+    const pageSize = 10;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const params = {
-                pageNum: 1,
-                pageSize: 10,
-                tagId: state.id as number,
-            };
-            const jsonResp = await getArticleListByTagAPI(params);
-            const articleListData = jsonResp.data;
-
-            setArticleList(articleListData.articleList);
+    const fetchData = async (current: number) => {
+        const params = {
+            pageNum: current,
+            pageSize: pageSize,
+            tagId: state.id as number,
         };
+        const jsonResp = await getArticleListByTagAPI(params);
+        console.log("data list is ", jsonResp.data.articleList);
+        const articleListData = jsonResp.data;
 
-        fetchData();
-    }, []);
+        setTotal(articleListData.total);
+        setArticleList(articleListData.articleList);
+    };
 
     const handleClick = (id: number, title: string) => {
         const data = {
@@ -59,6 +61,15 @@ const TagArticles = () => {
         });
     };
 
+    const handlePageChange = (current: number, _: number) => {
+        setPageNum(current);
+        fetchData(current);
+    };
+
+    useEffect(() => {
+        fetchData(pageNum);
+    }, []);
+
     return (
         <div className="archive-page flex flex-col min-h-screen">
             <div className="navigation">
@@ -74,6 +85,35 @@ const TagArticles = () => {
                     </div>
                 </div>
                 <div className="article-list mt-8">{articleListData()}</div>
+                {articleList.length !== 0 && (
+                    <div className="pagination mt-4">
+                        <ConfigProvider
+                            theme={{
+                                algorithm: theme.darkAlgorithm,
+                                token: {
+                                    colorPrimary: "#6366F1",
+                                },
+                                components: {
+                                    Pagination: {
+                                        itemActiveBg: "#1A1833",
+                                        itemInputBg: "#5366f1",
+                                    },
+                                },
+                            }}
+                        >
+                            <Pagination
+                                showQuickJumper={false}
+                                showSizeChanger={false}
+                                current={pageNum}
+                                pageSize={pageSize}
+                                total={total}
+                                onChange={(current: number, size: number) =>
+                                    handlePageChange(current, size)
+                                }
+                            ></Pagination>
+                        </ConfigProvider>
+                    </div>
+                )}
             </div>
             <div className="bottom">
                 <Footer />

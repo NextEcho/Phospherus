@@ -12,7 +12,6 @@ const Archive = () => {
         const fetchData = async () => {
             const jsonResp = await getArchiveListAPI();
             const archiveListData = jsonResp.data;
-            console.log("data is ==>", archiveListData);
             setArchiveList(archiveListData.archiveList);
         };
 

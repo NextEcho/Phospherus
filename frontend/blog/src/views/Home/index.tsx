@@ -105,33 +105,35 @@ const Home = () => {
                 <div className="article-list flex flex-col items-center w-5/6 max-w-[80rem] min-w-[720px]">
                     {articleListData()}
                 </div>
-                <div className="pagination">
-                    <ConfigProvider
-                        theme={{
-                            algorithm: theme.darkAlgorithm,
-                            token: {
-                                colorPrimary: "#6366F1",
-                            },
-                            components: {
-                                Pagination: {
-                                    itemActiveBg: "#1A1833",
-                                    itemInputBg: "#5366f1",
+                {articles.length !== 0 && (
+                    <div className="pagination">
+                        <ConfigProvider
+                            theme={{
+                                algorithm: theme.darkAlgorithm,
+                                token: {
+                                    colorPrimary: "#6366F1",
                                 },
-                            },
-                        }}
-                    >
-                        <Pagination
-                            showQuickJumper={false}
-                            showSizeChanger={false}
-                            current={pageNum}
-                            pageSize={pageSize}
-                            total={total}
-                            onChange={(current: number, size: number) =>
-                                handlePageChange(current, size)
-                            }
-                        ></Pagination>
-                    </ConfigProvider>
-                </div>
+                                components: {
+                                    Pagination: {
+                                        itemActiveBg: "#1A1833",
+                                        itemInputBg: "#5366f1",
+                                    },
+                                },
+                            }}
+                        >
+                            <Pagination
+                                showQuickJumper={false}
+                                showSizeChanger={false}
+                                current={pageNum}
+                                pageSize={pageSize}
+                                total={total}
+                                onChange={(current: number, size: number) =>
+                                    handlePageChange(current, size)
+                                }
+                            ></Pagination>
+                        </ConfigProvider>
+                    </div>
+                )}
             </div>
             <div className="bottom">
                 <Footer />
