@@ -8,6 +8,6 @@ const App = () => {
             fallbackElement={<p>Performing initial data load</p>}
         ></RouterProvider>
     );
-}
+};
 
 export default App;

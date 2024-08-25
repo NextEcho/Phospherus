@@ -1,6 +1,6 @@
 import { userLoginAPI } from "@/api/auth";
 import { message } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -8,21 +8,32 @@ const Login = () => {
     const [passport, setPassport] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        if (localStorage.getItem("showInvalidTokenMsg") === "true") {
+            message.warning("登录状态失效", 1);
+            localStorage.removeItem("showInvalidTokenMsg");
+        }
+    }, []);
+
     const handleLogin = async () => {
-        if (passport == "" || password == "") {
+        if (passport === "" || password === "") {
             message.error("用户名和密码不能为空", 1);
             return;
         }
 
-        const jsonResp = await userLoginAPI({ passport: passport, password: password });
-        if (jsonResp.code === 0) {
-            message.success("登录成功", 1);
-            localStorage.setItem("token", jsonResp.data.token);
-            setTimeout(() => {
-                navigate("/");
-            }, 1000);
-        } else {
-            message.error("用户名或密码错误", 1);
+        try {
+            const jsonResp = await userLoginAPI({ passport: passport, password: password });
+            if (jsonResp.code === 0) {
+                message.success("登录成功", 1);
+                localStorage.setItem("token", jsonResp.data.token);
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            } else {
+                message.error("用户名或密码错误", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
         }
     };
 

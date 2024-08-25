@@ -53,15 +53,6 @@ const EditArticle = () => {
         sendData();
     };
 
-    const showProps = () => {
-        console.log("title: ", title);
-        console.log("cover: ", cover);
-        console.log("mdContent: ", mdContent);
-        console.log("visible: ", visible);
-        console.log("selectedTags: ", selectedTags);
-        console.log("tags: ", tags);
-    };
-
     return (
         <div className="edit h-full text-slate-50 font-main">
             <div>
@@ -71,9 +62,7 @@ const EditArticle = () => {
                 <button className="btn-orange my-4" onClick={() => handlePostArtcile(0)}>
                     保存文章
                 </button>
-                <button className="btn-violet my-4" onClick={showProps}>
-                    上传本地文件
-                </button>
+                <button className="btn-violet my-4">上传本地文件</button>
             </div>
             <Card className="bg-[#272E48] border-none font-main">
                 <div className="post-article">

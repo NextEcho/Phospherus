@@ -1,6 +1,6 @@
 import { getTagListAPI } from "@/api/tag";
 import { tagItem } from "@/api/tag/types";
-import { ConfigProvider, message, Select, SelectProps, theme } from "antd";
+import { ConfigProvider, Select, SelectProps, theme } from "antd";
 import { useEffect } from "react";
 
 // TagSelect 选择标签组件
@@ -34,16 +34,20 @@ const TagSelect: React.FC<TagSelectProps> = ({ selectedTags, setSelectedTags, ta
                 pageNum: 1,
                 pageSize: 200,
             };
-            const jsonResp = await getTagListAPI(params);
-            if (jsonResp.code === 0) {
-                const handledTags = jsonResp.data.tagList.map((tag: tagItem) => ({
-                    ...tag,
-                    value: tag.id,
-                    label: tag.name,
-                }));
-                setTags(handledTags);
-            } else {
-                message.error("网络请求失败", 1);
+            try {
+                const jsonResp = await getTagListAPI(params);
+                if (jsonResp.code === 0) {
+                    const handledTags = jsonResp.data.tagList.map((tag: tagItem) => ({
+                        ...tag,
+                        value: tag.id,
+                        label: tag.name,
+                    }));
+                    setTags(handledTags);
+                } else {
+                    console.log("获取 tagList 失败", jsonResp);
+                }
+            } catch (err) {
+                console.log("捕获错误 error: ", err);
             }
         };
 

@@ -1,26 +1,19 @@
 import { message } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const AuthRoute = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-    const navigateTo = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem("token") || "";
         if (!token) {
-            message.warning("登录状态过期", 1);
-            navigateTo("/auth/login", { replace: true });
-        } else {
-            setIsAuthenticated(true);
+            message.warning("请先登录", 1);
+            navigate("/auth/login", { replace: true });
         }
-    }, []);
+    }, [navigate]);
 
-    if (isAuthenticated === null) {
-        return <div>Loading...</div>;
-    }
-
-    return isAuthenticated ? <Outlet /> : null;
+    return <Outlet />;
 };
 
 export default AuthRoute;

@@ -71,10 +71,7 @@ const Article = () => {
             key: "action",
             render: (_, record) => (
                 <Space size="middle" onClick={() => handleDeleteArticleItem(record.id)}>
-                    <a
-                        type="text"
-                        className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
-                    >
+                    <a type="text" className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300">
                         Delete
                     </a>
                 </Space>
@@ -89,12 +86,16 @@ const Article = () => {
                 pageNum: 1,
                 pageSize: 10,
             };
-            const jsonResp = await getArticleListAPI(params);
+            try {
+                const jsonResp = await getArticleListAPI(params);
 
-            if (jsonResp.code === 0) {
-                setArticleList(jsonResp.data.articleList);
-            } else {
-                message.error("查询文章列表失败", 1);
+                if (jsonResp.code === 0) {
+                    setArticleList(jsonResp.data.articleList);
+                } else {
+                    message.error("查询文章列表失败", 1);
+                }
+            } catch (err) {
+                console.log("捕获 error:", err);
             }
         };
 

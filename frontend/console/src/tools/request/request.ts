@@ -4,6 +4,10 @@ import { message } from "antd";
 // token 白名单，不需要 token 的请求路径
 const tokenWhiteList = ["/api/console/login"];
 
+interface ErrorResponse {
+    code?: number;
+}
+
 const request = axios.create({
     baseURL: "http://localhost:8989/api/console",
     timeout: 10000,
@@ -31,29 +35,24 @@ request.interceptors.response.use(
     (response: AxiosResponse) => {
         const { status, data } = response;
         if (status === 200) {
+            // if token is expired, log out
+            if (data.code === 1000) {
+                localStorage.removeItem("token");
+                localStorage.setItem("showInvalidTokenMsg", "true");
+                window.location.href = "/auth/login";
+            }
             return data;
         } else {
             return Promise.reject(data);
         }
     },
 
-    (error: AxiosError) => {
-        const { response } = error;
+    (error: AxiosError<ErrorResponse>) => {
         if (JSON.stringify(error).includes("Network Error")) {
-            message.error("网络超时", 3);
+            message.error("网络超时", 1);
         }
 
-        if (response) {
-            if (response.status === 400) {
-                message.error("400 error");
-            } else if (response.status === 401) {
-                message.error("401 error");
-            } else {
-                message.error("other error");
-            }
-        }
-
-        return Promise.reject(new Error(error.message));
+        return Promise.reject(error);
     },
 );
 
