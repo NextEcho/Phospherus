@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
+import { ConfigProvider, message, Pagination, theme } from "antd";
 
 interface ArticleItemProps {
     id: number;
@@ -43,17 +44,34 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, title, time }) => {
 
 const Home = () => {
     const [articles, setArticles] = useState<articleItem[]>([] as articleItem[]);
+    const [pageNum, setPageNum] = useState(1);
+    const [total, setTotal] = useState(0);
+    const pageSize = 10; // pageSize is fixed at 10
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const jsonResp = await getArticleListAPI({ pageNum: 1, pageSize: 10 });
-            const articleListData = jsonResp.data;
-
-            setArticles(articleListData.articleList);
+    const fetchArticleListData = async (current: number) => {
+        const params = {
+            pageNum: current,
+            pageSize: pageSize,
         };
 
-        fetchData();
-    }, []);
+        try {
+            const jsonResp = await getArticleListAPI(params);
+            if (jsonResp.code === 0) {
+                const articleListData = jsonResp.data;
+                setArticles(articleListData.articleList);
+                setTotal(articleListData.total);
+            } else {
+                message.error("获取文章列表失败");
+            }
+        } catch (err) {
+            console.log("捕获异常 error: ", err);
+        }
+    };
+
+    const handlePageChange = (current: number, _: number) => {
+        setPageNum(current);
+        fetchArticleListData(current);
+    };
 
     const articleListData = () => {
         if (articles.length === 0) {
@@ -67,16 +85,16 @@ const Home = () => {
         return articles.map((item, idx) => {
             return (
                 <div key={idx} className="w-full">
-                    <ArticleItem
-                        id={item.id}
-                        title={item.title}
-                        time={item.createdAt}
-                    />
+                    <ArticleItem id={item.id} title={item.title} time={item.createdAt} />
                     <Divider />
                 </div>
             );
         });
     };
+
+    useEffect(() => {
+        fetchArticleListData(pageNum);
+    }, []);
 
     return (
         <div className="home-page flex flex-col min-h-screen">
@@ -86,6 +104,33 @@ const Home = () => {
             <div className="content bg-main w-full h-full flex flex-1 flex-col items-center px-96 pt-24 pb-8">
                 <div className="article-list flex flex-col items-center w-5/6 max-w-[80rem] min-w-[720px]">
                     {articleListData()}
+                </div>
+                <div className="pagination">
+                    <ConfigProvider
+                        theme={{
+                            algorithm: theme.darkAlgorithm,
+                            token: {
+                                colorPrimary: "#6366F1",
+                            },
+                            components: {
+                                Pagination: {
+                                    itemActiveBg: "#1A1833",
+                                    itemInputBg: "#5366f1",
+                                },
+                            },
+                        }}
+                    >
+                        <Pagination
+                            showQuickJumper={false}
+                            showSizeChanger={false}
+                            current={pageNum}
+                            pageSize={pageSize}
+                            total={total}
+                            onChange={(current: number, size: number) =>
+                                handlePageChange(current, size)
+                            }
+                        ></Pagination>
+                    </ConfigProvider>
                 </div>
             </div>
             <div className="bottom">

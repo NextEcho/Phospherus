@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
     };
 
     return (
-        <>
+        <div>
             <div className="flex flex-row justify-center items-center w-full h-16 px-10 z-50 bg-main">
                 <div className="flex flex-row justify-between w-full bg-transparent text-black leading-8 max-w-5xl">
                     <div
@@ -62,7 +62,7 @@ const NavBar: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

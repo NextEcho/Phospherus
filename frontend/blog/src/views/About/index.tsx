@@ -5,7 +5,9 @@ import Button from "@/components/Button";
 import Divider from "@/components/Divider";
 
 const About = () => {
-    // download button handle:
+
+    // useEffect 加载博主个人信息
+
     const handleDownload = () => {
         const link = document.createElement("a");
         link.href = "https://typora-note-storage.oss-cn-shenzhen.aliyuncs.com/resume/Resume.pdf";

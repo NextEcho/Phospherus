@@ -35,6 +35,30 @@ const TagArticles = () => {
         navigate(`/article/${title}`, { state: data });
     };
 
+    const articleListData = () => {
+        if (articleList.length === 0) {
+            return (
+                <div className="font-main text-slate-500 text-xl">
+                    <span>这个标签下还没有文章发布哦😥</span>
+                </div>
+            );
+        }
+
+        return articleList.map((item, index) => {
+            return (
+                <div key={index}>
+                    <div
+                        className="article flex text-lg transition-all duration-200 px-4 py-4 w-full rounded-md hover:shadow-lg hover:shadow-gray-950/50 cursor-pointer"
+                        onClick={() => handleClick(item.id, item.title)}
+                    >
+                        <div className="article-time mr-10  font-code">{item.createdAt}</div>
+                        <div className="article-title font-main">{item.title}</div>
+                    </div>
+                </div>
+            );
+        });
+    };
+
     return (
         <div className="archive-page flex flex-col min-h-screen">
             <div className="navigation">
@@ -49,23 +73,7 @@ const TagArticles = () => {
                         {state.name}
                     </div>
                 </div>
-                <div className="article-list mt-8">
-                    {articleList.map((item, index) => {
-                        return (
-                            <div key={index}>
-                                <div
-                                    className="article flex text-lg transition-all duration-200 px-4 py-4 w-full rounded-md hover:shadow-lg hover:shadow-gray-950/50 cursor-pointer"
-                                    onClick={() => handleClick(item.id, item.title)}
-                                >
-                                    <div className="article-time mr-10  font-code">
-                                        {item.createdAt}
-                                    </div>
-                                    <div className="article-title font-main">{item.title}</div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                <div className="article-list mt-8">{articleListData()}</div>
             </div>
             <div className="bottom">
                 <Footer />
