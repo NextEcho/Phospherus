@@ -22,7 +22,7 @@ func CreateToken(passport string) (string, error) {
 			IssuedAt:  jwt.NewNumericDate(time.Now()),                    //签发时间
 			NotBefore: jwt.NewNumericDate(time.Now()),                    //生效时间
 			Issuer:    passport,                                          //签发人
-			Subject:   "pho",                                             //主题
+			Subject:   "phosphorus",                                      //主题
 			ID:        "1",                                               //JWT ID用于标识该JWT
 			Audience:  []string{passport},                                //用户
 		},

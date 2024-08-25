@@ -142,12 +142,25 @@ func (*ArticleService) GetArticleListByTag(in *input.GetArticleListByTag) (out *
 	}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
-		// 根据 tagId 查询文章列表
-		articleList := []model.Article{}
+		// 查询文章总数 Total
+		var total int64
 		err := tx.Table("article").
 			Select("article.id, article.author_id, article.title, article.cover, article.created_at").
 			Joins("left join article_tag on article.id = article_tag.article_id").
+			Where("article_tag.tag_id = ?", in.TagId).Count(&total).Error
+		if err != nil {
+			return err
+		}
+		out.Total = total
+
+		// 根据 tagId 查询文章列表
+		articleList := []model.Article{}
+		err = tx.Table("article").
+			Select("article.id, article.author_id, article.title, article.cover, article.created_at").
+			Joins("left join article_tag on article.id = article_tag.article_id").
 			Where("article_tag.tag_id = ?", in.TagId).
+			Offset(in.PageSize * (in.PageNum - 1)).
+			Limit(in.PageSize).
 			Find(&articleList).Error
 		if err != nil {
 			return err
@@ -156,7 +169,6 @@ func (*ArticleService) GetArticleListByTag(in *input.GetArticleListByTag) (out *
 			return nil
 		}
 
-		out.Total = int64(len(articleList))
 		err = copier.Copy(&out.ArticleList, articleList)
 		if err != nil {
 			return err

@@ -1,9 +1,8 @@
 package biz
 
-const MsgInvalidToken = "无效的Token"
-const MsgTokenExpired = "Token已过期"
+const MsgTokenInvalid = "无效的Token"
 const MsgLoginSuccess = "登录成功"
-const MsgAccountMismatchPassword = "登陆失败, 账户名不存在或者密码错误"
+const MsgAccountMismatchPassword = "登陆失败, 账户名或者密码错误"
 const MsgUploadFileSuccess = "上传文件成功"
 
 // User Module
