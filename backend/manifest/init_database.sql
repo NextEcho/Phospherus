@@ -8,7 +8,7 @@ create table `user` (
     `password` varchar(128) not null comment '博主密码',
     `avatar` varchar(128) not null comment '博主头像',
     `email` varchar(128) not null comment '博主邮箱',
-    `github_url` varchar(128) not null comment '用户github地址',
+    `github` varchar(128) not null comment '用户github地址',
     `introduction` text not null comment '博主简介',
     primary key (`id`)
 );
