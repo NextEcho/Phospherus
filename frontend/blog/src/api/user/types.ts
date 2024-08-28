@@ -19,4 +19,5 @@ export interface getUserInfoResp {
     email: string;
     github: string;
     introduction: string;
+    resume: string;
 }

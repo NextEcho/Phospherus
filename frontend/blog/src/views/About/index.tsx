@@ -9,14 +9,16 @@ import { message } from "antd";
 const About = () => {
     const bloggerId = 1;
     const [nickname, setNickname] = useState("");
-    const [signature, setSignature] = useState("");
-    const [introduction, setIntroduction] = useState("");
     const [avatar, setAvatar] = useState("");
+    const [signature, setSignature] = useState("");
     const [email, setEmail] = useState("");
+    const [introduction, setIntroduction] = useState("");
+    const [resume, setResume] = useState("");
 
     const getUserInfo = async () => {
         try {
             const jsonResp = await getUserInfoAPI({ id: bloggerId });
+            console.log("resume ", jsonResp);
             if (jsonResp.code === 0) {
                 const userInfoData = jsonResp.data;
                 setNickname(userInfoData.nickname);
@@ -24,6 +26,7 @@ const About = () => {
                 setIntroduction(userInfoData.introduction);
                 setEmail(userInfoData.email);
                 setAvatar(userInfoData.avatar);
+                setResume(userInfoData.resume);
             } else {
                 message.error("获取博主信息失败", 1);
             }
@@ -39,19 +42,19 @@ const About = () => {
 
     const handleDownload = () => {
         const link = document.createElement("a");
-        link.href = "https://typora-note-storage.oss-cn-shenzhen.aliyuncs.com/resume/Resume.pdf";
+        link.href = resume;
         link.download = "Resume.pdf";
         link.click();
     };
 
     return (
         <div className="about-page flex flex-col min-h-screen">
-            <div className="navigation">
+            <div className="navigation sticky top-0">
                 <NavBar />
             </div>
             <div className="content bg-main w-full h-full flex-col flex-1 items-center text-slate-200">
                 <div className="upper flex flex-row flex-1 justify-around px-20 py-10 mx-24 my-10 h-64">
-                    <div className="owner-outline flex">
+                    <div className="owner-profile flex">
                         <div className="avatar">
                             <img
                                 src={avatar}
@@ -59,14 +62,14 @@ const About = () => {
                                 className="w-48 h-48 object-cover rounded-full"
                             />
                         </div>
-                        <div className="info-text ml-10 flex-col font-main">
-                            <div className="name text-3xl">{nickname}</div>
+                        <div className="name-info ml-10 flex-col font-main">
+                            <div className="nickname text-3xl">{nickname}</div>
                             <div className="signature pt-6 text-xl">{signature}</div>
                         </div>
                     </div>
                     <div className="owner-tech-stack flex flex-col items-center justify-around">
                         <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vue,go" />
-                        <img src="https://skillicons.dev/icons?i=rust,solidity,mongodb,redis,docker,kafka" />
+                        <img src="https://skillicons.dev/icons?i=rust,solidity,mysql,mongodb,redis,docker,kafka" />
                         <img src="https://skillicons.dev/icons?i=tailwind,git,neovim,vscode,github" />
                     </div>
                 </div>

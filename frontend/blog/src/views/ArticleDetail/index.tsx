@@ -41,7 +41,7 @@ const ArticleDetail = () => {
     return (
         <>
             <div className="article-detail-page flex flex-col min-h-screen">
-                <div className="navigation">
+                <div className="navigation sticky top-0">
                     <NavBar />
                 </div>
                 <div className="content bg-main w-full h-full flex-col flex-1 items-center text-slate-200">

@@ -20,7 +20,7 @@ const Archive = () => {
 
     return (
         <div className="archive-page flex flex-col min-h-screen">
-            <div className="navigation">
+            <div className="navigation sticky top-0">
                 <NavBar />
             </div>
             <div className="content bg-main w-full h-full flex flex-1 flex-col px-96 pt-24 pb-8">

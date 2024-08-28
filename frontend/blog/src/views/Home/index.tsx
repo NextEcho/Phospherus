@@ -98,7 +98,7 @@ const Home = () => {
 
     return (
         <div className="home-page flex flex-col min-h-screen">
-            <div className="navigation">
+            <div className="navigation sticky top-0">
                 <NavBar />
             </div>
             <div className="content bg-main w-full h-full flex flex-1 flex-col items-center px-96 pt-24 pb-8">
