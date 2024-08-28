@@ -34,7 +34,16 @@ func (*UserApi) GetUserInfo(ctx *gin.Context) {
 	}
 
 	resp := response.GetUserInfo{
-		UserInfo: out.UserItem,
+		Id:           out.Id,
+		Passport:     out.Passport,
+		Nickname:     out.Nickname,
+		Avatar:       out.Avatar,
+		Signature:    out.Signature,
+		Email:        out.Email,
+		Github:       out.Github,
+		Introduction: out.Introduction,
+		Resume:       out.Resume,
 	}
+
 	commonresp.OkWithDetail(ctx, biz.MsgGetUserInfoSuccess, resp)
 }

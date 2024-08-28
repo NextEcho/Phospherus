@@ -7,9 +7,11 @@ create table `user` (
     `nickname` varchar(64) not null comment '博主昵称',
     `password` varchar(128) not null comment '博主密码',
     `avatar` varchar(128) not null comment '博主头像',
+    `signature` varchar(128) not null comment '博主签名',
     `email` varchar(128) not null comment '博主邮箱',
     `github` varchar(128) not null comment '用户github地址',
-    `introduction` text not null comment '博主简介',
+    `introduction` text not null comment '博主介绍',
+    `resume` varchar(128) not null comment '博主简历',
     primary key (`id`)
 );
 

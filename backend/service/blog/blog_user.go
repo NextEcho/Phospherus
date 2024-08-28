@@ -5,8 +5,6 @@ import (
 	"phospherus/model"
 	"phospherus/model/blog/input"
 	"phospherus/model/blog/output"
-
-	"github.com/jinzhu/copier"
 )
 
 type UserService struct{}
@@ -21,7 +19,15 @@ func (*UserService) GetUserInfo(in *input.GetUserInfo) (out *output.GetUserInfo,
 		return
 	}
 
-	copier.Copy(&out.UserItem, user)
+	out.Id = user.Id
+	out.Passport = user.Passport
+	out.Nickname = user.Nickname
+	out.Avatar = user.Avatar
+	out.Signature = user.Signature
+	out.Email = user.Email
+	out.Github = user.Github
+	out.Introduction = user.Introduction
+	out.Resume = user.Resume
 
 	return
 }
