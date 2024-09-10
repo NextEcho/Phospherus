@@ -1,4 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import IconItem from "./IconItem";
 
 const SideMenu: React.FC = () => {
     const menuLinks = [
@@ -7,17 +8,10 @@ const SideMenu: React.FC = () => {
         "/console/tag",
         "/console/article",
         "/console/edit",
+        "/console/attachment",
     ];
 
-    // 菜单栏默认高亮，由路由决定
-    const currPath = useLocation();
-
-    // 菜单项点击事件
     const navigationTo = useNavigate();
-    const handleMenuClick = (path: string) => {
-        navigationTo(path);
-    };
-
     const handleClickLogo = () => {
         navigationTo("/console/home");
     };
@@ -31,12 +25,7 @@ const SideMenu: React.FC = () => {
                 <div className="w-8 h-8 bg-logo bg-cover"></div>
             </div>
             <div className="menu-zone flex flex-col">
-                <div
-                    className={`dashboard transition duration-300 flex items-center pl-5 py-2 mb-4
-                              hover:bg-[#1D2339] hover:cursor-pointer 
-                              ${currPath.pathname === menuLinks[0] ? "bg-[#212842]" : ""}`}
-                    onClick={() => handleMenuClick(menuLinks[0])}
-                >
+                <IconItem path={menuLinks[0]}>
                     <svg
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -56,13 +45,8 @@ const SideMenu: React.FC = () => {
                             p-id="6545"
                         ></path>
                     </svg>
-                </div>
-                <div
-                    className={`user transition duration-300 flex items-center pl-5 py-2 mb-4
-                              hover:bg-[#1D2339] hover:cursor-pointer 
-                              ${currPath.pathname === menuLinks[1] ? "bg-[#212842]" : ""}`}
-                    onClick={() => handleMenuClick(menuLinks[1])}
-                >
+                </IconItem>
+                <IconItem path={menuLinks[1]}>
                     <svg
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -77,13 +61,8 @@ const SideMenu: React.FC = () => {
                             fill="#384bb9"
                         ></path>
                     </svg>
-                </div>
-                <div
-                    className={`tag transition duration-300 flex items-center pl-5 py-2 mb-4
-                              hover:bg-[#1D2339] hover:cursor-pointer 
-                              ${currPath.pathname === menuLinks[2] ? "bg-[#212842]" : ""}`}
-                    onClick={() => handleMenuClick(menuLinks[2])}
-                >
+                </IconItem>
+                <IconItem path={menuLinks[2]}>
                     <svg
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -98,13 +77,8 @@ const SideMenu: React.FC = () => {
                             fill="#384bb9"
                         ></path>
                     </svg>
-                </div>
-                <div
-                    className={`article transition duration-300 flex items-center pl-5 py-2 mb-4
-                              hover:bg-[#1D2339] hover:cursor-pointer 
-                              ${currPath.pathname === menuLinks[3] ? "bg-[#212842]" : ""}`}
-                    onClick={() => handleMenuClick(menuLinks[3])}
-                >
+                </IconItem>
+                <IconItem path={menuLinks[3]}>
                     <svg
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -119,13 +93,8 @@ const SideMenu: React.FC = () => {
                             fill="#384bb9"
                         ></path>
                     </svg>
-                </div>
-                <div
-                    className={`edit transition duration-300 flex items-center pl-5 py-2 mb-4 w-full
-                              hover:bg-[#1D2339] hover:cursor-pointer 
-                              ${currPath.pathname === menuLinks[4] ? "bg-[#212842]" : ""}`}
-                    onClick={() => handleMenuClick(menuLinks[4])}
-                >
+                </IconItem>
+                <IconItem path={menuLinks[4]}>
                     <svg
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -145,7 +114,28 @@ const SideMenu: React.FC = () => {
                             fill="#384bb9"
                         ></path>
                     </svg>
-                </div>
+                </IconItem>
+                <IconItem path={menuLinks[5]}>
+                    <svg
+                        viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        p-id="7852"
+                        width="32"
+                        height="32"
+                    >
+                        <path
+                            d="M649.685333 608.426667H374.314667c-26.581333 0-46.933333-20.565333-46.933334-47.445334 0-26.88 20.352-47.402667 46.933334-47.402666h275.370666c26.581333 0 46.933333 20.522667 46.933334 47.402666s-20.352 47.402667-46.933334 47.402667z"
+                            fill="#384BB9"
+                            p-id="7853"
+                        ></path>
+                        <path
+                            d="M934.4 896H89.6c-26.581333 0-46.933333-20.565333-46.933333-47.402667V210.176C42.666667 140.629333 97.408 85.333333 166.272 85.333333h203.349333c37.546667 0 73.557333 17.365333 97.024 48.981334L535.466667 224.426667h323.84c67.285333 0 123.605333 55.338667 123.605333 124.842666v500.906667A48.384 48.384 0 0 1 934.4 896zM136.533333 801.194667h750.933334V347.648a29.866667 29.866667 0 0 0-29.738667-30.037333H512c-14.08 0-28.16-6.314667-37.546667-18.944L391.552 189.610667c-6.272-4.693333-14.08-9.472-23.466667-9.472H164.693333c-15.658667 0-28.16 12.672-28.16 30.037333v591.018667z"
+                            fill="#384BB9"
+                            p-id="7854"
+                        ></path>
+                    </svg>
+                </IconItem>
             </div>
         </div>
     );

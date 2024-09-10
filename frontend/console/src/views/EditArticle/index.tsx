@@ -29,7 +29,7 @@ const EditArticle = () => {
             authorId: 1,
             title: title,
             content: mdContent,
-            cover: cover,
+            cover: cover ? cover : "deafult.jpg",
             isVisible: visible ? 1 : 0,
             tagIds: selectedTags,
             status: status,

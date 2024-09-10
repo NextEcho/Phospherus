@@ -28,12 +28,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onSetCover }) => {
         accept: "image/*",
 
         onChange(info) {
-            console.log("image info is", info);
             const { status } = info.file;
             if (status === "done") {
-                message.success(`${info.file.name} 封面上传成功`);
+                message.success(`封面上传成功`);
             } else if (status === "error") {
-                message.error(`${info.file.name} 封面上传失败`);
+                message.error(`封面上传失败`);
             }
         },
     };

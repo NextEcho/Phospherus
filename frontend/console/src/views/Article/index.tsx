@@ -2,8 +2,8 @@ import { deleteArticleAPI, getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
 import { Table, Card, Tag, message, ConfigProvider, theme, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { TableRowSelection } from "antd/es/table/interface";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Article = () => {
     const [articleList, setArticleList] = useState<articleItem[]>([]);
@@ -102,18 +102,15 @@ const Article = () => {
         fetchData();
     }, []);
 
-    // TODO: batchDelete
-    const rowSelection: TableRowSelection<articleItem> = {};
-
-    // navigatie to edit-article page
-    const handleAddArticle = () => {
-        window.location.href = "/console/edit";
+    const navigate = useNavigate();
+    const handleToAddArticle = () => {
+        navigate("/console/edit");
     };
 
     return (
         <div className="font-main">
             <button className="btn-orange my-4">批量删除文章</button>
-            <button className="btn-green my-4" onClick={handleAddArticle}>
+            <button className="btn-green my-4" onClick={handleToAddArticle}>
                 创作文章
             </button>
             <Card className="bg-[#272E48] border-none">
@@ -133,7 +130,6 @@ const Article = () => {
                         dataSource={articleList}
                         rowKey="id"
                         className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
-                        rowSelection={rowSelection}
                     />
                 </ConfigProvider>
             </Card>
