@@ -40,7 +40,11 @@ const Article = () => {
             key: "cover",
             render: (cover: string) => (
                 <div className="flex justify-center">
-                    <img src={cover} width={100} height={70} className="bg-cover bg-center" />
+                    {cover === "" ? (
+                        "暂无封面"
+                    ) : (
+                        <img src={cover} width={100} height={70} className="bg-cover bg-center" />
+                    )}
                 </div>
             ),
             align: "center",
@@ -109,7 +113,6 @@ const Article = () => {
 
     return (
         <div className="font-main">
-            <button className="btn-orange my-4">批量删除文章</button>
             <button className="btn-green my-4" onClick={handleToAddArticle}>
                 创作文章
             </button>

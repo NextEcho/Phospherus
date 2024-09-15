@@ -125,10 +125,11 @@ const Tag = () => {
             title: "Action",
             key: "action",
             render: (_, record) => (
-                <Space size="middle" onClick={() => handleDeleteTagItem(record.id)}>
+                <Space size="middle">
                     <a
                         type="text"
                         className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
+                        onClick={() => handleDeleteTagItem(record.id)}
                     >
                         Delete
                     </a>

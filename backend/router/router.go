@@ -31,6 +31,10 @@ func Router() *gin.Engine {
 	consoleRouteGroup.POST("login", console.UserApiInstance.Login)
 
 	consoleRouteGroup.Use(middleware.Auth()) // JWT 请求校验
+	consoleAuthRouteGroup := consoleRouteGroup.Group("auth")
+	{
+		consoleAuthRouteGroup.POST("validateToken", console.AuthApiInstance.ValidateToken)
+	}
 
 	consoleFileRouteGroup := consoleRouteGroup.Group("file")
 	{
