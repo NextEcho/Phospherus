@@ -1,7 +1,5 @@
 package pkg
 
-import "time"
-
 // GenDescription 根据文章内容生成文章描述
 // 后期可更换为调用 AI 接口，自动生成描述
 func GenDescription(content string) string {
@@ -9,8 +7,4 @@ func GenDescription(content string) string {
 		return content[:120]
 	}
 	return content
-}
-
-func GenTimestamp() string {
-	return time.Now().Format("20060102_150405")
 }

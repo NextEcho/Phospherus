@@ -14,9 +14,9 @@ import (
 	"go.uber.org/zap"
 )
 
-type FileApi struct{}
+type AttachmentApi struct{}
 
-func (*FileApi) Upload(ctx *gin.Context) {
+func (*AttachmentApi) UploadAttachment(ctx *gin.Context) {
 
 	file, header, err := ctx.Request.FormFile("file")
 	if err != nil {
@@ -37,13 +37,19 @@ func (*FileApi) Upload(ctx *gin.Context) {
 	url, err := oss.UploadFile(objectName, bytes.NewReader(fileContent))
 	if err != nil {
 		global.LOGGER.Error("oss.UploadFile Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrUploadFile.Error())
+		commonresp.FailWithMessage(ctx, biz.ErrUploadAttachment.Error())
 		return
 	}
 
-	resp := response.FileUpload{
+	resp := response.UploadAttachment{
 		Url: url,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgUploadFileSuccess, resp)
+	commonresp.OkWithDetail(ctx, biz.MsgUploadAttachmentSuccess, resp)
+}
+
+func (*AttachmentApi) GetAttachment(ctx *gin.Context) {
+}
+
+func (*AttachmentApi) DeleteAttachment(ctx *gin.Context) {
 }

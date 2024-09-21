@@ -35,12 +35,6 @@ func Router() *gin.Engine {
 	{
 		consoleAuthRouteGroup.POST("validateToken", console.AuthApiInstance.ValidateToken)
 	}
-
-	consoleFileRouteGroup := consoleRouteGroup.Group("file")
-	{
-		consoleFileRouteGroup.POST("upload", console.FileApiInstance.Upload)
-	}
-
 	consoleArticleRouteGroup := consoleRouteGroup.Group("article")
 	{
 		consoleArticleRouteGroup.POST("getArticleDetail", console.ArticleApiInstance.GetArticleDetail)
@@ -62,6 +56,12 @@ func Router() *gin.Engine {
 		consoleCategoryRouteGroup.POST("createCategory", console.CategoryApiInstance.CreateCategory)
 		consoleCategoryRouteGroup.POST("deleteCategory", console.CategoryApiInstance.DeleteCategory)
 		consoleCategoryRouteGroup.POST("updateCategory", console.CategoryApiInstance.UpdateCategory)
+	}
+	consoleAttachmentRouteGroup := consoleRouteGroup.Group("attachment")
+	{
+		consoleAttachmentRouteGroup.POST("uploadAttachment", console.AttachmentApiInstance.UploadAttachment)
+		consoleAttachmentRouteGroup.POST("deleteAttachment", console.AttachmentApiInstance.DeleteAttachment)
+		consoleAttachmentRouteGroup.POST("getAttachment", console.AttachmentApiInstance.GetAttachment)
 	}
 
 	//////////////

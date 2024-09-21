@@ -1,15 +1,16 @@
 package biz
 
+// Auth Module
+const MsgValidateTokenSuccess = "验证Token成功"
 const MsgTokenInvalid = "无效的Token"
 const MsgLoginSuccess = "登录成功"
 const MsgAccountMismatchPassword = "登陆失败, 账户名或者密码错误"
-const MsgUploadFileSuccess = "上传文件成功"
-
-// Auth Module
-const MsgValidateTokenSuccess = "验证Token成功"
 
 // User Module
 const MsgGetUserInfoSuccess = "获取用户信息成功"
+
+// Attachment Module
+const MsgUploadAttachmentSuccess = "上传附件成功"
 
 // Article Module
 const MsgGetArticleDetailSuccess = "获取文章详情成功"

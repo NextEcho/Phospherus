@@ -1,5 +1,5 @@
 package response
 
-type FileUpload struct {
+type UploadAttachment struct {
 	Url string `json:"url"`
 }
