@@ -1,7 +1,7 @@
 const Attachment = () => {
     return (
         <div>
-            <h1>Attachment</h1>
+            <h1>附件管理</h1>
         </div>
     );
 };

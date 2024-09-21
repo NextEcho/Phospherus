@@ -18,7 +18,6 @@ const About = () => {
     const getUserInfo = async () => {
         try {
             const jsonResp = await getUserInfoAPI({ id: bloggerId });
-            console.log("resume ", jsonResp);
             if (jsonResp.code === 0) {
                 const userInfoData = jsonResp.data;
                 setNickname(userInfoData.nickname);
