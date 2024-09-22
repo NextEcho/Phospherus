@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const NavBar = () => {
     const [nickname, setNickname] = useState("XernIsLoading");
-    const [career, setCareer] = useState("Web3 Developer");
+    const [career, setCareer] = useState("Software developer");
 
     useEffect(() => {
         const fetchUserData = async () => {};
