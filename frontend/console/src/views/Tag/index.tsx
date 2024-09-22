@@ -131,7 +131,13 @@ const Tag = () => {
                         className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
                         onClick={() => handleDeleteTagItem(record.id)}
                     >
-                        Delete
+                        删除
+                    </a>
+                    <a
+                        type="text"
+                        className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
+                    >
+                        修改
                     </a>
                 </Space>
             ),

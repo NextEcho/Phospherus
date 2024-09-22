@@ -5,7 +5,6 @@ import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 
 const User = () => {
-
     const [userList, setUserList] = useState<userItem[]>([]);
 
     const getUserList = async () => {
@@ -36,7 +35,12 @@ const User = () => {
             key: "avatar",
             render: (avatar: string) => (
                 <div className="flex justify-center">
-                    <img src={avatar} width={64} height={64} className="bg-cover bg-center rounded-full" />
+                    <img
+                        src={avatar}
+                        width={64}
+                        height={64}
+                        className="bg-cover bg-center rounded-full"
+                    />
                 </div>
             ),
             align: "center",
@@ -52,7 +56,10 @@ const User = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <a type="text" className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300">
-                        Delete
+                        删除
+                    </a>
+                    <a type="text" className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300">
+                        修改
                     </a>
                 </Space>
             ),
@@ -62,9 +69,7 @@ const User = () => {
 
     return (
         <div className="font-main">
-            <button className="btn-green my-4">
-                创建用户
-            </button>
+            <button className="btn-green my-4">创建新用户</button>
             <Card className="bg-[#272E48] border-none">
                 <ConfigProvider
                     theme={{
