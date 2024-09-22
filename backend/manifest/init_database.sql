@@ -40,6 +40,14 @@ create table `tag` (
     primary key (`id`)
 );
 
+--table of category
+create table `category` (
+    `id` int not null auto_increment comment '分类ID',
+    `parent_id` int not null default 0 comment '父级分类ID',
+    `name` varchar(64) not null comment '分类名称',
+    primary key (`id`)
+);
+
 -- table of article_tag
 create table `article_tag` (
     `article_id` int not null comment '文章ID',
@@ -53,5 +61,16 @@ create table `friend_link` (
     `url` varchar(128) not null comment '网址路径',
     `name` varchar(64) not null comment '网址名称',
     `icon` varchar(128) not null comment '网址图标',
+    primary key (`id`)
+);
+
+-- table of attachment
+create table `attachment` (
+    `id` int not null auto_increment comment '附件ID',
+    `name` varchar(128) not null comment '附件名称',
+    `ext` varchar(16) not null comment '附件后缀',
+    `path` varchar(128) not null comment '附件路径',
+    `type` tinyint not null comment '附件类型 1-图片 2-视频 3-音频 4-其他',
+    `size` int not null comment '附件大小',
     primary key (`id`)
 );
