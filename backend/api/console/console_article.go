@@ -3,7 +3,7 @@ package console
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/request"
 	"phospherus/model/console/response"
@@ -23,20 +23,20 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
 	out, err := console.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArticleDetail{}
 	copier.Copy(&resp, out)
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
 }
 
 // GetArticleList 分页获取文章列表数据
@@ -46,7 +46,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -58,7 +58,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArticleList{
@@ -66,7 +66,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 		ArticleList:  out.ArticleList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
 
 // DeleteArticle 删除文章，可批量删除和删除单个
@@ -76,7 +76,7 @@ func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -85,10 +85,10 @@ func (*ArticleApi) DeleteArticle(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.DeleteArticle Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	commonresp.OkWithMessage(ctx, biz.MsgDeleteArticleSuccess)
+	common.OkWithMessage(ctx, biz.MsgDeleteArticleSuccess)
 }
 
 // PostArticle 发布文章
@@ -98,13 +98,13 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
 	if req.Title == "" || req.Content == "" {
 		global.LOGGER.Error("Title or Content or Cover cannot be empty", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
@@ -119,10 +119,10 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.PostArticle Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	commonresp.OkWithMessage(ctx, biz.MsgPostArticleSuccess)
+	common.OkWithMessage(ctx, biz.MsgPostArticleSuccess)
 }
 
 // UpdateArticle 更新文章
@@ -132,7 +132,7 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -147,10 +147,10 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.UpdateArticle Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	commonresp.OkWithMessage(ctx, biz.MsgUpdateArticleSuccess)
+	common.OkWithMessage(ctx, biz.MsgUpdateArticleSuccess)
 }
 
 func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
@@ -159,7 +159,7 @@ func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -170,7 +170,7 @@ func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleListByTag Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArticleListByTag{
@@ -178,5 +178,5 @@ func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
 		ArticleList:  out.ArticleList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }

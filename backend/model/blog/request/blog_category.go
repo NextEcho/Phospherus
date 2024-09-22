@@ -1,7 +1,7 @@
 package request
 
-import commonreq "phospherus/model/common/request"
+import "phospherus/model/common"
 
 type GetCategoryList struct {
-	commonreq.PageRequest
+	common.PageRequest
 }

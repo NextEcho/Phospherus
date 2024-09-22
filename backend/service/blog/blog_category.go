@@ -5,14 +5,14 @@ import (
 	"phospherus/model"
 	"phospherus/model/blog/input"
 	"phospherus/model/blog/output"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 )
 
 type CategoryService struct{}
 
 func (*CategoryService) GetCategoryList(in *input.GetCategoryList) (out *output.GetCategoryList, err error) {
 	out = &output.GetCategoryList{
-		PageResponse: commonresp.PageResponse{
+		PageResponse: common.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},

@@ -1,9 +1,9 @@
 package response
 
-import commonresp "phospherus/model/common/response"
+import "phospherus/model/common"
 
 type GetTagList struct {
-	commonresp.PageResponse
+	common.PageResponse
 	TagList any `json:"tagList"`
 }
 

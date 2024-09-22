@@ -1,17 +1,17 @@
 package request
 
-import commonreq "phospherus/model/common/request"
+import "phospherus/model/common"
 
 type GetArticleDetail struct {
 	Id int `json:"id"`
 }
 
 type GetArticleList struct {
-	commonreq.PageRequest
+	common.PageRequest
 }
 
 type GetArticleListByTag struct {
-	commonreq.PageRequest
+	common.PageRequest
 	TagId int `json:"tagId"`
 }
 

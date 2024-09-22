@@ -3,7 +3,7 @@ package console
 import (
 	"phospherus/global"
 	"phospherus/model"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
 )
@@ -12,7 +12,7 @@ type CategoryService struct{}
 
 func (*CategoryService) GetCategoryList(in *input.GetCategoryList) (out *output.GetCategoryList, err error) {
 	out = &output.GetCategoryList{
-		PageResponse: commonresp.PageResponse{
+		PageResponse: common.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},

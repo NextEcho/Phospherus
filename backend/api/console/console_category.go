@@ -3,7 +3,7 @@ package console
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/request"
 	"phospherus/model/console/response"
@@ -21,7 +21,7 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -31,7 +31,7 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.CategoryServiceInstance.GetCategoryList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetCategoryList{
@@ -39,7 +39,7 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 		CategoryList: out.CategoryList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetCategoryListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetCategoryListSuccess, resp)
 }
 
 func (*CategoryApi) CreateCategory(ctx *gin.Context) {
@@ -48,7 +48,7 @@ func (*CategoryApi) CreateCategory(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -59,11 +59,11 @@ func (*CategoryApi) CreateCategory(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.CategoryServiceInstance.CreateCategory Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgCreateCategorySuccess)
+	common.OkWithMessage(ctx, biz.MsgCreateCategorySuccess)
 }
 
 func (*CategoryApi) DeleteCategory(ctx *gin.Context) {
@@ -72,7 +72,7 @@ func (*CategoryApi) DeleteCategory(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -81,11 +81,11 @@ func (*CategoryApi) DeleteCategory(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.CategoryServiceInstance.DeleteCategory Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgDeleteCategorySuccess)
+	common.OkWithMessage(ctx, biz.MsgDeleteCategorySuccess)
 }
 
 func (*CategoryApi) UpdateCategory(ctx *gin.Context) {
@@ -94,7 +94,7 @@ func (*CategoryApi) UpdateCategory(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -106,9 +106,9 @@ func (*CategoryApi) UpdateCategory(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.CategoryServiceInstance.UpdateCategory Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgUpdateCategorySuccess)
+	common.OkWithMessage(ctx, biz.MsgUpdateCategorySuccess)
 }

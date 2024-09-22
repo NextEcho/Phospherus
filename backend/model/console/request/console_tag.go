@@ -1,9 +1,9 @@
 package request
 
-import commonreq "phospherus/model/common/request"
+import "phospherus/model/common"
 
 type GetTagList struct {
-	commonreq.PageRequest
+	common.PageRequest
 }
 
 type CreateTag struct {

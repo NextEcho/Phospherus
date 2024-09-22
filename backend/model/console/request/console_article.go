@@ -1,13 +1,15 @@
 package request
 
-import commonreq "phospherus/model/common/request"
+import (
+	"phospherus/model/common"
+)
 
 type GetArticleDetail struct {
 	Id int `json:"id"`
 }
 
 type GetArticleList struct {
-	commonreq.PageRequest
+	common.PageRequest
 	Title  string `json:"title,omitempty"`  // 通过 Title 过滤文章列表
 	TagIds []int  `json:"tagIds,omitempty"` // 通过 TagIds 过滤文章列表
 }
@@ -38,6 +40,6 @@ type UpdateArticle struct {
 }
 
 type GetArticleListByTag struct {
-	commonreq.PageRequest
+	common.PageRequest
 	TagId int `json:"tagId"`
 }

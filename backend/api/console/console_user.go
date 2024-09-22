@@ -3,7 +3,7 @@ package console
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/request"
 	"phospherus/model/console/response"
@@ -22,7 +22,7 @@ func (*UserApi) Login(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -32,7 +32,7 @@ func (*UserApi) Login(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.UserServiceInstance.Login Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, err.Error())
+		common.FailWithMessage(ctx, err.Error())
 		return
 	}
 
@@ -43,5 +43,34 @@ func (*UserApi) Login(ctx *gin.Context) {
 	// 用户信息存入上下文
 	ctx.Set("passport", req.Passport)
 
-	commonresp.OkWithDetail(ctx, biz.MsgLoginSuccess, loginResp)
+	common.OkWithDetail(ctx, biz.MsgLoginSuccess, loginResp)
+}
+
+func (*UserApi) GetUserList(ctx *gin.Context) {
+	req := request.GetUserList{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	out, err := console.UserServiceInstance.GetUserList(&input.GetUserList{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.UserServiceInstance.GetUserList Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	resp := response.GetUserList{
+		PageResponse: out.PageResponse,
+		UserList:     out.UserList,
+	}
+
+	common.OkWithDetail(ctx, biz.MsgGetUserListSuccess, resp)
+
 }

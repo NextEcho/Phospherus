@@ -2,7 +2,7 @@ package console
 
 import (
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,5 +10,5 @@ import (
 type AuthApi struct{}
 
 func (*AuthApi) ValidateToken(ctx *gin.Context) {
-	commonresp.OkWithMessage(ctx, biz.MsgValidateTokenSuccess)
+	common.OkWithMessage(ctx, biz.MsgValidateTokenSuccess)
 }

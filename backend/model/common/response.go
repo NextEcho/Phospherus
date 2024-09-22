@@ -1,4 +1,4 @@
-package commonresp
+package common
 
 import (
 	"net/http"

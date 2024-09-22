@@ -1,8 +1,6 @@
 package output
 
-import (
-	commonresp "phospherus/model/common/response"
-)
+import "phospherus/model/common"
 
 type TagItem struct {
 	Id              int    `json:"id"`
@@ -12,7 +10,7 @@ type TagItem struct {
 }
 
 type GetTagList struct {
-	commonresp.PageResponse
+	common.PageResponse
 	TagList []TagItem `json:"tagList"`
 }
 

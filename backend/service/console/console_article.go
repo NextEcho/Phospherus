@@ -3,7 +3,7 @@ package console
 import (
 	"phospherus/global"
 	"phospherus/model"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
 	"phospherus/pkg"
@@ -64,7 +64,7 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 // GetArticleList 分页获取文章列表
 func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.GetArticleList, err error) {
 	out = &output.GetArticleList{
-		PageResponse: commonresp.PageResponse{
+		PageResponse: common.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},
@@ -215,7 +215,7 @@ func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.Updat
 // GetArticleListByTag 获取标签下的文章列表
 func (*ArticleService) GetArticleListByTag(in *input.GetArticleListByTag) (out *output.GetArticleListByTag, err error) {
 	out = &output.GetArticleListByTag{
-		PageResponse: commonresp.PageResponse{
+		PageResponse: common.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},

@@ -6,7 +6,7 @@ import (
 	"phospherus/model/blog/input"
 	"phospherus/model/blog/request"
 	"phospherus/model/blog/response"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/service/blog"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +21,7 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -31,7 +31,7 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("blog.CategoryServiceInstance.GetCategoryList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetCategoryList{
@@ -39,5 +39,5 @@ func (*CategoryApi) GetCategoryList(ctx *gin.Context) {
 		CategoryList: out.CategoryList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetCategoryListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetCategoryListSuccess, resp)
 }

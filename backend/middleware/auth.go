@@ -3,7 +3,7 @@ package middleware
 import (
 	"phospherus/global"
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/pkg"
 	"strings"
 	"time"
@@ -18,7 +18,7 @@ func Auth() gin.HandlerFunc {
 
 		if tokenStr == "" || !strings.HasPrefix(tokenStr, "Bearer ") {
 			global.LOGGER.Error(biz.MsgTokenInvalid)
-			commonresp.FailWithCodeAndMessage(ctx, biz.CodeTokenInvalid, biz.MsgTokenInvalid)
+			common.FailWithCodeAndMessage(ctx, biz.CodeTokenInvalid, biz.MsgTokenInvalid)
 			ctx.Abort()
 			return
 		}
@@ -28,7 +28,7 @@ func Auth() gin.HandlerFunc {
 		claims, err := pkg.VerifyToken(tokenStr)
 		if err != nil {
 			global.LOGGER.Error(biz.MsgTokenInvalid)
-			commonresp.FailWithCodeAndMessage(ctx, biz.CodeTokenInvalid, biz.MsgTokenInvalid)
+			common.FailWithCodeAndMessage(ctx, biz.CodeTokenInvalid, biz.MsgTokenInvalid)
 			ctx.Abort()
 			return
 		}
@@ -36,7 +36,7 @@ func Auth() gin.HandlerFunc {
 		// 验证 token 是否过期
 		if time.Now().Unix() > claims.ExpiresAt.Unix() {
 			global.LOGGER.Error(biz.MsgTokenInvalid)
-			commonresp.FailWithCodeAndMessage(ctx, biz.CodeTokenInvalid, biz.MsgTokenInvalid)
+			common.FailWithCodeAndMessage(ctx, biz.CodeTokenInvalid, biz.MsgTokenInvalid)
 			ctx.Abort()
 			return
 		}

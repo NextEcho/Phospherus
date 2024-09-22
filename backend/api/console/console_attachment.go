@@ -5,7 +5,7 @@ import (
 	"io"
 	"phospherus/global"
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/response"
 	"phospherus/pkg"
 	"phospherus/pkg/oss"
@@ -21,7 +21,7 @@ func (*AttachmentApi) UploadAttachment(ctx *gin.Context) {
 	file, header, err := ctx.Request.FormFile("file")
 	if err != nil {
 		global.LOGGER.Error("ctx.Request.FormFile Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrFormFile.Error())
+		common.FailWithMessage(ctx, biz.ErrFormFile.Error())
 		return
 	}
 	defer file.Close()
@@ -29,7 +29,7 @@ func (*AttachmentApi) UploadAttachment(ctx *gin.Context) {
 	fileContent, err := io.ReadAll(file)
 	if err != nil {
 		global.LOGGER.Error("io.ReadAll(file) Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrIOReadAll.Error())
+		common.FailWithMessage(ctx, biz.ErrIOReadAll.Error())
 		return
 	}
 
@@ -37,7 +37,7 @@ func (*AttachmentApi) UploadAttachment(ctx *gin.Context) {
 	url, err := oss.UploadFile(objectName, bytes.NewReader(fileContent))
 	if err != nil {
 		global.LOGGER.Error("oss.UploadFile Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrUploadAttachment.Error())
+		common.FailWithMessage(ctx, biz.ErrUploadAttachment.Error())
 		return
 	}
 
@@ -45,7 +45,7 @@ func (*AttachmentApi) UploadAttachment(ctx *gin.Context) {
 		Url: url,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgUploadAttachmentSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgUploadAttachmentSuccess, resp)
 }
 
 func (*AttachmentApi) GetAttachment(ctx *gin.Context) {

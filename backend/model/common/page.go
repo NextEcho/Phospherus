@@ -1,6 +1,10 @@
-package commonresp
+package common
 
-// PageResult 分页查询响应结构体
+type PageRequest struct {
+	PageNum  int `json:"pageNum"`
+	PageSize int `json:"pageSize"`
+}
+
 type PageResponse struct {
 	PageNum  int   `json:"pageNum"`
 	PageSize int   `json:"pageSize"`

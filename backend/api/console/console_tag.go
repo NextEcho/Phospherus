@@ -4,7 +4,7 @@ import (
 	"errors"
 	"phospherus/global"
 	"phospherus/global/biz"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/request"
 	"phospherus/model/console/response"
@@ -22,7 +22,7 @@ func (*TagApi) GetTagList(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -32,7 +32,7 @@ func (*TagApi) GetTagList(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.GetTagList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetTagList{
@@ -40,7 +40,7 @@ func (*TagApi) GetTagList(ctx *gin.Context) {
 		TagList:      out.TagList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetTagListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetTagListSuccess, resp)
 }
 
 func (*TagApi) CreateTag(ctx *gin.Context) {
@@ -49,7 +49,7 @@ func (*TagApi) CreateTag(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -60,15 +60,15 @@ func (*TagApi) CreateTag(ctx *gin.Context) {
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.CreateTag Error", zap.Error(err))
 		if errors.Is(err, biz.ErrTagExist) {
-			commonresp.FailWithMessage(ctx, biz.ErrTagExist.Error())
+			common.FailWithMessage(ctx, biz.ErrTagExist.Error())
 			return
 		}
 
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgCreateTagSuccess)
+	common.OkWithMessage(ctx, biz.MsgCreateTagSuccess)
 }
 
 func (*TagApi) DeleteTag(ctx *gin.Context) {
@@ -77,7 +77,7 @@ func (*TagApi) DeleteTag(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -86,11 +86,11 @@ func (*TagApi) DeleteTag(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.DeleteTag Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgDeleteTagSuccess)
+	common.OkWithMessage(ctx, biz.MsgDeleteTagSuccess)
 }
 
 func (*TagApi) UpdateTag(ctx *gin.Context) {
@@ -99,7 +99,7 @@ func (*TagApi) UpdateTag(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -109,9 +109,9 @@ func (*TagApi) UpdateTag(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.UpdateTag Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 
-	commonresp.OkWithMessage(ctx, biz.MsgUpdateTagSuccess)
+	common.OkWithMessage(ctx, biz.MsgUpdateTagSuccess)
 }

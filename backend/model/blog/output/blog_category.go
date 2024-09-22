@@ -2,10 +2,10 @@ package output
 
 import (
 	"phospherus/model"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 )
 
 type GetCategoryList struct {
-	commonresp.PageResponse
+	common.PageResponse
 	CategoryList []model.Category `json:"categoryList"`
 }

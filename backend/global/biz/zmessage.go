@@ -8,6 +8,7 @@ const MsgAccountMismatchPassword = "登陆失败, 账户名或者密码错误"
 
 // User Module
 const MsgGetUserInfoSuccess = "获取用户信息成功"
+const MsgGetUserListSuccess = "获取用户列表成功"
 
 // Attachment Module
 const MsgUploadAttachmentSuccess = "上传附件成功"

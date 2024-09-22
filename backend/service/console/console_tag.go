@@ -4,7 +4,7 @@ import (
 	"phospherus/global"
 	"phospherus/global/biz"
 	"phospherus/model"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
 
@@ -15,7 +15,7 @@ type TagService struct{}
 
 func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err error) {
 	out = &output.GetTagList{
-		PageResponse: commonresp.PageResponse{
+		PageResponse: common.PageResponse{
 			PageNum:  in.PageNum,
 			PageSize: in.PageSize,
 		},

@@ -6,7 +6,7 @@ import (
 	"phospherus/model/blog/input"
 	"phospherus/model/blog/request"
 	"phospherus/model/blog/response"
-	commonresp "phospherus/model/common/response"
+	"phospherus/model/common"
 	"phospherus/service/blog"
 
 	"github.com/gin-gonic/gin"
@@ -22,20 +22,20 @@ func (*ArticleApi) GetArticleDetail(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
 	out, err := blog.ArticleServiceInstance.GetArticleDetail(&input.GetArticleDetail{Id: req.Id})
 	if err != nil {
 		global.LOGGER.Error("blog.ArticleServiceInstance.GetArticleDetail Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrArticleNotFound.Error())
+		common.FailWithMessage(ctx, biz.ErrArticleNotFound.Error())
 		return
 	}
 	resp := response.GetArticleDetail{}
 	copier.Copy(&resp, out)
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleDetailSuccess, resp)
 }
 
 func (*ArticleApi) GetArticleList(ctx *gin.Context) {
@@ -44,7 +44,7 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -54,13 +54,13 @@ func (*ArticleApi) GetArticleList(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("blog.ArticleServiceInstance.GetArticleList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArticleList{}
 	copier.Copy(&resp, out)
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
 
 func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
@@ -69,7 +69,7 @@ func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
 		return
 	}
 
@@ -80,7 +80,7 @@ func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
 	})
 	if err != nil {
 		global.LOGGER.Error("console.ArticleServiceInstance.GetArticleListByTag Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArticleListByTag{
@@ -88,18 +88,18 @@ func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
 		ArticleList:  out.ArticleList,
 	}
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
 
 func (*ArticleApi) GetArchiveList(ctx *gin.Context) {
 	out, err := blog.ArticleServiceInstance.GetArchiveList()
 	if err != nil {
 		global.LOGGER.Error("blog.ArticleServiceInstance.GetArchiveList Error", zap.Error(err))
-		commonresp.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
 	resp := response.GetArchiveList{}
 	copier.Copy(&resp, out)
 
-	commonresp.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
+	common.OkWithDetail(ctx, biz.MsgGetArticleListSuccess, resp)
 }
