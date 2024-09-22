@@ -1,4 +1,4 @@
-import { createTagAPI, deleteTagAPI, getTagListAPI } from "@/api/tag";
+import { createTagAPI, deleteTagAPI, getTagListAPI, updateTagAPI } from "@/api/tag";
 import { tagItem } from "@/api/tag/types";
 import {
     Card,
@@ -78,7 +78,7 @@ const Tag = () => {
         const newTagList = tagList.filter((item) => item.id !== key);
         const deletedData = tagList.find((item) => item.id === key) as tagItem;
 
-        const deleteArticle = async () => {
+        const deleteTag = async () => {
             try {
                 const jsonResp = await deleteTagAPI({ ids: [deletedData.id] });
                 console.log("deletedData: ", jsonResp);
@@ -94,8 +94,27 @@ const Tag = () => {
             setTagList(newTagList);
         };
 
-        deleteArticle();
+        deleteTag();
     };
+
+    const hanldeUpdateTagItem = async(key: number) => {
+        const updateTag = async () => {
+            // try {
+            //     const jsonResp = await updateTagAPI({ id: key, name: });
+            //     console.log("updateTagAPI: ", jsonResp);
+            //     if (jsonResp.code === 0) {
+            //         message.success("修改标签完成", 1);
+            //     } else {
+            //         message.error("修改标签失败", 1);
+            //     }
+            // } catch (error) {
+            //     message.error("修改标签时发生错误，请稍后重试", 1);
+            // }
+
+            // setTagList(newTagList);
+        };
+        updateTag();
+    }
 
     const TagColumns = [
         { title: "标签ID", dataIndex: "id", key: "id", align: "center" },
@@ -136,6 +155,7 @@ const Tag = () => {
                     <a
                         type="text"
                         className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
+                        onClick={() => hanldeUpdateTagItem(record.id)}
                     >
                         修改
                     </a>
@@ -186,7 +206,7 @@ const Tag = () => {
                 }}
             >
                 <Modal
-                    title="Create New Tag"
+                    title="创建新标签"
                     centered
                     open={open}
                     onOk={handleCreateTag}

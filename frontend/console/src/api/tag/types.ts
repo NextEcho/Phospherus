@@ -39,3 +39,12 @@ export interface createTagReq {
 }
 
 export interface createTagResp {}
+
+// updateTag Request And Response
+export interface updateTagReq {
+    id: number;
+    name: string;
+    backgroundColor: string;
+}
+
+export interface updateTagResp {}
