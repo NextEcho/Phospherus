@@ -69,7 +69,7 @@ create table `attachment` (
     `id` int not null auto_increment comment '附件ID',
     `name` varchar(128) not null comment '附件名称',
     `ext` varchar(16) not null comment '附件后缀',
-    `path` varchar(128) not null comment '附件路径',
+    `url` varchar(128) not null comment '附件路径',
     `type` tinyint not null comment '附件类型 1-图片 2-视频 3-音频 4-其他',
     `size` int not null comment '附件大小',
     primary key (`id`)

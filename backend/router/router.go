@@ -70,8 +70,8 @@ func Router() *gin.Engine {
 	consoleAttachmentRouteGroup := consoleRouteGroup.Group("attachment")
 	{
 		consoleAttachmentRouteGroup.POST("uploadAttachment", console.AttachmentApiInstance.UploadAttachment)
-		consoleAttachmentRouteGroup.POST("deleteAttachment", console.AttachmentApiInstance.DeleteAttachment)
 		consoleAttachmentRouteGroup.POST("getAttachment", console.AttachmentApiInstance.GetAttachment)
+		consoleAttachmentRouteGroup.POST("deleteAttachment", console.AttachmentApiInstance.DeleteAttachment)
 	}
 
 	//////////////

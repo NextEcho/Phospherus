@@ -18,7 +18,10 @@ var (
 )
 
 // Attachment Error
-var ErrUploadAttachment = errors.New("上传附件失败")
+var (
+	ErrUploadAttachment = errors.New("上传附件失败")
+	ErrSaveAttachment   = errors.New("保存附件失败")
+)
 
 // Article Error
 var (

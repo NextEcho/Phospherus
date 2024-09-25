@@ -1,17 +1,15 @@
-package response
+package output
 
-type UploadAttachment struct {
-	Url string `json:"url"`
+type SaveAttachment struct {
 }
 
 type GetAttachment struct {
 	Id   int    `json:"id"`
-	Url  string `json:"url"`
 	Name string `json:"name"`
+	Url  string `json:"url"`
 	Ext  string `json:"ext"`
 	Type int    `json:"type"`
 	Size int    `json:"size"`
 }
 
-type DeleteAttachment struct {
-}
+type DeleteAttachment struct{}

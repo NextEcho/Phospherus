@@ -39,9 +39,8 @@ func (*CategoryService) CreateCategory(in *input.CreateCategory) (out *output.Cr
 	out = &output.CreateCategory{}
 
 	err = global.DB.Table("category").Create(&model.Category{
-		ParentId:  in.ParentId,
-		Name:      in.Name,
-		IsVisible: in.IsVisible,
+		ParentId: in.ParentId,
+		Name:     in.Name,
 	}).Error
 
 	return
@@ -61,9 +60,8 @@ func (*CategoryService) UpdateCategory(in *input.UpdateCategory) (out *output.Up
 	// 因为 gorm 对于零值，使用结构体更新是无效的
 	// 这里使用 map[string]interface{} 来更新字段
 	err = global.DB.Table("category").Where("id = ?", in.Id).Updates(map[string]interface{}{
-		"parent_id":  in.ParentId,
-		"is_visible": in.IsVisible,
-		"name":       in.Name,
+		"parent_id": in.ParentId,
+		"name":      in.Name,
 	}).Error
 	return
 }
