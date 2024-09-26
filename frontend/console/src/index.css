@@ -12,4 +12,7 @@
   .btn-orange {
     @apply py-2 px-5 bg-orange-600 text-white font-semibold rounded-lg shadow-md hover:bg-orange-700 focus:outline-none focus:ring focus:ring-orange-400 focus:ring-opacity-75 mr-4;
   }
+  .btn-primary {
+    @apply my-4 mx-2 py-2 px-4 bg-violet-500 text-white font-semibold rounded-md shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
+  }
 }

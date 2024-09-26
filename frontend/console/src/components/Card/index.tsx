@@ -1,15 +1,14 @@
 // OverviewCard 概要卡片
-const Card = () => {
-  return (
-    <>
-      <div className="card-item w-64 h-80 bg-[#27304D] rounded-lg font-mono text-slate-50 shadow-lg m-4">
-        <div className="card-header w-full h-1/6 bg-[#1B1F3A] rounded-t-lg text-center">
-          Card Header
+
+interface CardProps  {
+    children: React.ReactNode;
+}
+const Card = ({children}: CardProps) => {
+    return (
+        <div className="border bg-slate-700 w-full rounded-md px-6 py-6 font-main">
+            {children}
         </div>
-        <div className="card-body w-full h-5/6">Card Body</div>
-      </div>
-    </>
-  );
+    );
 };
 
 export default Card;

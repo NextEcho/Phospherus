@@ -1,9 +1,14 @@
-const Button = ({title}: {title: string}) => {
+interface ButtonProps {
+  title: string;
+  handleClick: () => void;
+}
+
+const Button = ({ title, handleClick }: ButtonProps) => {
   return (
     <>
-      <div className="btn-primary">
+      <button className="btn-primary shadow-md" onClick={handleClick}>
         {title}
-      </div>
+      </button>
     </>
   );
 };

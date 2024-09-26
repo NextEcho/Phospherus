@@ -1,7 +1,19 @@
+import Card from "@/components/Card";
+import Button from "@/components/Button";
+
 const Attachment = () => {
+    const handleUpload = () => {
+        console.log("上传附件");
+    };
+
     return (
-        <div>
-            <h1>附件管理</h1>
+        <div className="font-main">
+            <Button title="上传附件" handleClick={handleUpload} />
+            <Card>
+                <div>
+                    附件管理部分
+                </div>
+            </Card>
         </div>
     );
 };
