@@ -8,7 +8,7 @@ const Attachment = () => {
 
     return (
         <div className="font-main">
-            <Button title="上传附件" handleClick={handleUpload} />
+            <Button title="上传附件" handleClick={handleUpload}/>
             <Card>
                 <div>
                     附件管理部分

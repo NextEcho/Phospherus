@@ -1,4 +1,4 @@
-import { uploadFileAPI } from "@/api/file";
+import { uploadAttachmentAPI } from "@/api/attachment";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, message, Upload, UploadProps } from "antd";
 import { RcFile } from "antd/es/upload";
@@ -15,7 +15,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onSetCover }) => {
         const formData = new FormData();
         formData.append("file", file as RcFile);
 
-        const jsonResp = await uploadFileAPI(formData);
+        const jsonResp = await uploadAttachmentAPI(formData);
         onSetCover(jsonResp.data.url);
         onSuccess(jsonResp.data, file as RcFile);
     };
@@ -24,7 +24,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onSetCover }) => {
         customRequest: handleUpload,
         name: "file",
         multiple: false,
-        action: "http://127.0.0.1:8989/api/console/file/upload",
+        action: "http://127.0.0.1:8989/api/console/attachment/upload",
         accept: "image/*",
 
         onChange(info) {
