@@ -56,24 +56,22 @@ const EditArticle = () => {
     return (
         <div className="edit h-full text-slate-50 font-main">
             <div>
-                <button className="btn-green my-4" onClick={() => handlePostArtcile(1)}>
-                    发布文章
-                </button>
-                <button className="btn-orange my-4" onClick={() => handlePostArtcile(0)}>
-                    保存文章
-                </button>
-                <button className="btn-violet my-4">上传本地文件</button>
+                {/* <button className="btn-violet my-4">上传本地文件</button> */}
             </div>
             <Card className="bg-[#272E48] border-none font-main">
-                <div className="post-article">
+                <div className="post-article flex">
                     <input
                         placeholder="Title of article"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="peer h-full w-full border-b-4 border-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal 
-                text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-indigo-300 
+                        className="peer h-full flex-1 border-b-2 border-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal 
+                text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-indigo-500 
                 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 mb-5 font-main text-slate-50 pl-2"
                     />
+                    <button className="btn-green my-4 mx-2" onClick={() => handlePostArtcile(1)}>发布文章</button>
+                    <button className="btn-orange my-4" onClick={() => handlePostArtcile(0)}>
+                        保存文章
+                    </button>
                 </div>
                 <div className="md-container h-full" data-color-mode="dark">
                     <MDEditor height={590} value={mdContent} onChange={handleEditorChange} />
