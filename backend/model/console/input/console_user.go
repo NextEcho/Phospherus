@@ -9,3 +9,7 @@ type GetUserList struct {
 	PageNum  int `json:"pageNum" default:"1"`
 	PageSize int `json:"pageSize" default:"10"`
 }
+
+type GetUserInfo struct {
+	Id int `json:"id"`
+}

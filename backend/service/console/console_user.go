@@ -1,6 +1,7 @@
 package console
 
 import (
+	"errors"
 	"phospherus/global"
 	"phospherus/global/biz"
 	"phospherus/model"
@@ -8,6 +9,8 @@ import (
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
 	"phospherus/pkg"
+
+	"gorm.io/gorm"
 )
 
 type UserService struct{}
@@ -61,6 +64,31 @@ func (*UserService) GetUserList(in *input.GetUserList) (out *output.GetUserList,
 		out.UserList[i].Email = user.Email
 		out.UserList[i].Github = user.Github
 	}
+
+	return out, nil
+}
+
+func (*UserService) GetUserInfo(in *input.GetUserInfo) (out *output.GetUserInfo, err error) {
+	out = &output.GetUserInfo{}
+
+	var user model.User
+	err = global.DB.Where("id = ?", in.Id).First(&user).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	out.Id = user.Id
+	out.Passport = user.Passport
+	out.Nickname = user.Nickname
+	out.Avatar = user.Avatar
+	out.Signature = user.Signature
+	out.Email = user.Email
+	out.Github = user.Github
+	out.Introduction = user.Introduction
+	out.Resume = user.Resume
 
 	return out, nil
 }

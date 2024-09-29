@@ -11,6 +11,11 @@ var (
 	ErrIOReadAll        = errors.New("读取文件失败")
 )
 
+// User Error
+var (
+	ErrUserNotFound = errors.New("用户不存在")
+)
+
 // Auth Error
 var (
 	ErrJwtInvalid = errors.New("JWT无效")

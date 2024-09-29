@@ -10,3 +10,7 @@ type Login struct {
 type GetUserList struct {
 	common.PageRequest
 }
+
+type GetUserInfo struct {
+	Id int `json:"id"`
+}

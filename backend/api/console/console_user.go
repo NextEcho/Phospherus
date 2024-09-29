@@ -72,5 +72,43 @@ func (*UserApi) GetUserList(ctx *gin.Context) {
 	}
 
 	common.OkWithDetail(ctx, biz.MsgGetUserListSuccess, resp)
+}
 
+func (*UserApi) GetUserInfo(ctx *gin.Context) {
+	req := request.GetUserInfo{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	out, err := console.UserServiceInstance.GetUserInfo(&input.GetUserInfo{
+		Id: req.Id,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.UserServiceInstance.GetUserInfo Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	if out == nil {
+		common.FailWithMessage(ctx, biz.ErrUserNotFound.Error())
+		return
+	}
+
+	resp := response.GetUserInfo{
+		Id:           out.Id,
+		Passport:     out.Passport,
+		Nickname:     out.Nickname,
+		Avatar:       out.Avatar,
+		Signature:    out.Signature,
+		Email:        out.Email,
+		Github:       out.Github,
+		Introduction: out.Introduction,
+		Resume:       out.Resume,
+	}
+
+	common.OkWithDetail(ctx, biz.MsgGetUserInfoSuccess, resp)
 }

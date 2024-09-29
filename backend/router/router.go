@@ -12,13 +12,13 @@ import (
 
 func Router() *gin.Engine {
 	gin.SetMode(global.APP_CONFIG.Mode)
-	r := gin.Default()
 
+	r := gin.Default()
 	r.Use(middleware.Cors(), middleware.ZapLogger(), middleware.ZapLogger())
 
 	r.NoRoute(func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
-			"message": "路由不存在",
+			"message": "Route Not Found",
 		})
 	})
 
@@ -40,6 +40,7 @@ func Router() *gin.Engine {
 	consoleUserRouteGroup := consoleRouteGroup.Group("user")
 	{
 		consoleUserRouteGroup.POST("getUserList", console.UserApiInstance.GetUserList)
+		consoleUserRouteGroup.POST("getUserInfo", console.UserApiInstance.GetUserInfo)
 	}
 
 	consoleArticleRouteGroup := consoleRouteGroup.Group("article")
