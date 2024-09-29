@@ -8,10 +8,10 @@ import (
 
 func main() {
 	// 加载配置文件
-	core.Viper()
+	initialize.Viper()
 
 	// 加载日志库
-	global.LOGGER = core.Zap()
+	global.LOGGER = initialize.Zap()
 
 	// 初始化 MySQL 数据库
 	global.DB = initialize.Gorm()
