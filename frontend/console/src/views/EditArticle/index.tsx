@@ -55,9 +55,6 @@ const EditArticle = () => {
 
     return (
         <div className="edit h-full text-slate-50 font-main">
-            <div>
-                {/* <button className="btn-violet my-4">上传本地文件</button> */}
-            </div>
             <Card className="bg-[#272E48] border-none font-main">
                 <div className="post-article flex">
                     <input
