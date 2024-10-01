@@ -14,6 +14,7 @@ const MsgGetUserListSuccess = "获取用户列表成功"
 const MsgUploadAttachmentSuccess = "上传附件成功"
 const MsgGetAttachmentSuccess = "获取附件成功"
 const MsgDeleteAttachmentSuccess = "删除附件成功"
+const MsgGetAttachmentListSuccess = "获取附件列表成功"
 
 // Article Module
 const MsgGetArticleDetailSuccess = "获取文章详情成功"

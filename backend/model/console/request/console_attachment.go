@@ -7,3 +7,8 @@ type GetAttachment struct {
 type DeleteAttachment struct {
 	Id int `json:"id"`
 }
+
+type GetAttachmentList struct {
+	PageNum  int `json:"pageNum"`
+	PageSize int `json:"pageSize"`
+}

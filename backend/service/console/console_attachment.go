@@ -3,6 +3,7 @@ package console
 import (
 	"phospherus/global"
 	"phospherus/model"
+	"phospherus/model/common"
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
 
@@ -61,6 +62,7 @@ func (attachment *AttachmentService) GetAttachment(in *input.GetAttachment) (*ou
 		Name:      attachmentModel.Name,
 		Ext:       attachmentModel.Ext,
 		Type:      attachmentModel.Type,
+		TypeName:  attachmentModel.GetTypeName(),
 		Size:      attachmentModel.Size,
 		CreatedAt: attachmentModel.CreatedAt.Format("2006-01-02 15:04:05"),
 	}, nil
@@ -77,4 +79,51 @@ func (attachment *AttachmentService) DeleteAttachment(in *input.DeleteAttachment
 	}
 
 	return &output.DeleteAttachment{}, nil
+}
+
+func (attachment *AttachmentService) GetAttachmentList(in *input.GetAttachmentList) (*output.GetAttachmentList, error) {
+	out := &output.GetAttachmentList{
+		PageResponse: common.PageResponse{
+			PageNum:  in.PageNum,
+			PageSize: in.PageSize,
+		},
+		AttachmentList: []output.AttachmentItem{},
+	}
+
+	// 查询附件数量
+	err := global.DB.Model(&model.Attachment{}).Count(&out.Total).Error
+	if err != nil {
+		return nil, err
+	}
+
+	// 查询附件列表
+	attachmentList := []model.Attachment{}
+	err = global.DB.Model(&model.Attachment{}).Offset(in.PageSize * (in.PageNum - 1)).Limit(in.PageSize).Find(&attachmentList).Error
+	if err != nil {
+		return nil, err
+	}
+
+	// 查询附件的创建者信息
+	for _, attachment := range attachmentList {
+		creator := model.User{}
+		err = global.DB.Where("id = ?", attachment.CreatorId).First(&creator).Error
+		if err != nil {
+			return nil, err
+		}
+
+		out.AttachmentList = append(out.AttachmentList, output.AttachmentItem{
+			Id:        attachment.Id,
+			CreatorId: attachment.CreatorId,
+			Creator:   creator.Nickname,
+			Url:       attachment.Url,
+			Name:      attachment.Name,
+			Ext:       attachment.Ext,
+			Type:      attachment.Type,
+			TypeName:  attachment.GetTypeName(),
+			Size:      attachment.Size,
+			CreatedAt: attachment.CreatedAt.Format("2006-01-02 15:04:05"),
+		})
+	}
+
+	return out, nil
 }

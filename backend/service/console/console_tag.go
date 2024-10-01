@@ -37,7 +37,6 @@ func (*TagService) GetTagList(in *input.GetTagList) (out *output.GetTagList, err
 
 	// 查询标签下的文章数量
 	for _, tag := range tagList {
-
 		var count int64
 		err = global.DB.Table("article_tag").Where("tag_id =?", tag.Id).Count(&count).Error
 		if err != nil {

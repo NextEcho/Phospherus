@@ -16,3 +16,16 @@ type Attachment struct {
 func (*Attachment) TableName() string {
 	return "attachment"
 }
+
+func (a *Attachment) GetTypeName() string {
+	switch a.Type {
+	case 1:
+		return "图片"
+	case 2:
+		return "视频"
+	case 3:
+		return "音频"
+	default:
+		return "其他"
+	}
+}

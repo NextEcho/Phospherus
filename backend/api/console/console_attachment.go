@@ -61,7 +61,7 @@ func (*AttachmentApi) UploadAttachment(ctx *gin.Context) {
 		Url:       url,
 		Name:      header.Filename,
 		Ext:       filepath.Ext(header.Filename),
-		Type:      1,
+		Type:      pkg.GetFileType(filepath.Ext(header.Filename)),
 		Size:      len(fileContent),
 	})
 	if err != nil {
@@ -104,6 +104,7 @@ func (*AttachmentApi) GetAttachment(ctx *gin.Context) {
 		Name:      out.Name,
 		Ext:       out.Ext,
 		Type:      out.Type,
+		TypeName:  out.TypeName,
 		Size:      out.Size,
 		CreatedAt: out.CreatedAt,
 	}
@@ -130,4 +131,32 @@ func (*AttachmentApi) DeleteAttachment(ctx *gin.Context) {
 	}
 
 	common.OkWithMessage(ctx, biz.MsgDeleteAttachmentSuccess)
+}
+
+func (*AttachmentApi) GetAttachmentList(ctx *gin.Context) {
+	req := request.GetAttachmentList{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	out, err := console.AttachmentServiceInstance.GetAttachmentList(&input.GetAttachmentList{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.AttachmentServiceInstance.GetAttachmentList Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	resp := response.GetAttachmentList{
+		PageResponse:   out.PageResponse,
+		AttachmentList: out.AttachmentList,
+	}
+
+	common.OkWithDetail(ctx, biz.MsgGetAttachmentListSuccess, resp)
 }
