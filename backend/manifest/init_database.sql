@@ -67,10 +67,12 @@ create table `friend_link` (
 -- table of attachment
 create table `attachment` (
     `id` int not null auto_increment comment '附件ID',
+    `creator_id` int not null comment '创建者ID',
     `name` varchar(128) not null comment '附件名称',
     `ext` varchar(16) not null comment '附件后缀',
     `url` varchar(128) not null comment '附件路径',
     `type` tinyint not null comment '附件类型 1-图片 2-视频 3-音频 4-其他',
     `size` int not null comment '附件大小',
+    `created_at` timestamp not null default current_timestamp comment '创建时间',
     primary key (`id`)
 );

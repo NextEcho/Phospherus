@@ -9,6 +9,7 @@ import (
 	"phospherus/model/console/input"
 	"phospherus/model/console/output"
 	"phospherus/pkg"
+	"strconv"
 
 	"gorm.io/gorm"
 )
@@ -26,7 +27,7 @@ func (*UserService) Login(in *input.Login) (out *output.Login, err error) {
 			return nil, biz.ErrPasswordMismatch
 		}
 		out.Id = user.Id
-		out.Token, err = pkg.CreateToken(in.Passport)
+		out.Token, err = pkg.CreateToken(strconv.Itoa(user.Id), in.Passport)
 		if err != nil {
 			return nil, biz.ErrCreateJwt
 		}

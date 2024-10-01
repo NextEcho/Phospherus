@@ -6,7 +6,7 @@ import (
 )
 
 func TestCreateJwt(t *testing.T) {
-	token, err := pkg.CreateToken("admin")
+	token, err := pkg.CreateToken("1", "admin")
 	if err != nil {
 		t.Error(err)
 	}
@@ -14,8 +14,7 @@ func TestCreateJwt(t *testing.T) {
 }
 
 func TestParseJwt(t *testing.T) {
-
-	token, _ := pkg.CreateToken("admin")
+	token, _ := pkg.CreateToken("1", "admin")
 	claims, err := pkg.VerifyToken(token)
 	if err != nil {
 		t.Error(err)

@@ -9,6 +9,7 @@ var (
 	ErrRecordNotFound   = errors.New("数据不存在")
 	ErrFormFile         = errors.New("解析表单文件失败")
 	ErrIOReadAll        = errors.New("读取文件失败")
+	ErrGetCtxValue      = errors.New("获取上下文键值对失败")
 )
 
 // User Error

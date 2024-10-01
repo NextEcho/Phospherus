@@ -9,13 +9,15 @@ import (
 )
 
 type MyClaims struct {
+	Id       string `json:"id"`
 	Passport string `json:"passport"`
 	jwt.RegisteredClaims
 }
 
 // CreateToken 生成 Token
-func CreateToken(passport string) (string, error) {
+func CreateToken(id string, passport string) (string, error) {
 	myClaims := MyClaims{
+		Id:       id,
 		Passport: passport,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(6 * time.Hour)), //有效时间
@@ -23,7 +25,7 @@ func CreateToken(passport string) (string, error) {
 			NotBefore: jwt.NewNumericDate(time.Now()),                    //生效时间
 			Issuer:    passport,                                          //签发人
 			Subject:   "phosphorus",                                      //主题
-			ID:        "1",                                               //JWT ID用于标识该JWT
+			ID:        id,                                                //JWT ID用于标识该JWT
 			Audience:  []string{passport},                                //用户
 		},
 	}

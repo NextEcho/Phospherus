@@ -42,6 +42,7 @@ func Auth() gin.HandlerFunc {
 		}
 
 		// 用户信息存入上下文
+		ctx.Set("id", claims.Id)
 		ctx.Set("passport", claims.Issuer)
 		ctx.Next()
 	}
