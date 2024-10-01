@@ -10,7 +10,9 @@ import { useLocation } from "react-router-dom";
 const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
     return (
         <ReactMarkdown
-            className="markdown-body w-4xl mx-72 px-10 py-4 prose dark:prose-invert prose-stone max-w-none min-w-[920px]"
+            className="markdown-body w-4xl mx-72 px-10 py-4 prose dark:prose-invert prose-stone 
+            max-w-none min-w-[920px] border-2 border-solid border-[#1A1823] rounded-xl bg-[#222028]
+            shadow-[4px_4px_10px_0px_rgba(0,0,0,0.3)]"
             children={markdown}
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
