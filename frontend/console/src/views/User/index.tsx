@@ -31,25 +31,17 @@ const User = () => {
     };
 
     const deleteUser = async (id: number) => {
-        Modal.confirm({
-            title: "删除用户",
-            content: "确定要删除该用户吗？",
-            okText: "确定",
-            cancelText: "取消",
-            onOk: async () => {
-                try {
-                    const jsonResp = await deleteUserAPI({ id });
-                    if (jsonResp.code === 0) {
-                        message.success("删除用户成功", 1);
-                        getUserList();
-                    } else {
-                        message.error("删除用户失败", 1);
-                    }
-                } catch (err) {
-                    console.log("捕获 error:", err);
-                }
-            },
-        });
+        try {
+            const jsonResp = await deleteUserAPI({ id });
+            if (jsonResp.code === 0) {
+                setUserList(prevList => prevList.filter(item => item.id !== id));
+                message.success("删除用户成功", 1);
+            } else {
+                message.error("删除用户失败", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
     };
 
     const updateUser = async (user: userItem) => {
@@ -74,7 +66,15 @@ const User = () => {
     };
 
     const handleDeleteUser = (id: number) => {
-        deleteUser(id);
+        Modal.confirm({
+            title: "删除用户",
+            content: "确定要删除该用户吗？",
+            okText: "确定",
+            cancelText: "取消",
+            onOk: () => {
+                deleteUser(id);
+            }
+        });
     };
 
     const handleUpdateUser = (user: userItem) => {
@@ -153,35 +153,52 @@ const User = () => {
                     />
                 </ConfigProvider>
             </Card>
-            <Modal
-                title="修改用户信息"
-                open={showUserDialog}
-                onCancel={() => setShowUserDialog(false)}
-                cancelText="取消"
-                okText="确定"
-                onOk={() => handleUpdateUser(selectedUser)}
+            <ConfigProvider
+                theme={{
+                    algorithm: theme.darkAlgorithm,
+                    components: {
+                        Modal: {
+                            headerBg: "#1D2339",
+                            contentBg: "#1D2339",
+                            footerBg: "#1D2339",
+                            titleFontSize: 20,
+                            lineHeight: 2,
+                        },
+                    },
+                }}
             >
-                <Form
-                    initialValues={selectedUser}
-                    onFinish={handleUpdateUser}
-                    onValuesChange={(changedValues, _) => {
-                        setSelectedUser(prevState => ({
-                            ...prevState,
-                            ...changedValues
-                        }));
-                    }}
+                <Modal
+                    title="修改用户信息"
+                    open={showUserDialog}
+                    onCancel={() => setShowUserDialog(false)}
+                    cancelText="取消"
+                    okText="确定"
+                    onOk={() => handleUpdateUser(selectedUser)}
                 >
-                    <Form.Item label="昵称" name="nickname">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="邮箱" name="email">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="Github" name="github">
-                        <Input />
-                    </Form.Item>
-                </Form>
-            </Modal>
+                    <div className="font-main">
+                        <Form
+                            initialValues={selectedUser}
+                            onFinish={handleUpdateUser}
+                            onValuesChange={(changedValues, _) => {
+                                setSelectedUser(prevState => ({
+                                    ...prevState,
+                                    ...changedValues
+                                }));
+                            }}
+                        >
+                            <Form.Item label="昵称" name="nickname">
+                                <Input />
+                            </Form.Item>
+                            <Form.Item label="邮箱" name="email">
+                                <Input />
+                            </Form.Item>
+                            <Form.Item label="Github" name="github">
+                                <Input />
+                            </Form.Item>
+                        </Form>
+                    </div>
+                </Modal>
+            </ConfigProvider>
         </div>
     );
 };

@@ -15,7 +15,6 @@ const NavBar = () => {
         const userId = localStorage.getItem("userId")
         try {
             const jsonResp = await getUserInfoAPI({ id: Number(userId) });
-            console.log("jsonResp is", jsonResp);
             if (jsonResp.code === 0) {
                 setAvatar(jsonResp.data.avatar);
                 setNickname(jsonResp.data.nickname);

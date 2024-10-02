@@ -23,6 +23,10 @@ const Tag = () => {
     const [color, setColor] = useState("#7939E7");
     const [confirmLoading, setConfirmLoading] = useState(false);
 
+    useEffect(() => {
+        getTagList();
+    }, []);
+
     const getTagList = async () => {
         const params = {
             pageNum: 1,
@@ -40,12 +44,34 @@ const Tag = () => {
         }
     };
 
-    // getTagList
-    useEffect(() => {
-        getTagList();
-    }, []);
+    const deleteTag = async (id: number) => {
+        try {
+            const jsonResp = await deleteTagAPI({ ids: [id] });
+            if (jsonResp.code === 0) {
+                setTagList(prevList => prevList.filter(item => item.id !== id));
+                message.success("删除标签成功", 1);
+            } else {
+                message.error("删除标签失败", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
+    }
 
-    // createTag
+    const updateTag = async (id: number, name: string, backgroundColor: string) => {
+        try {
+            const jsonResp = await updateTagAPI({ id, name, backgroundColor });
+            if (jsonResp.code === 0) {
+                setTagList(prevList => prevList.map(item => item.id === id ? { ...item, name, backgroundColor } : item));
+                message.success("修改标签成功", 1);
+            } else {
+                message.error("修改标签失败", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
+    }
+
     const handleCreateTag = () => {
         const params = {
             name: name,
@@ -73,47 +99,20 @@ const Tag = () => {
         createTag();
     };
 
-    // deleteTag
-    const handleDeleteTagItem = async (key: number) => {
-        const newTagList = tagList.filter((item) => item.id !== key);
-        const deletedData = tagList.find((item) => item.id === key) as tagItem;
-
-        const deleteTag = async () => {
-            try {
-                const jsonResp = await deleteTagAPI({ ids: [deletedData.id] });
-                console.log("deletedData: ", jsonResp);
-                if (jsonResp.code === 0) {
-                    message.success("删除标签成功", 1);
-                } else {
-                    message.error("删除标签失败", 1);
-                }
-            } catch (error) {
-                message.error("删除标签时发生错误，请稍后重试", 1);
+    const handleDeleteTagItem = async (id: number) => {
+        Modal.confirm({
+            title: "删除标签",
+            content: "确定要删除该标签吗？",
+            okText: "确定",
+            cancelText: "取消",
+            onOk: () => {
+                deleteTag(id);
             }
-
-            setTagList(newTagList);
-        };
-
-        deleteTag();
+        });
     };
 
-    const hanldeUpdateTagItem = async(key: number) => {
-        const updateTag = async () => {
-            // try {
-            //     const jsonResp = await updateTagAPI({ id: key, name: });
-            //     console.log("updateTagAPI: ", jsonResp);
-            //     if (jsonResp.code === 0) {
-            //         message.success("修改标签完成", 1);
-            //     } else {
-            //         message.error("修改标签失败", 1);
-            //     }
-            // } catch (error) {
-            //     message.error("修改标签时发生错误，请稍后重试", 1);
-            // }
-
-            // setTagList(newTagList);
-        };
-        updateTag();
+    const hanldeUpdateTagItem = async (id: number) => {
+        // updateTag(id, name, color);
     }
 
     const TagColumns = [

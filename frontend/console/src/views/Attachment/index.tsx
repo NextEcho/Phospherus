@@ -4,7 +4,7 @@ import { ConfigProvider, message, Modal, Space, Table, theme } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { attachmentItem } from "@/api/attachment/types";
 import { useEffect, useState } from "react";
-import { getAttachmentListAPI } from "@/api/attachment";
+import { deleteAttachmentAPI, getAttachmentListAPI } from "@/api/attachment";
 
 import imageIcon from '@/assets/images/typeIcons/image.png';
 import videoIcon from '@/assets/images/typeIcons/video.png';
@@ -49,11 +49,34 @@ const Attachment = () => {
         }
     };
 
-    const handleUpload = () => {
+    const deleteAttachment = async (id: number) => {
+        try {
+            const jsonResp = await deleteAttachmentAPI({ id });
+            if (jsonResp.code === 0) {
+                setAttachmentList(prevList => prevList.filter(item => item.id !== id));
+                message.success("删除附件成功", 1);
+            } else {
+                message.error("删除附件失败", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
+    }
+
+    const handleUploadAttachment = () => {
         console.log("上传附件");
     };
 
-    const handleDelete = (id: number) => {
+    const handleDeleteAttachment = (id: number) => {
+        Modal.confirm({
+            title: "删除附件",
+            content: "确定要删除该附件吗？",
+            okText: "确定",
+            cancelText: "取消",
+            onOk: () => {
+                deleteAttachment(id);
+            },
+        });
     };
 
     const showAttachmentModal = (record: attachmentItem) => {
@@ -134,7 +157,7 @@ const Attachment = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <a type="text" className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
-                        onClick={() => handleDelete(record.id)}
+                        onClick={() => handleDeleteAttachment(record.id)}
                     >
                         删除
                     </a>
@@ -146,7 +169,7 @@ const Attachment = () => {
 
     return (
         <div className="font-main">
-            <Button title="上传附件" handleClick={handleUpload} />
+            <Button title="上传附件" handleClick={handleUploadAttachment} />
             <Card>
                 <ConfigProvider
                     theme={{

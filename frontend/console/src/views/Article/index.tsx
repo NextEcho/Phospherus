@@ -1,34 +1,60 @@
 import { deleteArticleAPI, getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
-import { Table, Card, Tag, message, ConfigProvider, theme, Space } from "antd";
+import { Table, Card, Tag, message, ConfigProvider, theme, Space, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Article = () => {
+
+    const navigate = useNavigate();
     const [articleList, setArticleList] = useState<articleItem[]>([]);
 
-    const handleDeleteArticleItem = (key: React.Key) => {
-        const newArticleList = articleList.filter((item) => item.id !== key);
-        const deletedData = articleList.find((item) => item.id === key) as articleItem;
+    useEffect(() => {
+        getArticleList();
+    }, []);
 
-        const deleteArticle = async () => {
-            try {
-                const jsonResp = await deleteArticleAPI({ ids: [deletedData.id] });
-                console.log("deletedData: ", jsonResp);
-                if (jsonResp.code === 0) {
-                    message.success("删除文章成功", 1);
-                } else {
-                    message.error("删除文章失败", 1);
-                }
-            } catch (error) {
-                message.error("删除文章时发生错误，请稍后重试", 1);
-            }
-
-            setArticleList(newArticleList);
+    const getArticleList = async () => {
+        const params = {
+            pageNum: 1,
+            pageSize: 10,
         };
+        try {
+            const jsonResp = await getArticleListAPI(params);
+            if (jsonResp.code === 0) {
+                setArticleList(jsonResp.data.articleList);
+            } else {
+                message.error("查询文章列表失败", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
+    }
 
-        deleteArticle();
+    const deleteArticle = async (id: number) => {
+        try {
+            const jsonResp = await deleteArticleAPI({ ids: [id] });
+            if (jsonResp.code === 0) {
+                setArticleList(prevList => prevList.filter(item => item.id !== id));
+                message.success("删除文章成功", 1);
+            } else {
+                message.error("删除文章失败", 1);
+            }
+        } catch (error) {
+            message.error("删除文章时发生错误，请稍后重试", 1);
+        }
+    };
+
+    const handleDeleteArticleItem = (id: number) => {
+        Modal.confirm({
+            title: "删除文章",
+            content: "确定要删除该文章吗？",
+            okText: "确定",
+            cancelText: "取消",
+            onOk: () => {
+                deleteArticle(id)
+            },
+        });
     };
 
     const ArticleColumns = [
@@ -83,9 +109,13 @@ const Article = () => {
             title: "Action",
             key: "action",
             render: (_, record) => (
-                <Space size="middle" onClick={() => handleDeleteArticleItem(record.id)}>
-                    <a type="text" className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300">
-                        Delete
+                <Space size="middle">
+                    <a
+                        type="text"
+                        className="bg-indigo-500 p-2 rounded-sm hover:bg-indigo-300"
+                        onClick={() => handleDeleteArticleItem(record.id)}
+                    >
+                        删除
                     </a>
                 </Space>
             ),
@@ -93,29 +123,6 @@ const Article = () => {
         },
     ] as ColumnsType<articleItem>;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const params = {
-                pageNum: 1,
-                pageSize: 10,
-            };
-            try {
-                const jsonResp = await getArticleListAPI(params);
-
-                if (jsonResp.code === 0) {
-                    setArticleList(jsonResp.data.articleList);
-                } else {
-                    message.error("查询文章列表失败", 1);
-                }
-            } catch (err) {
-                console.log("捕获 error:", err);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const navigate = useNavigate();
     const handleToAddArticle = () => {
         navigate("/console/edit");
     };
