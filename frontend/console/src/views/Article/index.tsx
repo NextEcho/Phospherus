@@ -32,10 +32,19 @@ const Article = () => {
     };
 
     const ArticleColumns = [
-        { title: "文章ID", dataIndex: "id", key: "id", align: "center" },
-        { title: "文章标题", dataIndex: "title", key: "title", align: "center" },
         {
-            title: "文章封面图",
+            title: "文章标题",
+            dataIndex: "title",
+            key: "title",
+            align: "center",
+            render: (title: string) => (
+                <a href={`http://localhost:10000/article/${title}`} target="_blank" className="hover:text-indigo-500">
+                    {title}
+                </a>
+            ),
+        },
+        {
+            title: "封面图",
             dataIndex: "cover",
             key: "cover",
             render: (cover: string) => (

@@ -45,7 +45,6 @@ const User = () => {
             ),
             align: "center",
         },
-        { title: "用户ID", dataIndex: "id", key: "id", align: "center" },
         { title: "账户名", dataIndex: "passport", key: "passport", align: "center" },
         { title: "昵称", dataIndex: "nickname", key: "nickname", align: "center" },
         { title: "邮箱", dataIndex: "email", key: "email", align: "center" },

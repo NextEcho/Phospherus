@@ -4,7 +4,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                main: ["'Monaspace Neon', '苹方-简', 'LXGW WenKai Screen'"],
+                main: ["'Monaspace Neon', 'LXGW WenKai Screen'"],
                 code: ["'Monaspace Neon', 'Consolas', 'monospace'"],
             },
             backgroundColor: {

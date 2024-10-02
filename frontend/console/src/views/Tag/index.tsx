@@ -117,7 +117,6 @@ const Tag = () => {
     }
 
     const TagColumns = [
-        { title: "标签ID", dataIndex: "id", key: "id", align: "center" },
         { title: "标签名称", dataIndex: "name", key: "name", align: "center" },
         {
             title: "标签颜色",
@@ -141,7 +140,7 @@ const Tag = () => {
         },
         { title: "文章数量", dataIndex: "articleCount", key: "articleCount", align: "center" },
         {
-            title: "Action",
+            title: "操作",
             key: "action",
             render: (_, record) => (
                 <Space size="middle">
