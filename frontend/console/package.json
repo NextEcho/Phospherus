@@ -18,7 +18,8 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.23.1",
         "redux": "^5.0.1",
-        "reset-css": "^5.0.2"
+        "reset-css": "^5.0.2",
+        "zustand": "5.0.0-rc.2"
     },
     "devDependencies": {
         "@types/react": "^18.2.66",

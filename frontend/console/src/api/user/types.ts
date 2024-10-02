@@ -9,6 +9,21 @@ export interface userItem {
     resume: string;
 }
 
+export interface getUserInfoReq {
+    id: number;
+}
+
+export interface getUserInfoResp {
+    id: number;
+    passport: string;
+    nickname: string;
+    avatar: string;
+    email: string;
+    github: string;
+    introduction: string;
+    resume: string;
+}
+
 // getUserList Request and Response
 export interface getUserListReq {
     pageNum: number;

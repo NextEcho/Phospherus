@@ -2,6 +2,8 @@ import http, { CustomSuccessData } from "@/tools/request";
 import {
     deleteUserReq,
     deleteUserResp,
+    getUserInfoReq,
+    getUserInfoResp,
     getUserListReq,
     getUserListResp,
     updateUserReq,
@@ -9,9 +11,14 @@ import {
 } from "./types";
 
 enum API {
-    USER_LIST = "/user/getUserList", // 标签列表接口
+    GET_USER_INFO = "/user/getUserInfo", // 用户信息接口
+    USER_LIST = "/user/getUserList", // 用户列表接口
     DELETE_USER = "/user/deleteUser", // 删除用户接口
     UPDATE_USER = "/user/updateUser", // 修改用户接口
+}
+
+export const getUserInfoAPI = (data: getUserInfoReq) : Promise<CustomSuccessData<getUserInfoResp>> => {
+    return http.post<getUserInfoResp>(API.GET_USER_INFO, data);
 }
 
 export const getUserListAPI = (

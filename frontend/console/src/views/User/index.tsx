@@ -164,7 +164,7 @@ const User = () => {
                 <Form
                     initialValues={selectedUser}
                     onFinish={handleUpdateUser}
-                    onValuesChange={(changedValues, allValues) => {
+                    onValuesChange={(changedValues, _) => {
                         setSelectedUser(prevState => ({
                             ...prevState,
                             ...changedValues

@@ -1,14 +1,31 @@
+import { getUserInfoAPI } from "@/api/user";
+import { message } from "antd";
 import { useEffect, useState } from "react";
 
 const NavBar = () => {
-    const [nickname, setNickname] = useState("XernIsLoading");
+    const [avatar, setAvatar] = useState("");
+    const [nickname, setNickname] = useState("");
     const [career, setCareer] = useState("Software developer");
 
     useEffect(() => {
-        const fetchUserData = async () => {};
-
-        fetchUserData();
+        getUserInfo();
     }, []);
+
+    const getUserInfo = async () => {
+        const userId = localStorage.getItem("userId")
+        try {
+            const jsonResp = await getUserInfoAPI({ id: Number(userId) });
+            console.log("jsonResp is", jsonResp);
+            if (jsonResp.code === 0) {
+                setAvatar(jsonResp.data.avatar);
+                setNickname(jsonResp.data.nickname);
+            } else {
+                message.error("获取用户信息失败");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const handleOpenBlog = () => {
         window.location.href = "http://127.0.0.1:10000";
@@ -22,7 +39,9 @@ const NavBar = () => {
                     shadow-xl py-0 px-10"
         >
             <div className="left-zone flex">
-                <div className="avatar bg-avatar bg-cover w-24 h-24 rounded-full cursor-pointer"></div>
+                <div className="avatar bg-cover w-24 h-24">
+                    <img src={avatar} alt="avatar" className="rounded-full bg-cover"/>
+                </div>
                 <div className="info ml-4 font-main text-lg flex flex-1 flex-col justify-around">
                     <div className="name">{nickname}</div>
                     <div className="career text-xs text-gray-400">{career}</div>

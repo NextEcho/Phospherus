@@ -26,6 +26,7 @@ const Login = () => {
             if (jsonResp.code === 0) {
                 message.success("登录成功", 1);
                 localStorage.setItem("token", jsonResp.data.token);
+                localStorage.setItem("userId", jsonResp.data.id.toString());
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);
