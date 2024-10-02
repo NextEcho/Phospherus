@@ -16,6 +16,17 @@ type Login struct {
 	Token string `json:"token"`
 }
 
+type CreateUser struct {
+	Passport     string `json:"passport"`
+	Nickname     string `json:"nickname"`
+	Avatar       string `json:"avatar"`
+	Signature    string `json:"signature"`
+	Email        string `json:"email"`
+	Github       string `json:"github"`
+	Introduction string `json:"introduction"`
+	Resume       string `json:"resume"`
+}
+
 type GetUserList struct {
 	common.PageResponse
 	UserList []UserItem `json:"userList"`
@@ -31,4 +42,7 @@ type GetUserInfo struct {
 	Github       string `json:"github"`
 	Introduction string `json:"introduction"`
 	Resume       string `json:"resume"`
+}
+
+type DeleteUser struct {
 }

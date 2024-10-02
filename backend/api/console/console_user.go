@@ -15,6 +15,37 @@ import (
 
 type UserApi struct{}
 
+// CreateUser 创建用户
+func (*UserApi) CreateUser(ctx *gin.Context) {
+	req := request.CreateUser{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = console.UserServiceInstance.CreateUser(&input.CreateUser{
+		Passport:     req.Passport,
+		Password:     req.Password,
+		Nickname:     req.Nickname,
+		Avatar:       req.Avatar,
+		Signature:    req.Signature,
+		Email:        req.Email,
+		Github:       req.Github,
+		Introduction: req.Introduction,
+		Resume:       req.Resume,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.UserServiceInstance.CreateUser Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	common.OkWithMessage(ctx, biz.MsgCreateUserSuccess)
+}
+
 // Login 管理员登录
 func (*UserApi) Login(ctx *gin.Context) {
 	req := request.Login{}
@@ -111,4 +142,26 @@ func (*UserApi) GetUserInfo(ctx *gin.Context) {
 	}
 
 	common.OkWithDetail(ctx, biz.MsgGetUserInfoSuccess, resp)
+}
+
+func (*UserApi) DeleteUser(ctx *gin.Context) {
+	req := request.DeleteUser{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = console.UserServiceInstance.DeleteUser(&input.DeleteUser{
+		Id: req.Id,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.UserServiceInstance.DeleteUser Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	common.OkWithMessage(ctx, biz.MsgDeleteUserSuccess)
 }

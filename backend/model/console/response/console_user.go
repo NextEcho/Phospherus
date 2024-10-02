@@ -23,3 +23,6 @@ type GetUserInfo struct {
 	Introduction string `json:"introduction"`
 	Resume       string `json:"resume"`
 }
+
+type DeleteUser struct {
+}

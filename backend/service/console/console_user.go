@@ -35,6 +35,27 @@ func (*UserService) Login(in *input.Login) (out *output.Login, err error) {
 	return
 }
 
+func (*UserService) CreateUser(in *input.CreateUser) (out *output.CreateUser, err error) {
+	out = &output.CreateUser{}
+
+	err = global.DB.Create(&model.User{
+		Passport:     in.Passport,
+		Password:     pkg.MD5Encrypt(in.Password),
+		Nickname:     in.Nickname,
+		Avatar:       in.Avatar,
+		Signature:    in.Signature,
+		Email:        in.Email,
+		Github:       in.Github,
+		Introduction: in.Introduction,
+		Resume:       in.Resume,
+	}).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return out, nil
+}
+
 func (*UserService) GetUserList(in *input.GetUserList) (out *output.GetUserList, err error) {
 	out = &output.GetUserList{
 		PageResponse: common.PageResponse{
@@ -90,6 +111,17 @@ func (*UserService) GetUserInfo(in *input.GetUserInfo) (out *output.GetUserInfo,
 	out.Github = user.Github
 	out.Introduction = user.Introduction
 	out.Resume = user.Resume
+
+	return out, nil
+}
+
+func (*UserService) DeleteUser(in *input.DeleteUser) (out *output.DeleteUser, err error) {
+	out = &output.DeleteUser{}
+
+	err = global.DB.Where("id = ?", in.Id).Delete(&model.User{}).Error
+	if err != nil {
+		return nil, err
+	}
 
 	return out, nil
 }
