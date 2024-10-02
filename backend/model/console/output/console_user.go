@@ -46,3 +46,6 @@ type GetUserInfo struct {
 
 type DeleteUser struct {
 }
+
+type UpdateUser struct {
+}

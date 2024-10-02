@@ -125,3 +125,18 @@ func (*UserService) DeleteUser(in *input.DeleteUser) (out *output.DeleteUser, er
 
 	return out, nil
 }
+
+func (*UserService) UpdateUser(in *input.UpdateUser) (out *output.UpdateUser, err error) {
+	out = &output.UpdateUser{}
+
+	err = global.DB.Model(&model.User{}).Where("id = ?", in.Id).Updates(model.User{
+		Nickname: in.Nickname,
+		Email:    in.Email,
+		Github:   in.Github,
+	}).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return out, nil
+}

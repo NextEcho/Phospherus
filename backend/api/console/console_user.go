@@ -165,3 +165,28 @@ func (*UserApi) DeleteUser(ctx *gin.Context) {
 
 	common.OkWithMessage(ctx, biz.MsgDeleteUserSuccess)
 }
+
+func (*UserApi) UpdateUser(ctx *gin.Context) {
+	req := request.UpdateUser{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = console.UserServiceInstance.UpdateUser(&input.UpdateUser{
+		Id:       req.Id,
+		Nickname: req.Nickname,
+		Email:    req.Email,
+		Github:   req.Github,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.UserServiceInstance.UpdateUser Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	common.OkWithMessage(ctx, biz.MsgUpdateUserSuccess)
+}

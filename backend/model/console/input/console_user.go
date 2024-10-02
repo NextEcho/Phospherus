@@ -29,3 +29,10 @@ type GetUserInfo struct {
 type DeleteUser struct {
 	Id int `json:"id"`
 }
+
+type UpdateUser struct {
+	Id       int    `json:"id"`
+	Nickname string `json:"nickname"`
+	Email    string `json:"email"`
+	Github   string `json:"github"`
+}

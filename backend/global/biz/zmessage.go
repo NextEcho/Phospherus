@@ -11,6 +11,7 @@ const MsgGetUserInfoSuccess = "获取用户信息成功"
 const MsgGetUserListSuccess = "获取用户列表成功"
 const MsgDeleteUserSuccess = "删除用户成功"
 const MsgCreateUserSuccess = "创建用户成功"
+const MsgUpdateUserSuccess = "更新用户成功"
 
 // Attachment Module
 const MsgUploadAttachmentSuccess = "上传附件成功"
