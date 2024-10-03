@@ -1,47 +1,106 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, ConfigProvider, Drawer, message } from "antd";
-import { postArticleAPI } from "@/api/article";
+import { getArticleDetailAPI, postArticleAPI, updateArticleAPI } from "@/api/article";
 import { postArticleReq } from "@/api/article/types";
 import { tagItem } from "@/api/tag/types";
 import MDEditor from "@uiw/react-md-editor";
 import TagSelect from "./TagSelect";
 import PublicSwitcher from "./PublicSwitcher";
+import { useParams } from "react-router-dom";
 
 const EditArticle = () => {
+
+    const DRAFT_STATUS = 1;
+    const PUBLISHD_STATUS = 2;
+
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [showAttachmentSelector, setShowAttachmentSelector] = useState<boolean>(false);
     const [title, setTitle] = useState("");
     const [cover, setCover] = useState("");
     const [mdContent, setMdContent] = useState("");
     const [visible, setVisible] = useState(true);
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     const [tags, setTags] = useState<tagItem[]>([] as tagItem[]);
+    const [status, setStatus] = useState<number>(0);
+    const [showAttachmentSelector, setShowAttachmentSelector] = useState<boolean>(false);
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            getArticleDetail(parseInt(id));
+        }
+    }, [id])
+
+    const getArticleDetail = async (id: number) => {
+        try {
+            const jsonResp = await getArticleDetailAPI({ id });
+            if (jsonResp.code === 0) {
+                const article = jsonResp.data;
+                setTitle(article.title);
+                setCover(article.cover);
+                setMdContent(article.content);
+                setVisible(article.isVisible === 1);
+                setSelectedTags(article.tagIds);
+                setStatus(article.status);
+            } else {
+                message.error("获取文章信息失败", 1);
+            }
+        } catch (error) {
+            console.error("获取文章时出错:", error);
+        }
+    }
 
     const postArticle = async (status: number) => {
+        const userId = localStorage.getItem("userId");
         const params: postArticleReq = {
-            authorId: 1,
+            authorId: parseInt(userId || "0"),
             title: title,
             content: mdContent,
             cover: cover ? cover : "deafult.jpg",
             isVisible: visible ? 1 : 0,
             tagIds: selectedTags,
-            status: status,
             description: "",
+            status: status,
         };
 
         try {
             const jsonResp = await postArticleAPI(params);
             if (jsonResp.code === 0) {
-                if (status === 0) {
+                if (status === DRAFT_STATUS) {
                     message.success("保存文章成功", 1);
-                } else if (status === 1) {
+                } else if (status === PUBLISHD_STATUS) {
                     message.success("发布文章成功", 1);
                 }
             } else {
-                message.error("出现错误", 1);
+                message.error("发布文章出现错误", 1);
             }
         } catch (err) {
             console.log("catch error:", err)
+        }
+    }
+
+    const updateArticle = async (id: number) => {
+        const params = {
+            id: id,
+            title: title,
+            content: mdContent,
+            cover: cover ? cover : "deafult.jpg",
+            description: "",
+            isVisible: visible ? 1 : 0,
+            tagIds: selectedTags,
+            status: status,
+        }
+
+        try {
+            const jsonResp = await updateArticleAPI(params);
+            console.log("jsonResp:", jsonResp);
+            if (jsonResp.code === 0) {
+                message.success("更新文章成功", 1);
+            } else {
+                message.error("更新文章失败", 1);
+            }
+        } catch (error) {
+            console.error("更新文章时出错:", error)
         }
     }
 
@@ -49,9 +108,18 @@ const EditArticle = () => {
         setMdContent(value || "");
     };
 
-    const handlePostArtcile = (status: number) => {
-        postArticle(status);
+    const handlePostArtcile = () => {
+        postArticle(PUBLISHD_STATUS);
     };
+
+    const handleSaveArticle = () => {
+        // if id is not null, it is an update operation
+        if (id) {
+            updateArticle(parseInt(id));
+        } else {
+            postArticle(DRAFT_STATUS);
+        }
+    }
 
     return (
         <div className="edit h-full text-slate-50 font-main">
@@ -65,12 +133,9 @@ const EditArticle = () => {
                 text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-indigo-500 
                 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 mb-5 font-main text-slate-50 pl-2"
                     />
-                    <button className="btn-green my-4 mx-2" onClick={() => handlePostArtcile(1)}>发布文章</button>
-                    <button className="btn-orange my-4" onClick={() => {
-                        setOpenDrawer(true);
-                    }}>
-                        保存文章
-                    </button>
+                    <button className="btn-green my-4 mx-2" onClick={() => handleSaveArticle()}>保存文章</button>
+                    <button className="btn-orange my-4 mx-2" onClick={() => handlePostArtcile()}>发布文章</button>
+                    <button className="btn-violet my-4 mx-2" onClick={() => { setOpenDrawer(true); }}>文章设置</button>
                 </div>
                 <div className="md-container h-full" data-color-mode="dark">
                     <MDEditor className="font-main" height={590} value={mdContent} onChange={handleEditorChange} />
@@ -86,7 +151,7 @@ const EditArticle = () => {
                         },
                     }}
                 >
-                    <Drawer title="发布文章" open={openDrawer} onClose={() => setOpenDrawer(false)} width={430}>
+                    <Drawer title="文章设置" open={openDrawer} onClose={() => setOpenDrawer(false)} width={430}>
                         <div className="tag-select text-slate-50 font-main mb-10">
                             <TagSelect
                                 selectedTags={selectedTags}

@@ -12,11 +12,39 @@ interface TagSelectProps {
 }
 
 const TagSelect: React.FC<TagSelectProps> = ({ selectedTags, setSelectedTags, tags, setTags }) => {
-    const handleChange = (values: number[]) => {
+
+    const getTagList = async () => {
+        const params = {
+            pageNum: 1,
+            pageSize: 200,
+        };
+        try {
+            const jsonResp = await getTagListAPI(params);
+            if (jsonResp.code === 0) {
+                const handledTags = jsonResp.data.tagList.map((tag: tagItem) => ({
+                    ...tag,
+                    value: tag.id,
+                    label: tag.name,
+                }));
+                setTags(handledTags);
+            } else {
+                console.log("获取 tagList 失败", jsonResp);
+            }
+        } catch (err) {
+            console.log("捕获错误 error: ", err);
+        }
+    };
+
+    useEffect(() => {
+        getTagList();
+    }, []);
+
+    const handleTagSelectChange = (values: number[]) => {
         setSelectedTags(values);
     };
+
     const selectProps: SelectProps = {
-        onChange: handleChange,
+        onChange: handleTagSelectChange,
     };
 
     const sharedProps: SelectProps = {
@@ -27,32 +55,6 @@ const TagSelect: React.FC<TagSelectProps> = ({ selectedTags, setSelectedTags, ta
         maxTagCount: "responsive",
         value: selectedTags,
     };
-
-    useEffect(() => {
-        const fetchTagListData = async () => {
-            const params = {
-                pageNum: 1,
-                pageSize: 200,
-            };
-            try {
-                const jsonResp = await getTagListAPI(params);
-                if (jsonResp.code === 0) {
-                    const handledTags = jsonResp.data.tagList.map((tag: tagItem) => ({
-                        ...tag,
-                        value: tag.id,
-                        label: tag.name,
-                    }));
-                    setTags(handledTags);
-                } else {
-                    console.log("获取 tagList 失败", jsonResp);
-                }
-            } catch (err) {
-                console.log("捕获错误 error: ", err);
-            }
-        };
-
-        fetchTagListData();
-    }, []);
 
     return (
         <div className="flex items-center">

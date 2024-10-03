@@ -6,6 +6,7 @@ import rehypeRaw from "rehype-raw";
 import { useEffect, useState } from "react";
 import { getArticleDetailAPI } from "@/api/article";
 import { useLocation } from "react-router-dom";
+import { message } from "antd";
 
 const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
     return (
@@ -28,17 +29,24 @@ const ArticleDetail = () => {
     useEffect(() => {
         const { state } = location;
         const articleId = state.id as number;
-
-        const fetchData = async () => {
-            const jsonResp = await getArticleDetailAPI({ id: articleId });
-            const articleData = jsonResp.data;
-
-            setTitle(articleData.title);
-            setContent(articleData.content);
-        };
-
-        fetchData();
+        console.log("articleId:", articleId);
+        getArticleDetail(articleId);
     }, []);
+
+    const getArticleDetail = async (id: number) => {
+        try {
+            const jsonResp = await getArticleDetailAPI({ id });
+            if (jsonResp.code === 0) {
+                const article = jsonResp.data;
+                setTitle(article.title);
+                setContent(article.content);
+            } else {
+                message.error("获取文章信息失败", 1);
+            }
+        } catch (error) {
+            console.error("获取文章时出错:", error);
+        }
+    }
 
     return (
         <>

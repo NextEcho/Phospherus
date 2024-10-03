@@ -10,6 +10,7 @@ type GetArticleDetail struct {
 	Avatar     string   `json:"avatar"`
 	AuthorName string   `json:"authorName"`
 	TagNames   []string `json:"tagNames"`
+	TagIds     []int    `json:"tagIds"`
 }
 
 type GetArticleList struct {

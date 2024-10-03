@@ -31,6 +31,7 @@ const router = createBrowserRouter([
                     { path: "tag", element: withLoadingComponent(<Tag />) },
                     { path: "article", element: withLoadingComponent(<Article />) },
                     { path: "edit", element: withLoadingComponent(<EditArticle />) },
+                    { path: "edit/:id", element: withLoadingComponent(<EditArticle />) },
                     { path: "attachment", element: withLoadingComponent(<Attachment />) },
                     { path: "usercenter", element: withLoadingComponent(<Usercenter />) },
                 ],

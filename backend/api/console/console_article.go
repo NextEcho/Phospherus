@@ -138,10 +138,10 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 
 	_, err = console.ArticleServiceInstance.UpdateArticle(&input.UpdateArticle{
 		Id:        req.Id,
-		AuthorId:  req.AuthorId,
 		IsVisible: req.IsVisible,
 		TagIds:    req.TagIds,
 		Title:     req.Title,
+		Status:    req.Status,
 		Cover:     req.Cover,
 		Content:   req.Content,
 	})

@@ -57,6 +57,10 @@ const Article = () => {
         });
     };
 
+    const handleEditArticleItem = (articleId: number) => {
+        navigate(`/console/edit/${articleId}`);
+    }
+
     const ArticleColumns = [
         {
             title: "文章标题",
@@ -116,6 +120,13 @@ const Article = () => {
                         onClick={() => handleDeleteArticleItem(record.id)}
                     >
                         删除
+                    </a>
+                    <a
+                        type="text"
+                        className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
+                        onClick={() => handleEditArticleItem(record.id)}
+                    >
+                        修改
                     </a>
                 </Space>
             ),

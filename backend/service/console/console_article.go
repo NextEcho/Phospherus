@@ -42,6 +42,8 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 		// 查询文章的标签信息
 		tagEntityArr := []*model.Tag{}
 		tagNames := []string{}
+		tagIds := []int{}
+
 		// select tag.id, tag.name from tag left join article_tag at on at.tag_id = tag.id and at.article_id = 1
 		err = tx.Table("tag").
 			Joins("right join article_tag on article_tag.tag_id = tag.id").
@@ -52,8 +54,10 @@ func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output
 		}
 		for _, tag := range tagEntityArr {
 			tagNames = append(tagNames, tag.Name)
+			tagIds = append(tagIds, tag.Id)
 		}
 		out.TagNames = tagNames
+		out.TagIds = tagIds
 
 		return nil
 	})
@@ -180,10 +184,8 @@ func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.Updat
 		err := tx.Model(&model.Article{}).Where("id = ?", in.Id).Updates(map[string]interface{}{
 			"title":       in.Title,
 			"is_visible":  in.IsVisible,
-			"is_about":    in.IsAbout,
 			"content":     in.Content,
 			"cover":       in.Cover,
-			"author_id":   in.AuthorId,
 			"status":      in.Status,
 			"description": pkg.GenDescription(in.Content),
 		}).Error

@@ -33,7 +33,6 @@ type UpdateArticle struct {
 	Title     string `json:"title"`
 	Cover     string `json:"cover"`
 	Content   string `json:"content"`
-	AuthorId  int    `json:"authorId"`
 	IsVisible int    `json:"isVisible"`
 	Status    int    `json:"status"`
 	TagIds    []int  `json:"tagIds"`
