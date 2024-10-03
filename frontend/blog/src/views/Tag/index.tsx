@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getTagListAPI } from "@/api/tag";
 import { tagItem } from "@/api/tag/types";
 import { useNavigate } from "react-router-dom";
+import { ConvertColorToTranslucent } from "@/tools/color";
 
 interface TagItemProps {
     id: number;
@@ -13,7 +14,10 @@ interface TagItemProps {
 }
 
 const TagItem: React.FC<TagItemProps> = ({ id, name, count, backgroundColor }) => {
-    const tagBgColor = { backgroundColor: backgroundColor };
+    const tagColor = {
+        backgroundColor: ConvertColorToTranslucent(backgroundColor),
+        borderColor: backgroundColor,
+    };
     const navigate = useNavigate();
 
     const handleClickTag = (name: string) => {
@@ -28,10 +32,9 @@ const TagItem: React.FC<TagItemProps> = ({ id, name, count, backgroundColor }) =
     return (
         <>
             <div
-                className={`flex justify-center items-center text-slate-50 border-solid rounded-lg 
-                py-2 px-3 mx-4 
-                flex-nowrap cursor-pointer my-3`}
-                style={tagBgColor}
+                className={`flex justify-center items-center text-slate-50 border-solid border-2 rounded-lg 
+                py-2 px-3 mx-4 flex-nowrap cursor-pointer my-3`}
+                style={tagColor}
                 onClick={() => handleClickTag(name)}
             >
                 <div className="tag-name text-neutral-300 text-lg font-main">{name}</div>
@@ -52,7 +55,9 @@ const Tag: React.FC = () => {
             const tagListData = jsonResp.data;
 
             setTagList(tagListData.tagList);
+            console.log(tagListData.tagList);
         };
+
 
         fetchData();
     }, []);

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { articleItem } from "@/api/article/types";
 import { getArticleListByTagAPI } from "@/api/article";
 import { ConfigProvider, Pagination, theme } from "antd";
+import { ConvertColorToTranslucent } from "@/tools/color";
 
 // TagArticles 标签下的文章概览
 const TagArticles = () => {
@@ -78,8 +79,11 @@ const TagArticles = () => {
             <div className="content bg-main w-full h-full flex flex-1 flex-col px-96 pt-24 pb-8 text-slate-50">
                 <div className="tag-name flex justify-center font-main">
                     <div
-                        className="text-3xl px-2 py-2 rounded-lg"
-                        style={{ backgroundColor: state.backgroundColor }}
+                        className="text-3xl px-3 py-2 border-2 border-solid rounded-lg"
+                        style={{
+                            borderColor: state.backgroundColor,
+                            backgroundColor: ConvertColorToTranslucent(state.backgroundColor),
+                        }}
                     >
                         {state.name}
                     </div>
