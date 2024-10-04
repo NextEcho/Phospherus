@@ -34,7 +34,9 @@ export interface postArticleReq {
     status: number;
 }
 
-export interface postArticleResp {}
+export interface postArticleResp {
+    id: number;
+}
 
 // deleteArticle Request And Response
 export interface deleteArticleReq {
@@ -71,4 +73,6 @@ export interface updateArticleReq {
     status: number;
 }
 
-export interface updateArticleResp {}
+export interface updateArticleResp {
+    id: number;
+}

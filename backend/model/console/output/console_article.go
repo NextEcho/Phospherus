@@ -27,11 +27,15 @@ type GetArticleList struct {
 	ArticleList []ArticleItem `json:"articleList"`
 }
 
-type PostArticle struct{}
+type PostArticle struct {
+	Id int `json:"id"`
+}
 
 type DeleteArticle struct{}
 
-type UpdateArticle struct{}
+type UpdateArticle struct {
+	Id int `json:"id"`
+}
 
 type GetArticleListByTag struct {
 	common.PageResponse

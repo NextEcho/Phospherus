@@ -43,6 +43,7 @@ const ArticleDetail = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const { id } = useParams();
+
     useEffect(() => {
         getArticleDetail(Number(id));
     }, []);

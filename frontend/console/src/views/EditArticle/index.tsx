@@ -6,7 +6,7 @@ import { tagItem } from "@/api/tag/types";
 import MDEditor from "@uiw/react-md-editor";
 import TagSelect from "./TagSelect";
 import PublicSwitcher from "./PublicSwitcher";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./index.module.scss";
 
 const EditArticle = () => {
@@ -14,6 +14,7 @@ const EditArticle = () => {
     const DRAFT_STATUS = 1;
     const PUBLISHD_STATUS = 2;
 
+    const navigate = useNavigate();
     const [openDrawer, setOpenDrawer] = useState(false);
     const [title, setTitle] = useState("");
     const [cover, setCover] = useState("");
@@ -51,7 +52,7 @@ const EditArticle = () => {
         }
     }
 
-    const postArticle = async (status: number) => {
+    const postArticle = async (status: number): Promise<number> => {
         const userId = localStorage.getItem("userId");
         const params: postArticleReq = {
             authorId: parseInt(userId || "0"),
@@ -66,18 +67,17 @@ const EditArticle = () => {
 
         try {
             const jsonResp = await postArticleAPI(params);
+            console.log("post jsonResp:", jsonResp.data.id);
             if (jsonResp.code === 0) {
-                if (status === DRAFT_STATUS) {
-                    message.success("保存文章成功", 1);
-                } else if (status === PUBLISHD_STATUS) {
-                    message.success("发布文章成功", 1);
-                }
+                return jsonResp.data.id;
             } else {
                 message.error("发布文章出现错误", 1);
             }
         } catch (err) {
             console.log("catch error:", err)
         }
+
+        return 0;
     }
 
     const updateArticle = async (id: number) => {
@@ -94,9 +94,8 @@ const EditArticle = () => {
 
         try {
             const jsonResp = await updateArticleAPI(params);
-            if (jsonResp.code === 0) {
-                message.success("更新文章成功", 1);
-            } else {
+            console.log("update jsonResp:", jsonResp.data.id);
+            if (jsonResp.code !== 0) {
                 message.error("更新文章失败", 1);
             }
         } catch (error) {
@@ -108,17 +107,28 @@ const EditArticle = () => {
         setMdContent(value || "");
     };
 
-    const handlePostArtcile = () => {
-        postArticle(PUBLISHD_STATUS);
-    };
-
-    const handleSaveArticle = () => {
-        // if id is not null, it is an update operation
+    const handlePostArtcile = async () => {
         if (id) {
             updateArticle(parseInt(id));
         } else {
-            postArticle(DRAFT_STATUS);
+            const articleId = await postArticle(PUBLISHD_STATUS);
+            setTimeout(() => {
+                navigate(`/console/edit/${articleId}`);
+            }, 1000)
         }
+        message.success("发布文章成功", 1);
+    };
+
+    const handleSaveArticle = async () => {
+        if (id) {
+            updateArticle(parseInt(id));
+        } else {
+            const articleId = await postArticle(DRAFT_STATUS);
+            setTimeout(() => {
+                navigate(`/console/edit/${articleId}`);
+            }, 1000)
+        }
+        message.success("保存文章成功", 1);
     }
 
     return (

@@ -159,6 +159,8 @@ func (*ArticleService) PostArticle(in *input.PostArticle) (out *output.PostArtic
 			return err
 		}
 
+		out.Id = article.Id
+
 		// 插入文章标签关联数据
 		for _, tagId := range in.TagIds {
 			err := tx.Create(&model.ArticleTag{
@@ -177,7 +179,9 @@ func (*ArticleService) PostArticle(in *input.PostArticle) (out *output.PostArtic
 
 // UpdateArticle 更新文章
 func (*ArticleService) UpdateArticle(in *input.UpdateArticle) (out *output.UpdateArticle, err error) {
-	out = &output.UpdateArticle{}
+	out = &output.UpdateArticle{
+		Id: in.Id,
+	}
 
 	err = global.DB.Transaction(func(tx *gorm.DB) error {
 		// 更新文章数据

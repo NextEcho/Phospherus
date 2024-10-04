@@ -108,7 +108,7 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 		return
 	}
 
-	_, err = console.ArticleServiceInstance.PostArticle(&input.PostArticle{
+	out, err := console.ArticleServiceInstance.PostArticle(&input.PostArticle{
 		AuthorId:  req.AuthorId,
 		IsVisible: req.IsVisible,
 		TagIds:    req.TagIds,
@@ -122,7 +122,12 @@ func (*ArticleApi) PostArticle(ctx *gin.Context) {
 		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	common.OkWithMessage(ctx, biz.MsgPostArticleSuccess)
+
+	resp := response.PostArticle{
+		Id: out.Id,
+	}
+
+	common.OkWithDetail(ctx, biz.MsgPostArticleSuccess, resp)
 }
 
 // UpdateArticle 更新文章
@@ -150,7 +155,12 @@ func (*ArticleApi) UpdateArticle(ctx *gin.Context) {
 		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
 		return
 	}
-	common.OkWithMessage(ctx, biz.MsgUpdateArticleSuccess)
+
+	resp := response.UpdateArticle{
+		Id: req.Id,
+	}
+
+	common.OkWithDetail(ctx, biz.MsgUpdateArticleSuccess, resp)
 }
 
 func (*ArticleApi) GetArticleListByTag(ctx *gin.Context) {
