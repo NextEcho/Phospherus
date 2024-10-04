@@ -93,7 +93,6 @@ const EditArticle = () => {
 
         try {
             const jsonResp = await updateArticleAPI(params);
-            console.log("jsonResp:", jsonResp);
             if (jsonResp.code === 0) {
                 message.success("更新文章成功", 1);
             } else {

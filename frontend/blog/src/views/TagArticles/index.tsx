@@ -24,7 +24,6 @@ const TagArticles = () => {
             tagId: state.id as number,
         };
         const jsonResp = await getArticleListByTagAPI(params);
-        console.log("data list is ", jsonResp.data.articleList);
         const articleListData = jsonResp.data;
 
         setTotal(articleListData.total);

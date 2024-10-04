@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     { path: "/tag", element: withLoadingComponent(<Tag />) },
     { path: "/tag/:name", element: withLoadingComponent(<TagArticles />) },
     { path: "/about", element: withLoadingComponent(<About />) },
-    { path: "/article/:title", element: withLoadingComponent(<ArticleDetail />) },
+    { path: "/article/:id", element: withLoadingComponent(<ArticleDetail />) },
 ]);
 
 export default router;

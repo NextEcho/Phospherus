@@ -15,11 +15,8 @@ interface ArticleItemProps {
 
 const ArticleItem: React.FC<ArticleItemProps> = ({ id, title, time }) => {
     const navigate = useNavigate();
-    const handleClick = (id: number, title: string) => {
-        const data = {
-            id: id,
-        };
-        navigate(`/article/${title}`, { state: data });
+    const handleClick = (id: number) => {
+        navigate(`/article/${id}`);
     };
 
     return (
@@ -29,7 +26,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({ id, title, time }) => {
                     className="transition duration-75 hover:cursor-pointer hover:text-indigo-500"
                     onClick={(e) => {
                         e.preventDefault();
-                        handleClick(id, title);
+                        handleClick(id);
                     }}
                 >
                     {title}

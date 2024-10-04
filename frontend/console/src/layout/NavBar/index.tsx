@@ -1,30 +1,12 @@
-import { getUserInfoAPI } from "@/api/user";
-import { message } from "antd";
-import { useEffect, useState } from "react";
+import { useUserStore } from "@/store";
+import { useEffect } from "react";
 
 const NavBar = () => {
-    const [avatar, setAvatar] = useState("");
-    const [nickname, setNickname] = useState("");
-    const [career, setCareer] = useState("Software developer");
+    const { userInfo, getUserInfo } = useUserStore();
 
     useEffect(() => {
         getUserInfo();
     }, []);
-
-    const getUserInfo = async () => {
-        const userId = localStorage.getItem("userId")
-        try {
-            const jsonResp = await getUserInfoAPI({ id: Number(userId) });
-            if (jsonResp.code === 0) {
-                setAvatar(jsonResp.data.avatar);
-                setNickname(jsonResp.data.nickname);
-            } else {
-                message.error("获取用户信息失败");
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     const handleOpenBlog = () => {
         window.location.href = "http://127.0.0.1:10000";
@@ -39,11 +21,10 @@ const NavBar = () => {
         >
             <div className="left-zone flex">
                 <div className="avatar bg-cover w-24 h-24">
-                    <img src={avatar} alt="avatar" className="rounded-full bg-cover"/>
+                    <img src={userInfo.avatar} alt="avatar" className="rounded-full bg-cover" />
                 </div>
                 <div className="info ml-4 font-main text-lg flex flex-1 flex-col justify-around">
-                    <div className="name">{nickname}</div>
-                    <div className="career text-xs text-gray-400">{career}</div>
+                    <div className="name">{userInfo.nickname}</div>
                 </div>
             </div>
             <div className="right-zone">

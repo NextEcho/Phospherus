@@ -1,5 +1,6 @@
 import { createTagAPI, deleteTagAPI, getTagListAPI, updateTagAPI } from "@/api/tag";
 import { tagItem } from "@/api/tag/types";
+import { ConvertColorToTranslucent } from "@/tools/color";
 import {
     Card,
     ColorPicker,
@@ -124,11 +125,12 @@ const Tag = () => {
             render: (backgroundColor) => (
                 <div className="flex justify-center">
                     <div
-                        className="rounded-md"
+                        className="rounded-md border-solid border-2"
                         style={{
-                            width: "70%",
+                            width: "50%",
                             height: "100%",
-                            backgroundColor: backgroundColor,
+                            backgroundColor: ConvertColorToTranslucent(backgroundColor),
+                            borderColor: backgroundColor,
                         }}
                     >
                         {backgroundColor}
@@ -155,7 +157,7 @@ const Tag = () => {
                         className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
                         onClick={() => hanldeUpdateTagItem(record.id)}
                     >
-                        修改
+                        编辑
                     </a>
                 </Space>
             ),

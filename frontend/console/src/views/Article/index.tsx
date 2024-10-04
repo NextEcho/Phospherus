@@ -1,5 +1,6 @@
 import { deleteArticleAPI, getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
+import { getRandomColor } from "@/tools/color";
 import { Table, Card, Tag, message, ConfigProvider, theme, Space, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
@@ -61,15 +62,31 @@ const Article = () => {
         navigate(`/console/edit/${articleId}`);
     }
 
+    const handleToAddArticle = () => {
+        navigate("/console/edit");
+    };
+
+    const handleClickArticle = (articleId: number) => {
+        const url = `http://localhost:10000/article/${articleId}`;
+        window.open(url, "_blank");
+    }
+
     const ArticleColumns = [
         {
             title: "文章标题",
             dataIndex: "title",
             key: "title",
             align: "center",
-            render: (title: string) => (
-                <a href={`http://localhost:10000/article/${title}`} target="_blank" className="hover:text-indigo-500">
-                    {title}
+            render: (_, record) => (
+                <a href="#"
+                    className="hover:text-indigo-500"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleClickArticle(record.id)
+                    }
+                    }
+                >
+                    {record.title}
                 </a>
             ),
         },
@@ -95,13 +112,10 @@ const Article = () => {
             render: (_: any, { tagNames }: { tagNames: string[] }) => (
                 <>
                     {tagNames.map((tag: string) => {
-                        let color = tag.length > 5 ? "geekblue" : "green";
-                        if (tag === "loser") {
-                            color = "volcano";
-                        }
+                        let color = getRandomColor();
                         return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
+                            <Tag bordered={false} color={color} key={tag} className="font-main">
+                                {tag}
                             </Tag>
                         );
                     })}
@@ -126,7 +140,7 @@ const Article = () => {
                         className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
                         onClick={() => handleEditArticleItem(record.id)}
                     >
-                        修改
+                        编辑
                     </a>
                 </Space>
             ),
@@ -134,9 +148,6 @@ const Article = () => {
         },
     ] as ColumnsType<articleItem>;
 
-    const handleToAddArticle = () => {
-        navigate("/console/edit");
-    };
 
     return (
         <div className="font-main">

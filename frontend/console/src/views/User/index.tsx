@@ -122,7 +122,7 @@ const User = () => {
                         type="text"
                         className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
                         onClick={() => showUpdateUserDialog(record)}>
-                        修改
+                        编辑
                     </a>
                 </Space>
             ),

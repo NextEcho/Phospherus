@@ -5,7 +5,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { useEffect, useState } from "react";
 import { getArticleDetailAPI } from "@/api/article";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { message } from "antd";
 
 const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
@@ -24,13 +24,9 @@ const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
 const ArticleDetail = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-
-    const location = useLocation();
+    const { id } = useParams();
     useEffect(() => {
-        const { state } = location;
-        const articleId = state.id as number;
-        console.log("articleId:", articleId);
-        getArticleDetail(articleId);
+        getArticleDetail(Number(id));
     }, []);
 
     const getArticleDetail = async (id: number) => {
