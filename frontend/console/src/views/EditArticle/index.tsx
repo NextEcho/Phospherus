@@ -7,6 +7,7 @@ import MDEditor from "@uiw/react-md-editor";
 import TagSelect from "./TagSelect";
 import PublicSwitcher from "./PublicSwitcher";
 import { useParams } from "react-router-dom";
+import styles from "./index.module.scss";
 
 const EditArticle = () => {
 
@@ -129,19 +130,19 @@ const EditArticle = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         className="peer h-full flex-1 border-b-2 border-slate-700 bg-transparent pt-4 pb-1.5 text-lg font-normal 
-                text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-indigo-500 
+                text-blue-gray-700 outline outline-0 transition-all duration-150 placeholder-shown:border-blue-gray-200 focus:border-indigo-500 
                 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 mb-5 font-main text-slate-50 pl-2"
                     />
                     <button className="btn-green my-4 mx-2" onClick={() => handleSaveArticle()}>保存文章</button>
                     <button className="btn-orange my-4 mx-2" onClick={() => handlePostArtcile()}>发布文章</button>
                     <button className="btn-violet my-4 mx-2" onClick={() => { setOpenDrawer(true); }}>文章设置</button>
                 </div>
-                <div className="md-container h-full" data-color-mode="dark">
-                    <MDEditor className="font-main" height={590} value={mdContent} onChange={handleEditorChange} />
+                <div className={styles.mdEditorWrapper} data-color-mode="dark">
+                    <MDEditor className={`font-main`} height={590} value={mdContent} onChange={handleEditorChange} />
                 </div>
             </Card>
 
-            <div className="article-properties">
+            <div className="article-properties-setting">
                 <ConfigProvider
                     theme={{
                         token: {
