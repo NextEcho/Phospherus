@@ -5,12 +5,12 @@ export default {
         extend: {
             fontFamily: {
                 main: ["'Monaspace Neon', 'LXGW WenKai Screen'"],
-                code: ["'Monaspace Neon', 'Consolas', 'monospace'"],
+                code: ["'ComicShannsMono Nerd Font', 'Maple Mono NF CN'"],
             },
             backgroundColor: {
                 main: "#1A1823",
             },
         },
     },
-    plugins: [require("@tailwindcss/typography")],
+    // plugins: [require("@tailwindcss/typography")],
 };

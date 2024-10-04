@@ -1,0 +1,13 @@
+/* 这会选中所有以 "language-" 开头的类 */
+[class^="language-"],
+[class*=" language-"] {
+  font-family: 'JetBrainsMono Nerd Font', 'Maple Mono NF CN', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* 确保内部的 code 标签也使用相同的字体 */
+[class^="language-"] code,
+[class*=" language-"] code {
+  font-family: inherit !important;
+}
