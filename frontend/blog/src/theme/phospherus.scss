@@ -6,11 +6,91 @@
 
     h2 {
         font-size: 1.75em;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.4em;
     }
 
     h3 {
         font-size: 1.5em;
-        margin-bottom: 0.3em;
+        margin-bottom: 0.4em;
+    }
+
+    h4 {
+        font-size: 1.3em;
+        margin-bottom: 0.4em;
+    }
+
+    p {
+        margin-bottom: 0.8em;
+        line-height: 1.5;
+    }
+
+    a {
+        color: #36e889;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    p > code {
+        font-family: "ComicShannsMono Nerd Font";
+        color: #84e9b3;
+        padding: 0.2em 0.4em;
+        background-color: #2f333a;
+        border-radius: 0.3em;
+    }
+
+    pre {
+        margin: 1em 0em;
+    }
+
+    ul {
+        padding-left: 1.5em;
+        li {
+            list-style-type: disc;
+            margin-bottom: 0.4em;
+
+            &:has(input[type="checkbox"]) {
+                list-style-type: none;
+                margin-left: -1.5em;
+                padding-left: 1.5em;
+                position: relative;
+
+                &::marker {
+                    content: none;
+                }
+
+                input[type="checkbox"] {
+                    position: absolute;
+                    left: 0;
+                    top: 0.25em;
+                    margin: 0;
+                    width: 1em;
+                    height: 1em;
+                    cursor: pointer;
+
+                    &:checked {
+                        accent-color: #4caf50; // 设置选中状态的颜色为绿色
+                        background-color: #4caf50;
+                    }
+                }
+            }
+        }
+        margin-bottom: 0.6em;
+    }
+
+    ol {
+        padding-left: 2em;
+        li {
+            list-style-type: decimal;
+            margin-bottom: 0.4em;
+        }
+        margin-bottom: 0.6em;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        margin: 0.5em 0em;
     }
 }
