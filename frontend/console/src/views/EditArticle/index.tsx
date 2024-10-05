@@ -108,8 +108,13 @@ const EditArticle = () => {
     };
 
     const handlePostArtcile = async () => {
+        if (mdContent.length === 0 || title.length === 0) {
+            message.info("文章标题或内容均不能为空", 1);
+            return;
+        }
+
         if (id) {
-            updateArticle(parseInt(id));
+            await updateArticle(parseInt(id));
         } else {
             const articleId = await postArticle(PUBLISHD_STATUS);
             setTimeout(() => {
@@ -120,6 +125,11 @@ const EditArticle = () => {
     };
 
     const handleSaveArticle = async () => {
+        if (mdContent.length === 0 || title.length === 0) {
+            message.info("文章标题或内容均不能为空", 1);
+            return;
+        }
+
         if (id) {
             updateArticle(parseInt(id));
         } else {
@@ -148,7 +158,7 @@ const EditArticle = () => {
                     <button className="btn-violet my-4 mx-2" onClick={() => { setOpenDrawer(true); }}>文章设置</button>
                 </div>
                 <div className={styles.mdEditorWrapper} data-color-mode="dark">
-                    <MDEditor className={`font-main`} height={590} value={mdContent} onChange={handleEditorChange} />
+                    <MDEditor hideToolbar height={625} value={mdContent} onChange={handleEditorChange} />
                 </div>
             </Card>
 

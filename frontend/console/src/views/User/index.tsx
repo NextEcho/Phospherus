@@ -1,6 +1,6 @@
 import { userItem } from "@/api/user/types";
 import { createUserAPI, deleteUserAPI, getUserListAPI, updateUserAPI } from "@/api/user";
-import { Card, ConfigProvider, Form, Input, message, Modal, Space, Table, theme } from "antd";
+import { Card, ConfigProvider, Input, message, Modal, Space, Table, theme } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { GeneratePassword } from "@/tools/password";

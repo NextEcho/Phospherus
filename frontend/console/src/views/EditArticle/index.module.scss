@@ -1,6 +1,8 @@
 .mdEditorWrapper {
     :global {
         .w-md-editor {
+            --md-editor-font-family: "Monaspace Neon", "Maple Mono NF CN";
+
             .w-md-editor-toolbar {
                 border: none;
                 background-color: #262d47;
