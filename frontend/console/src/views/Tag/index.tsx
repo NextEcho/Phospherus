@@ -18,13 +18,13 @@ import { useEffect, useState } from "react";
 
 const Tag = () => {
     const [tagList, setTagList] = useState<tagItem[]>([]);
-    const [open, setOpen] = useState(false);
-    const [modalTitle, setModalTitle] = useState("");
+    const [open, setOpen] = useState<boolean>(false);
+    const [modalTitle, setModalTitle] = useState<string>("");
 
-    const [tagId, setTagId] = useState(0);
-    const [name, setName] = useState("");
-    const [color, setColor] = useState("#7939E7");
-    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [tagId, setTagId] = useState<number>(0);
+    const [name, setName] = useState<string>("");
+    const [color, setColor] = useState<string>("#7939E7");
+    const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
     useEffect(() => {
         getTagList();

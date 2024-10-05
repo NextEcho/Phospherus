@@ -37,6 +37,17 @@ export interface getUserListResp {
     userList: userItem[];
 }
 
+// createUser Request and Response
+export interface createUserReq {
+    passport: string;
+    nickname: string;
+    password: string;
+    email: string;
+    github: string;
+}
+
+export interface createUserResp {}
+
 // deleteUser Request and Response
 export interface deleteUserReq {
     id: number;

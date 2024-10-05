@@ -1,13 +1,21 @@
 import { userItem } from "@/api/user/types";
-import { deleteUserAPI, getUserListAPI, updateUserAPI } from "@/api/user";
+import { createUserAPI, deleteUserAPI, getUserListAPI, updateUserAPI } from "@/api/user";
 import { Card, ConfigProvider, Form, Input, message, Modal, Space, Table, theme } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
+import { GeneratePassword } from "@/tools/password";
 
 const User = () => {
     const [userList, setUserList] = useState<userItem[]>([]);
+    const [modalTitle, setModalTitle] = useState<string>("");
     const [showUserDialog, setShowUserDialog] = useState<boolean>(false);
-    const [selectedUser, setSelectedUser] = useState<userItem>({} as userItem);
+
+    const [userId, setUserId] = useState<number>(0);
+    const [passport, setPassport] = useState<string>("");
+    const [nickname, setNickname] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [github, setGithub] = useState<string>("");
 
     useEffect(() => {
         getUserList();
@@ -44,12 +52,12 @@ const User = () => {
         }
     };
 
-    const updateUser = async (user: userItem) => {
+    const updateUser = async () => {
         const params = {
-            id: user.id,
-            nickname: user.nickname,
-            email: user.email,
-            github: user.github,
+            id: userId,
+            nickname,
+            email,
+            github,
         };
         try {
             const jsonResp = await updateUserAPI(params);
@@ -65,6 +73,32 @@ const User = () => {
         }
     };
 
+    const createUser = async () => {
+        const params = {
+            passport,
+            nickname,
+            email,
+            github,
+            password,
+        };
+        try {
+            const jsonResp = await createUserAPI(params);
+            if (jsonResp.code === 0) {
+                message.success("创建用户成功", 1);
+                setShowUserDialog(false);
+                getUserList();
+            } else {
+                message.error("创建用户失败", 1);
+            }
+        } catch (err) {
+            console.log("捕获 error:", err);
+        }
+    }
+
+    const handleCreateUser = () => {
+        createUser();
+    };
+
     const handleDeleteUser = (id: number) => {
         Modal.confirm({
             title: "删除用户",
@@ -77,13 +111,8 @@ const User = () => {
         });
     };
 
-    const handleUpdateUser = (user: userItem) => {
-        updateUser(user);
-    };
-
-    const showUpdateUserDialog = (user: userItem) => {
-        setSelectedUser(user);
-        setShowUserDialog(true);
+    const handleUpdateUser = () => {
+        updateUser();
     };
 
     const userColumns = [
@@ -121,7 +150,14 @@ const User = () => {
                     <a
                         type="text"
                         className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
-                        onClick={() => showUpdateUserDialog(record)}>
+                        onClick={() => {
+                            setModalTitle("修改用户信息");
+                            setUserId(record.id);
+                            setNickname(record.nickname);
+                            setEmail(record.email);
+                            setGithub(record.github);
+                            setShowUserDialog(true);
+                        }}>
                         编辑
                     </a>
                 </Space>
@@ -132,7 +168,17 @@ const User = () => {
 
     return (
         <div className="font-main">
-            <button className="btn-green my-4">创建新用户</button>
+            <button className="btn-green my-4" onClick={() => {
+                setModalTitle("创建新用户")
+                setUserId(0);
+                setPassport("");
+                setNickname("");
+                setEmail("");
+                setGithub("");
+                setShowUserDialog(true);
+            }}>
+                创建新用户
+            </button>
             <Card className="bg-[#272E48] border-none">
                 <ConfigProvider
                     theme={{
@@ -168,34 +214,63 @@ const User = () => {
                 }}
             >
                 <Modal
-                    title="修改用户信息"
+                    centered
+                    title={modalTitle}
                     open={showUserDialog}
-                    onCancel={() => setShowUserDialog(false)}
                     cancelText="取消"
                     okText="确定"
-                    onOk={() => handleUpdateUser(selectedUser)}
+                    onCancel={() => setShowUserDialog(false)}
+                    onOk={modalTitle === "修改用户信息" ? handleUpdateUser : handleCreateUser}
                 >
-                    <div className="font-main">
-                        <Form
-                            initialValues={selectedUser}
-                            onFinish={handleUpdateUser}
-                            onValuesChange={(changedValues, _) => {
-                                setSelectedUser(prevState => ({
-                                    ...prevState,
-                                    ...changedValues
-                                }));
-                            }}
-                        >
-                            <Form.Item label="昵称" name="nickname">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item label="邮箱" name="email">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item label="Github" name="github">
-                                <Input />
-                            </Form.Item>
-                        </Form>
+                    <div className="form font-main px-1 py-4 text-lg">
+                        {modalTitle === "创建新用户" && (
+                            <>
+                                <div className="passport flex mb-4 pr-10">
+                                    <span className="whitespace-nowrap mr-4">账户名:</span>
+                                    <Input
+                                        className="font-main"
+                                        type="text"
+                                        value={passport}
+                                        onChange={(e) => {
+                                            setPassport(e.target.value);
+                                        }}
+                                        onBlur={() => {
+                                            setPassword(GeneratePassword(passport));
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        )}
+                        <div className="nickname flex mb-4 pr-10">
+                            <span className="whitespace-nowrap mr-4">昵 称:</span>
+                            <Input
+                                className="font-main"
+                                value={nickname}
+                                onChange={(e) => {
+                                    setNickname(e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="email flex mb-4 pr-10">
+                            <span className="whitespace-nowrap mr-4">邮 箱:</span>
+                            <Input
+                                className="font-main"
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="github flex mb-4 pr-10">
+                            <span className="whitespace-nowrap mr-4">Github:</span>
+                            <Input
+                                className="font-main"
+                                value={github}
+                                onChange={(e) => {
+                                    setGithub(e.target.value);
+                                }}
+                            />
+                        </div>
                     </div>
                 </Modal>
             </ConfigProvider>

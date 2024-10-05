@@ -38,6 +38,22 @@ func (*UserService) Login(in *input.Login) (out *output.Login, err error) {
 func (*UserService) CreateUser(in *input.CreateUser) (out *output.CreateUser, err error) {
 	out = &output.CreateUser{}
 
+	if in.Avatar == "" {
+		in.Avatar = pkg.DefaultAvatar()
+	}
+
+	if in.Signature == "" {
+		in.Signature = pkg.DefaultSignature()
+	}
+
+	if in.Introduction == "" {
+		in.Introduction = pkg.DefaultIntroduction()
+	}
+
+	if in.Resume == "" {
+		in.Resume = pkg.DefaultResume()
+	}
+
 	err = global.DB.Create(&model.User{
 		Passport:     in.Passport,
 		Password:     pkg.MD5Encrypt(in.Password),
