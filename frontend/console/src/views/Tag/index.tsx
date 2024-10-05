@@ -19,7 +19,9 @@ import { useEffect, useState } from "react";
 const Tag = () => {
     const [tagList, setTagList] = useState<tagItem[]>([]);
     const [open, setOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
 
+    const [tagId, setTagId] = useState(0);
     const [name, setName] = useState("");
     const [color, setColor] = useState("#7939E7");
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -64,6 +66,8 @@ const Tag = () => {
             const jsonResp = await updateTagAPI({ id, name, backgroundColor });
             if (jsonResp.code === 0) {
                 setTagList(prevList => prevList.map(item => item.id === id ? { ...item, name, backgroundColor } : item));
+                setConfirmLoading(false);
+                setOpen(false);
                 message.success("修改标签成功", 1);
             } else {
                 message.error("修改标签失败", 1);
@@ -73,32 +77,35 @@ const Tag = () => {
         }
     }
 
-    const handleCreateTag = () => {
+    const createTag = async () => {
         const params = {
             name: name,
             backgroundColor: color,
         };
+        try {
+            setConfirmLoading(true);
+            const jsonResp = await createTagAPI(params);
 
-        const createTag = async () => {
-            try {
-                setConfirmLoading(true);
-                const jsonResp = await createTagAPI(params);
-
-                if (jsonResp.code === 0) {
-                    setConfirmLoading(false);
-                    setOpen(false);
-                    message.success("创建标签成功", 1);
-                    await getTagList();
-                } else {
-                    message.error("创建标签失败", 1);
-                }
-            } catch (error) {
-                message.error("创建标签时发生错误，请稍后重试", 1);
+            if (jsonResp.code === 0) {
+                await getTagList();
+                setConfirmLoading(false);
+                setOpen(false);
+                message.success("创建标签成功", 1);
+            } else {
+                message.error("创建标签失败", 1);
             }
-        };
+        } catch (error) {
+            message.error("创建标签时发生错误，请稍后重试", 1);
+        }
+    };
 
+    const handleCreateTag = () => {
         createTag();
     };
+
+    const handleUpdateTag = async () => {
+        updateTag(tagId, name, color);
+    }
 
     const handleDeleteTagItem = async (id: number) => {
         Modal.confirm({
@@ -111,10 +118,6 @@ const Tag = () => {
             }
         });
     };
-
-    const hanldeUpdateTagItem = async (id: number) => {
-        // updateTag(id, name, color);
-    }
 
     const TagColumns = [
         { title: "标签名称", dataIndex: "name", key: "name", align: "center" },
@@ -155,7 +158,13 @@ const Tag = () => {
                     <a
                         type="text"
                         className="bg-orange-500 p-2 rounded-sm hover:bg-orange-300"
-                        onClick={() => hanldeUpdateTagItem(record.id)}
+                        onClick={() => {
+                            setTagId(record.id);
+                            setName(record.name);
+                            setColor(record.backgroundColor);
+                            setModalTitle("编辑标签")
+                            setOpen(true);
+                        }}
                     >
                         编辑
                     </a>
@@ -167,7 +176,13 @@ const Tag = () => {
 
     return (
         <div className="font-main">
-            <button className="btn-green my-4" onClick={() => setOpen(true)}>
+            <button className="btn-green my-4" onClick={() => {
+                setTagId(0);
+                setName("");
+                setColor("#7939E7");
+                setModalTitle("创建新标签");
+                setOpen(true);
+            }}>
                 创建标签
             </button>
             <Card className="bg-[#272E48] border-none">
@@ -206,10 +221,10 @@ const Tag = () => {
                 }}
             >
                 <Modal
-                    title="创建新标签"
+                    title={modalTitle}
                     centered
                     open={open}
-                    onOk={handleCreateTag}
+                    onOk={modalTitle === "创建新标签" ? handleCreateTag : handleUpdateTag}
                     onCancel={() => setOpen(false)}
                     okText="提交"
                     cancelText="取消"

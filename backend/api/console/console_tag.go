@@ -104,8 +104,9 @@ func (*TagApi) UpdateTag(ctx *gin.Context) {
 	}
 
 	_, err = console.TagServiceInstance.UpdateTag(&input.UpdateTag{
-		Id:   req.Id,
-		Name: req.Name,
+		Id:              req.Id,
+		Name:            req.Name,
+		BackgroundColor: req.BackgroundColor,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.TagServiceInstance.UpdateTag Error", zap.Error(err))
