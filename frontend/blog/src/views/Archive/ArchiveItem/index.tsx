@@ -8,11 +8,8 @@ interface ArchiveItemProps {
 
 const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
     const navigate = useNavigate();
-    const handleClick = (id: number, title: string) => {
-        const data = {
-            id: id,
-        };
-        navigate(`/article/${title}`, { state: data });
+    const handleClick = (id: number) => {
+        navigate(`/article/${id}`);
     };
 
     return (
@@ -23,7 +20,7 @@ const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
                     <div key={index}>
                         <div
                             className="article flex text-lg transition-all duration-200 px-4 py-4 w-full rounded-md hover:shadow-lg hover:shadow-gray-950/50 cursor-pointer"
-                            onClick={() => handleClick(item.id, item.title)}
+                            onClick={() => handleClick(item.id)}
                         >
                             <div className="article-time mr-10 font-code">{item.createdAt}</div>
                             <div className="article-title font-main">{item.title}</div>

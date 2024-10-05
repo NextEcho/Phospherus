@@ -47,6 +47,11 @@ const Article = () => {
     };
 
     const handleDeleteArticleItem = (id: number) => {
+        ConfigProvider.config({
+            theme: {
+                algorithm: theme.darkAlgorithm,
+            },
+        });
         Modal.confirm({
             title: "删除文章",
             content: "确定要删除该文章吗？",

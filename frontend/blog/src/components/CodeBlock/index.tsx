@@ -29,7 +29,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
     return (
         <div className="relative group">
             <div className="absolute right-1 top-1 flex items-center space-x-2 font-main">
-                <span className="text-xs text-gray-500 bg-indigo-200 rounded px-2 py-1">
+                <span className="text-xs text-gray-500 bg-gray-600/10 rounded px-2 py-1">
                     {language}
                 </span>
                 <button
