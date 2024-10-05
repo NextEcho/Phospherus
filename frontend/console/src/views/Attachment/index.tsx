@@ -11,6 +11,7 @@ import videoIcon from '@/assets/images/typeIcons/video.png';
 import audioIcon from '@/assets/images/typeIcons/audio.png';
 import fileIcon from '@/assets/images/typeIcons/file.png';
 import { formatFileSize } from "@/tools/file";
+import UploadFile from "@/components/UploadFile";
 
 const SelectTypeIcon = (type: string) => {
     switch (type) {
@@ -27,6 +28,7 @@ const SelectTypeIcon = (type: string) => {
 
 const Attachment = () => {
     const [attachmentList, setAttachmentList] = useState<attachmentItem[]>([]);
+    const [showFileUploadModal, setShowFileUploadModal] = useState<boolean>(false);
 
     useEffect(() => {
         getAttachmentList();
@@ -63,10 +65,6 @@ const Attachment = () => {
         }
     }
 
-    const handleUploadAttachment = () => {
-        console.log("上传附件");
-    };
-
     const handleDeleteAttachment = (id: number) => {
         Modal.confirm({
             title: "删除附件",
@@ -78,6 +76,14 @@ const Attachment = () => {
             },
         });
     };
+
+    // auto 是否自动刷新
+    const handleFlushAttachmentList = async (auto: boolean) => {
+        await getAttachmentList();
+        if (!auto) {
+            message.success("刷新附件列表成功", 1);
+        }
+    }
 
     const showAttachmentModal = (record: attachmentItem) => {
         Modal.info({
@@ -169,7 +175,8 @@ const Attachment = () => {
 
     return (
         <div className="font-main">
-            <Button title="上传附件" handleClick={handleUploadAttachment} />
+            <button className="btn-green mb-2" onClick={() => setShowFileUploadModal(true)}>上传附件</button>
+            <button className="btn-orange mb-2" onClick={() => handleFlushAttachmentList(false)}>刷新附件列表</button>
             <Card>
                 <ConfigProvider
                     theme={{
@@ -190,6 +197,16 @@ const Attachment = () => {
                     />
                 </ConfigProvider>
             </Card>
+
+            <ConfigProvider
+                theme={{
+                    algorithm: theme.darkAlgorithm,
+                }}
+            >
+                <Modal centered title="附件上传" open={showFileUploadModal} footer={null} onCancel={() => setShowFileUploadModal(false)}>
+                    <UploadFile refreshAttachmentList={() => handleFlushAttachmentList(true)} />
+                </Modal>
+            </ConfigProvider>
         </div>
     );
 };
