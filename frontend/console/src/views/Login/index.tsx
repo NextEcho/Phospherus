@@ -42,18 +42,18 @@ const Login = () => {
         <>
             <div className="login-page w-screen h-screen bg-zinc-800 relative bg-login bg-center bg-cover">
                 <div
-                    className="login-wrapper bg-slate-400/30 absolute inset-2/4 
+                    className="login-wrapper bg-slate-400/20 absolute inset-2/4 
                      -translate-x-2/4 -translate-y-2/4 w-1/4 h-96 
-                     font-main rounded-xl backdrop-blur-xl"
+                     font-main rounded-xl backdrop-blur-3xl"
                 >
-                    <div className="greeter mt-10 mb-8 text-3xl flex justify-center text-slate-50">
-                        <span>Login</span>
+                    <div className="greeter mt-10 mb-8 text-3xl flex justify-center text-slate-50 font-code">
+                        <span>Welcome</span>
                     </div>
                     <div className="login-form flex flex-col flex-1 items-center">
                         <input
                             type="text"
-                            placeholder="Passport"
-                            className="w-3/4 h-10 pl-4 mb-8 outline-none focus:outline-offset-2 focus:outline-indigo-500"
+                            placeholder="Please enter passport"
+                            className="w-3/4 h-10 pl-4 mb-8 outline-none text-slate-50 focus:outline-offset-2 bg-slate-700/30 rounded-sm"
                             value={passport}
                             onChange={(e) => {
                                 setPassport(e.target.value);
@@ -61,8 +61,8 @@ const Login = () => {
                         />
                         <input
                             type="password"
-                            placeholder="Password"
-                            className="w-3/4 h-10 pl-4 mb-8 outline-none focus:outline-offset-2 focus:outline-indigo-500"
+                            placeholder="Please enter password"
+                            className="w-3/4 h-10 pl-4 mb-8 outline-none text-slate-50 focus:outline-offset-2 bg-slate-700/30 rounded-sm"
                             value={password}
                             onChange={(e) => {
                                 setPassword(e.target.value);
