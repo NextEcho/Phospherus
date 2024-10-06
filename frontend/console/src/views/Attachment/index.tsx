@@ -1,5 +1,4 @@
 import Card from "@/components/Card";
-import Button from "@/components/Button";
 import { ConfigProvider, message, Modal, Space, Table, theme } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { attachmentItem } from "@/api/attachment/types";
@@ -95,7 +94,9 @@ const Attachment = () => {
             title: "附件预览",
             content: (
                 <div className="font-main">
-                    <img src={record.url} alt={record.name} />
+                    {record.typeName === "图片" && (
+                        <img src={record.url} alt={record.name} className="w-full h-auto" />
+                    )}
                     <div className="flex flex-col justify-between">
                         <span>附件名: {record.name}</span>
                         <span>附件大小: {formatFileSize(record.size)}</span>

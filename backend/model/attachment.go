@@ -26,6 +26,6 @@ func (a *Attachment) GetTypeName() string {
 	case 3:
 		return "音频"
 	default:
-		return "其他"
+		return "其他文件"
 	}
 }

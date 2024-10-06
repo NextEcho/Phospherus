@@ -91,16 +91,16 @@ const AttachmentSelector: React.FC<AttachmentSelectorProps> = ({ isModalOpen, on
                     dataSource={attachmentList}
                     renderItem={(item) => (
                         <List.Item>
-                            <Card
-                                hoverable
-                                style={{
-                                    width: '100%',
-                                    borderColor: selectedFileUrl === item.url ? '#6366f1' : 'transparent',
-                                    boxShadow: selectedFileUrl === item.url ? '0 0 0 2px rgba(24,144,255,0.2)' : 'none'
-                                }}
-                                cover={
-                                    <div style={{ padding: '20px', textAlign: 'center', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                                        {item.typeName === "图片" && (
+                            {item.typeName === "图片" && (
+                                <Card
+                                    hoverable
+                                    style={{
+                                        width: '100%',
+                                        borderColor: selectedFileUrl === item.url ? '#6366f1' : 'transparent',
+                                        boxShadow: selectedFileUrl === item.url ? '0 0 0 2px rgba(24,144,255,0.2)' : 'none'
+                                    }}
+                                    cover={
+                                        <div style={{ padding: '20px', textAlign: 'center', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                                             <img
                                                 src={item.url}
                                                 alt={item.name}
@@ -110,13 +110,13 @@ const AttachmentSelector: React.FC<AttachmentSelectorProps> = ({ isModalOpen, on
                                                     objectFit: 'contain'
                                                 }}
                                             />
-                                        )}
-                                    </div>
-                                }
-                                onClick={() => handleSelect(item.url)}
-                            >
-                                <Card.Meta title={item.name} description={item.typeName} />
-                            </Card>
+                                        </div>
+                                    }
+                                    onClick={() => handleSelect(item.url)}
+                                >
+                                    <Card.Meta title={item.name} description={item.typeName} />
+                                </Card>
+                            )}
                         </List.Item>
                     )}
                 />
