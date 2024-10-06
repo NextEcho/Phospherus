@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, ConfigProvider, Drawer, Input, message } from "antd";
+import { Card, ConfigProvider, Drawer, Input, List, message, Modal, theme } from "antd";
 import { getArticleDetailAPI, postArticleAPI, updateArticleAPI } from "@/api/article";
 import { postArticleReq } from "@/api/article/types";
 import { tagItem } from "@/api/tag/types";
@@ -8,6 +8,8 @@ import TagSelect from "./TagSelect";
 import PublicSwitcher from "./PublicSwitcher";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./index.module.scss";
+import { attachmentItem } from "@/api/attachment/types";
+import AttachmentSelector from "./AttachmentSelector";
 
 const EditArticle = () => {
 
@@ -17,13 +19,13 @@ const EditArticle = () => {
     const navigate = useNavigate();
     const [openDrawer, setOpenDrawer] = useState(false);
     const [title, setTitle] = useState("");
-    const [cover, setCover] = useState("");
+    const [coverUrl, setCoverUrl] = useState("");
     const [mdContent, setMdContent] = useState("");
     const [visible, setVisible] = useState(true);
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     const [tags, setTags] = useState<tagItem[]>([] as tagItem[]);
     const [status, setStatus] = useState<number>(0);
-    const [showAttachmentSelector, setShowAttachmentSelector] = useState<boolean>(false);
+    const [showAttachmentSelector, setShowAttachmentSelector] = useState(false);
 
     const { id } = useParams();
 
@@ -39,7 +41,7 @@ const EditArticle = () => {
             if (jsonResp.code === 0) {
                 const article = jsonResp.data;
                 setTitle(article.title);
-                setCover(article.cover);
+                setCoverUrl(article.cover);
                 setMdContent(article.content);
                 setVisible(article.isVisible === 1);
                 setSelectedTags(article.tagIds);
@@ -58,7 +60,7 @@ const EditArticle = () => {
             authorId: parseInt(userId || "0"),
             title: title,
             content: mdContent,
-            cover: cover ? cover : "deafult.jpg",
+            cover: coverUrl,
             isVisible: visible ? 1 : 0,
             tagIds: selectedTags,
             description: "",
@@ -85,7 +87,7 @@ const EditArticle = () => {
             id: id,
             title: title,
             content: mdContent,
-            cover: cover ? cover : "deafult.jpg",
+            cover: coverUrl,
             description: "",
             isVisible: visible ? 1 : 0,
             tagIds: selectedTags,
@@ -141,6 +143,10 @@ const EditArticle = () => {
         message.success("保存文章成功", 1);
     }
 
+    const handleSelectAttachment = (url: string) => {
+        setCoverUrl(url);
+    }
+
     return (
         <div className="edit h-full text-slate-50 font-main">
             <Card className="bg-[#272E48] border-none font-main">
@@ -187,7 +193,13 @@ const EditArticle = () => {
                             <span className="mr-4">
                                 设置封面:
                             </span>
-                            <button className="btn-violet" onClick={() => setShowAttachmentSelector(true)}>从附件中选择</button>
+                            <AttachmentSelector
+                                isModalOpen={showAttachmentSelector}
+                                onClose={() => setShowAttachmentSelector(false)}
+                                onOpen={() => setShowAttachmentSelector(true)}
+                                onSelect={handleSelectAttachment}
+                                url={coverUrl}
+                            />
                         </div>
                     </Drawer>
                 </ConfigProvider>

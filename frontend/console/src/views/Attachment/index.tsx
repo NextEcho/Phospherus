@@ -86,15 +86,20 @@ const Attachment = () => {
     }
 
     const showAttachmentModal = (record: attachmentItem) => {
+        ConfigProvider.config({
+            theme: {
+                algorithm: theme.darkAlgorithm,
+            },
+        });
         Modal.info({
             title: "附件预览",
             content: (
                 <div className="font-main">
                     <img src={record.url} alt={record.name} />
-                    <div className="flex flex-col">
-                        <span>文件名: {record.name}</span>
-                        <span>文件大小: {formatFileSize(record.size)}</span>
-                        <span>文件类型: {record.typeName}</span>
+                    <div className="flex flex-col justify-between">
+                        <span>附件名: {record.name}</span>
+                        <span>附件大小: {formatFileSize(record.size)}</span>
+                        <span>附件类型: {record.typeName}</span>
                     </div>
                 </div>
             ),

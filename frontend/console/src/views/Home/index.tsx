@@ -16,7 +16,6 @@ export default function Home() {
                 components: {
                     Card: {
                         colorBgContainer: '#1C2237',
-                        colorBorder: "#1c2237",
                     },
                 },
             }}
