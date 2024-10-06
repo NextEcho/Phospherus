@@ -15,8 +15,8 @@ const NavBar = () => {
     return (
         <div
             className="navigation relative flex justify-between items-center h-full
-                    after:top-0 after:left-0 after:absolute after:bg-nav after:shadow-[0_0_50px_30px_#000000]
-                    after:w-full after:h-full after:bg-cover after:bg-center after:opacity-10 after:pointer-events-none
+                    after:top-0 after:left-0 after:absolute after:bg-banner after:shadow-[0_0_50px_30px_#000000]
+                    after:w-full after:h-full after:bg-cover after:bg-center after:opacity-20 after:pointer-events-none
                     shadow-xl py-0 px-10"
         >
             <div className="left-zone flex">

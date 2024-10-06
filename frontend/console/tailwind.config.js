@@ -7,7 +7,7 @@ export default {
                 // login: "url('@/assets/images/login-bg.png')",
                 login: "url('@/assets/images/login.jpg')",
                 logo: "url('@/assets/images/logo.png')",
-                nav: "url('@/assets/images/nav-bg.jpg')",
+                banner: "url('@/assets/images/banner.jpg')",
             },
             fontFamily: {
                 main: ["'Monaspace Neon', 'LXGW WenKai Screen'"],
