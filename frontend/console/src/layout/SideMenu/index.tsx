@@ -11,16 +11,15 @@ const SideMenu: React.FC = () => {
         "/console/attachment",
     ];
 
-    const navigationTo = useNavigate();
-    const handleClickLogo = () => {
-        navigationTo("/console/home");
+    const handleOpenBlog = () => {
+        window.location.href = "http://127.0.0.1:10000";
     };
 
     return (
         <div className="text-slate-50 fixed top-0 left-0 h-full">
             <div
                 className="logo w-full h-8 flex justify-center mt-4 mb-8 hover:cursor-pointer hover:scale-125 transition duration-300"
-                onClick={handleClickLogo}
+                onClick={handleOpenBlog}
             >
                 <div className="w-8 h-8 bg-logo bg-cover"></div>
             </div>

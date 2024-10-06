@@ -1,5 +1,6 @@
 import { useUserStore } from "@/store";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
     const { userInfo, getUserInfo } = useUserStore();
@@ -8,8 +9,11 @@ const NavBar = () => {
         getUserInfo();
     }, []);
 
-    const handleOpenBlog = () => {
-        window.location.href = "http://127.0.0.1:10000";
+    const navigationTo = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        navigationTo("/auth/login");
     };
 
     return (
@@ -28,14 +32,14 @@ const NavBar = () => {
                 </div>
             </div>
             <div className="right-zone">
-                <div className="blog-entrance cursor-pointer" onClick={handleOpenBlog}>
+                <div className="logout cursor-pointer hover:scale-125 transition duration-300" onClick={handleLogout}>
                     <svg
                         viewBox="0 0 1024 1024"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
                         p-id="20105"
-                        width="48"
-                        height="48"
+                        width="32"
+                        height="32"
                     >
                         <path
                             d="M648.3968 67.85024C617.63072 18.31936 540.20096 4.736 501.94944 40.26368c-38.26688 35.52768-43.91936 100.03968-2.28352 140.85632 87.59296 85.88288 91.80672 250.77248 91.80672 250.77248 160.94208-221.1584 56.92416-364.04224 56.92416-364.04224z m-34.57024 178.68288c-16.13824-38.93248-38.9376-77.70624-71.14752-109.28128-8.81664-8.64256-10.55744-18.49344-10.46528-25.23648 0.13824-10.15296 4.44928-20.1472 11.54048-26.7264 1.83296-1.70496 7.07584-3.5328 14.2592-3.5328 15.46752 0 31.52384 7.78752 38.19008 18.51392l1.7664 2.84672 0.53248 0.64c4.28032 6.67136 34.26304 57.51296 15.32416 142.77632z"
