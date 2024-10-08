@@ -77,6 +77,7 @@ func (*UserApi) Login(ctx *gin.Context) {
 	common.OkWithDetail(ctx, biz.MsgLoginSuccess, loginResp)
 }
 
+// GetUserList 获取用户列表
 func (*UserApi) GetUserList(ctx *gin.Context) {
 	req := request.GetUserList{}
 
@@ -105,6 +106,7 @@ func (*UserApi) GetUserList(ctx *gin.Context) {
 	common.OkWithDetail(ctx, biz.MsgGetUserListSuccess, resp)
 }
 
+// GetUserInfo 获取用户信息
 func (*UserApi) GetUserInfo(ctx *gin.Context) {
 	req := request.GetUserInfo{}
 
@@ -144,6 +146,7 @@ func (*UserApi) GetUserInfo(ctx *gin.Context) {
 	common.OkWithDetail(ctx, biz.MsgGetUserInfoSuccess, resp)
 }
 
+// DeleteUser 删除用户
 func (*UserApi) DeleteUser(ctx *gin.Context) {
 	req := request.DeleteUser{}
 
@@ -166,6 +169,7 @@ func (*UserApi) DeleteUser(ctx *gin.Context) {
 	common.OkWithMessage(ctx, biz.MsgDeleteUserSuccess)
 }
 
+// UpdateUser 修改用户信息
 func (*UserApi) UpdateUser(ctx *gin.Context) {
 	req := request.UpdateUser{}
 

@@ -28,7 +28,9 @@ func Router() *gin.Engine {
 	// Console ///////
 	//////////////////
 	consoleRouteGroup := RouteGroup.Group("console")
+
 	consoleRouteGroup.POST("login", console.UserApiInstance.Login)
+	consoleRouteGroup.POST("init", console.InitApiInstance.InitSystem)
 
 	consoleRouteGroup.Use(middleware.Auth()) // JWT 请求校验
 

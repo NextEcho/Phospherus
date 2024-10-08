@@ -6,4 +6,5 @@ var (
 	TagServiceInstance        = new(TagService)
 	CategoryServiceInstance   = new(CategoryService)
 	AttachmentServiceInstance = new(AttachmentService)
+	InitServiceInstance       = new(InitService)
 )

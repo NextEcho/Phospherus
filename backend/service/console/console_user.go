@@ -16,7 +16,6 @@ import (
 
 type UserService struct{}
 
-// Login 管理员登录
 func (*UserService) Login(in *input.Login) (out *output.Login, err error) {
 	out = &output.Login{}
 
