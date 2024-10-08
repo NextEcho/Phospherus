@@ -155,3 +155,16 @@ func (*UserService) UpdateUser(in *input.UpdateUser) (out *output.UpdateUser, er
 
 	return out, nil
 }
+
+func (*UserService) UpdateAvatar(in *input.UpdateAvatar) (out *output.UpdateAvatar, err error) {
+	out = &output.UpdateAvatar{}
+
+	err = global.DB.Model(&model.User{}).Where("id = ?", in.Id).Updates(model.User{
+		Avatar: in.Avatar,
+	}).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return out, nil
+}

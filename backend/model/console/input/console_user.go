@@ -36,3 +36,8 @@ type UpdateUser struct {
 	Email    string `json:"email"`
 	Github   string `json:"github"`
 }
+
+type UpdateAvatar struct {
+	Id     int    `json:"id"`
+	Avatar string `json:"avatar"`
+}

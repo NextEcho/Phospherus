@@ -194,3 +194,27 @@ func (*UserApi) UpdateUser(ctx *gin.Context) {
 
 	common.OkWithMessage(ctx, biz.MsgUpdateUserSuccess)
 }
+
+// UpdateAvatar 修改用户头像
+func (*UserApi) UpdateAvatar(ctx *gin.Context) {
+	req := request.UpdateAvatar{}
+
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		global.LOGGER.Error("ctx.ShouldBindJSON Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrBindJSON.Error())
+		return
+	}
+
+	_, err = console.UserServiceInstance.UpdateAvatar(&input.UpdateAvatar{
+		Id:     req.Id,
+		Avatar: req.Avatar,
+	})
+	if err != nil {
+		global.LOGGER.Error("console.UserServiceInstance.UpdateAvatar Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	common.OkWithMessage(ctx, biz.MsgUpdateAvatarSuccess)
+}

@@ -46,6 +46,7 @@ func Router() *gin.Engine {
 		consoleUserRouteGroup.POST("getUserInfo", console.UserApiInstance.GetUserInfo)
 		consoleUserRouteGroup.POST("deleteUser", console.UserApiInstance.DeleteUser)
 		consoleUserRouteGroup.POST("updateUser", console.UserApiInstance.UpdateUser)
+		consoleUserRouteGroup.POST("updateAvatar", console.UserApiInstance.UpdateAvatar)
 	}
 
 	consoleArticleRouteGroup := consoleRouteGroup.Group("article")

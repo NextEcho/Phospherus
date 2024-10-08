@@ -49,3 +49,6 @@ type DeleteUser struct {
 
 type UpdateUser struct {
 }
+
+type UpdateAvatar struct {
+}

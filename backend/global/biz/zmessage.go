@@ -22,6 +22,7 @@ const (
 	MsgDeleteUserSuccess     = "删除用户成功"
 	MsgCreateUserSuccess     = "创建用户成功"
 	MsgUpdateUserSuccess     = "更新用户成功"
+	MsgUpdateAvatarSuccess   = "更新用户头像成功"
 	MsgCreateInitUserSuccess = "创建初始用户成功"
 )
 
