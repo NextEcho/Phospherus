@@ -1,24 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import React, { Suspense } from "react";
-
-const Home = React.lazy(() => import("@/views/Home"));
-const Archive = React.lazy(() => import("@/views/Archive"));
-const Tag = React.lazy(() => import("@/views/Tag"));
-const About = React.lazy(() => import("@/views/About"));
-const ArticleDetail = React.lazy(() => import("@/views/ArticleDetail"));
-const TagArticles = React.lazy(() => import("@/views/TagArticles"));
-
-const withLoadingComponent = (comp: JSX.Element) => {
-    return <Suspense fallback={<div>Loading...</div>}>{comp}</Suspense>;
-};
+import Home from "@/views/Home";
+import Archive from "@/views/Archive";
+import Tag from "@/views/Tag";
+import About from "@/views/About";
+import ArticleDetail from "@/views/ArticleDetail";
+import TagArticles from "@/views/TagArticles";
 
 const router = createBrowserRouter([
-    { path: "/", element: withLoadingComponent(<Home />) },
-    { path: "/archive", element: withLoadingComponent(<Archive />) },
-    { path: "/tag", element: withLoadingComponent(<Tag />) },
-    { path: "/tag/:name", element: withLoadingComponent(<TagArticles />) },
-    { path: "/about", element: withLoadingComponent(<About />) },
-    { path: "/article/:id", element: withLoadingComponent(<ArticleDetail />) },
+    { path: "/", element: <Home /> },
+    { path: "/archive", element: <Archive /> },
+    { path: "/tag", element: <Tag /> },
+    { path: "/tag/:name", element: <TagArticles /> },
+    { path: "/about", element: <About /> },
+    { path: "/article/:id", element: <ArticleDetail /> },
 ]);
 
 export default router;

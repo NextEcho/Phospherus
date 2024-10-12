@@ -32,10 +32,10 @@ const NavBar: React.FC = () => {
                         <div className="ml-2 text-green-50 font-code">NextEcho's Blog</div>
                     </div>
                     <div className="menu-zone text-slate-50 h-8 flex flex-row justify-center items-center">
-                        <MenuItem title="Home" to="/" />
-                        <MenuItem title="About" to="/about" />
-                        <MenuItem title="Archive" to="/archive" />
-                        <MenuItem title="Tag" to="/tag" />
+                        <MenuItem title="Home" target="/" />
+                        <MenuItem title="About" target="/about" />
+                        <MenuItem title="Archive" target="/archive" />
+                        <MenuItem title="Tag" target="/tag" />
                         <div
                             className="console-entrance cursor-pointer ml-4 transition duration-300 hover:scale-125 opacity-50 hover:opacity-100"
                             onClick={handleOpenConsole}
