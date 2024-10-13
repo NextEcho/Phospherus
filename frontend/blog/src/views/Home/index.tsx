@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
+import { ConfigProvider, Pagination, theme } from "antd";
 
 interface ArticleItemProps {
     id: number;
@@ -64,7 +65,7 @@ const Home = () => {
         }
     };
 
-    const handlePageChange = (current: number, _: number) => {
+    const handlePageChange = (current: number) => {
         setPageNum(current);
         fetchArticleListData(current);
     };
@@ -101,9 +102,33 @@ const Home = () => {
                 <div className="article-list flex flex-col items-center w-5/6 max-w-[80rem] min-w-[720px]">
                     {articleListData()}
                 </div>
-                {articles.length !== 0 && (
-                    <div className="pagination">
-                        分页器
+                {articles.length > pageSize && (
+                    <div className="pagination mt-8">
+                        <ConfigProvider
+                            theme={{
+                                algorithm: theme.darkAlgorithm,
+                                token: {
+                                    colorPrimary: "#6366F1",
+                                },
+                                components: {
+                                    Pagination: {
+                                        itemActiveBg: "#1A1833",
+                                        itemInputBg: "#5366f1",
+                                    },
+                                },
+                            }}
+                        >
+                            <Pagination
+                                showQuickJumper={false}
+                                showSizeChanger={false}
+                                current={pageNum}
+                                pageSize={pageSize}
+                                total={total}
+                                onChange={(current: number) =>
+                                    handlePageChange(current)
+                                }
+                            ></Pagination>
+                        </ConfigProvider>
                     </div>
                 )}
             </div>

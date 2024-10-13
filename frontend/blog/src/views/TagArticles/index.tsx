@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { articleItem } from "@/api/article/types";
 import { getArticleListByTagAPI } from "@/api/article";
 import { ConvertColorToTranslucent } from "@/tools/color";
+import { ConfigProvider, Pagination, theme } from "antd";
 
 // TagArticles 标签下的文章概览
 const TagArticles = () => {
@@ -57,7 +58,7 @@ const TagArticles = () => {
         });
     };
 
-    const handlePageChange = (current: number, _: number) => {
+    const handlePageChange = (current: number) => {
         setPageNum(current);
         fetchData(current);
     };
@@ -84,9 +85,33 @@ const TagArticles = () => {
                     </div>
                 </div>
                 <div className="article-list mt-8">{articleListData()}</div>
-                {articleList.length !== 0 && (
+                {articleList.length > pageSize && (
                     <div className="pagination mt-4">
-                        分页器
+                        <ConfigProvider
+                            theme={{
+                                algorithm: theme.darkAlgorithm,
+                                token: {
+                                    colorPrimary: "#6366F1",
+                                },
+                                components: {
+                                    Pagination: {
+                                        itemActiveBg: "#1A1833",
+                                        itemInputBg: "#5366f1",
+                                    },
+                                },
+                            }}
+                        >
+                            <Pagination
+                                showQuickJumper={false}
+                                showSizeChanger={false}
+                                current={pageNum}
+                                pageSize={pageSize}
+                                total={total}
+                                onChange={(current: number) =>
+                                    handlePageChange(current)
+                                }
+                            ></Pagination>
+                        </ConfigProvider>
                     </div>
                 )}
             </div>

@@ -19,7 +19,7 @@ const ArchiveItem: React.FC<ArchiveItemProps> = ({ year, articleList }) => {
                 return (
                     <div key={index}>
                         <div
-                            className="article flex text-lg transition-all duration-200 px-4 py-4 w-full rounded-md hover:shadow-lg hover:shadow-gray-950/50 cursor-pointer"
+                            className="article flex text-lg transition-all duration-300 px-4 py-4 w-full rounded-md hover:bg-slate-800/30 hover:shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] cursor-pointer"
                             onClick={() => handleClick(item.id)}
                         >
                             <div className="article-time mr-10 font-code">{item.createdAt}</div>
