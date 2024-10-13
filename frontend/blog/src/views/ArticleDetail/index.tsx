@@ -6,7 +6,6 @@ import rehypeRaw from "rehype-raw";
 import { useEffect, useState } from "react";
 import { getArticleDetailAPI } from "@/api/article";
 import { useParams } from "react-router-dom";
-import { message } from "antd";
 import CodeBlock from "@/components/CodeBlock";
 import "@/theme/phospherus.scss";
 
@@ -60,7 +59,7 @@ const ArticleDetail = () => {
                 setCreateTime(article.createdAt);
                 setContent(article.content);
             } else {
-                message.error("获取文章信息失败", 1);
+                console.log("获取文章信息失败", 1);
             }
         } catch (error) {
             console.error("获取文章时出错:", error);

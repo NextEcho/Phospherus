@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
-import { ConfigProvider, message, Pagination, theme } from "antd";
 
 interface ArticleItemProps {
     id: number;
@@ -58,7 +57,7 @@ const Home = () => {
                 setArticles(articleListData.articleList);
                 setTotal(articleListData.total);
             } else {
-                message.error("获取文章列表失败");
+                console.log("获取文章列表失败");
             }
         } catch (err) {
             console.log("捕获异常 error: ", err);
@@ -104,31 +103,7 @@ const Home = () => {
                 </div>
                 {articles.length !== 0 && (
                     <div className="pagination">
-                        <ConfigProvider
-                            theme={{
-                                algorithm: theme.darkAlgorithm,
-                                token: {
-                                    colorPrimary: "#6366F1",
-                                },
-                                components: {
-                                    Pagination: {
-                                        itemActiveBg: "#1A1833",
-                                        itemInputBg: "#5366f1",
-                                    },
-                                },
-                            }}
-                        >
-                            <Pagination
-                                showQuickJumper={false}
-                                showSizeChanger={false}
-                                current={pageNum}
-                                pageSize={pageSize}
-                                total={total}
-                                onChange={(current: number, size: number) =>
-                                    handlePageChange(current, size)
-                                }
-                            ></Pagination>
-                        </ConfigProvider>
+                        分页器
                     </div>
                 )}
             </div>

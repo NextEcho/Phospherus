@@ -33,9 +33,9 @@ const NavBar: React.FC = () => {
                     </div>
                     <div className="menu-zone text-slate-50 h-8 flex flex-row justify-center items-center">
                         <MenuItem title="Home" target="/" />
-                        <MenuItem title="About" target="/about" />
                         <MenuItem title="Archive" target="/archive" />
                         <MenuItem title="Tag" target="/tag" />
+                        <MenuItem title="About" target="/about" />
                         <div
                             className="console-entrance cursor-pointer ml-4 transition duration-300 hover:scale-125 opacity-50 hover:opacity-100"
                             onClick={handleOpenConsole}

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { articleItem } from "@/api/article/types";
 import { getArticleListByTagAPI } from "@/api/article";
-import { ConfigProvider, Pagination, theme } from "antd";
 import { ConvertColorToTranslucent } from "@/tools/color";
 
 // TagArticles 标签下的文章概览
@@ -87,31 +86,7 @@ const TagArticles = () => {
                 <div className="article-list mt-8">{articleListData()}</div>
                 {articleList.length !== 0 && (
                     <div className="pagination mt-4">
-                        <ConfigProvider
-                            theme={{
-                                algorithm: theme.darkAlgorithm,
-                                token: {
-                                    colorPrimary: "#6366F1",
-                                },
-                                components: {
-                                    Pagination: {
-                                        itemActiveBg: "#1A1833",
-                                        itemInputBg: "#5366f1",
-                                    },
-                                },
-                            }}
-                        >
-                            <Pagination
-                                showQuickJumper={false}
-                                showSizeChanger={false}
-                                current={pageNum}
-                                pageSize={pageSize}
-                                total={total}
-                                onChange={(current: number, size: number) =>
-                                    handlePageChange(current, size)
-                                }
-                            ></Pagination>
-                        </ConfigProvider>
+                        分页器
                     </div>
                 )}
             </div>
