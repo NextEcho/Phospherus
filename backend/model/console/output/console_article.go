@@ -12,6 +12,8 @@ type ArticleItem struct {
 	Cover       string   `json:"cover"`
 	Description string   `json:"description"`
 	TagNames    []string `json:"tagNames"`
+	CreatedAt   string   `json:"createdAt"`
+	UpdatedAt   string   `json:"updatedAt"`
 }
 
 type GetArticleDetail struct {

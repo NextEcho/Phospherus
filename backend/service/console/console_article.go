@@ -15,7 +15,6 @@ import (
 type ArticleService struct{}
 
 // GetArticleDetail 查询文章详情
-// 在 console 端用于查看和修改文章
 func (*ArticleService) GetArticleDetail(in *input.GetArticleDetail) (out *output.GetArticleDetail, err error) {
 	out = &output.GetArticleDetail{}
 
@@ -85,7 +84,15 @@ func (*ArticleService) GetArticleList(in *input.GetArticleList) (out *output.Get
 		if err != nil {
 			return err
 		}
-		copier.Copy(&out.ArticleList, articleList)
+
+		// 填充 ArticleList
+		for _, article := range articleList {
+			articleItem := output.ArticleItem{}
+			copier.Copy(&articleItem, article)
+			articleItem.CreatedAt = pkg.Time2String(article.CreatedAt, "2006-01-02 15:04:05")
+			articleItem.UpdatedAt = pkg.Time2String(article.UpdatedAt, "2006-01-02 15:04:05")
+			out.ArticleList = append(out.ArticleList, articleItem)
+		}
 
 		// 查询文章所属标签数组
 		for idx, article := range out.ArticleList {
