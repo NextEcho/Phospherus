@@ -4,13 +4,12 @@ export default {
     theme: {
         extend: {
             backgroundImage: {
-                // login: "url('@/assets/images/login-bg.png')",
                 login: "url('@/assets/images/login.jpg')",
                 logo: "url('@/assets/images/logo.png')",
                 banner: "url('@/assets/images/banner.jpg')",
             },
             fontFamily: {
-                main: ["'Monaspace Neon', 'LXGW WenKai Screen'"],
+                main: ["'Monaspace Neon', 'LXGW WenKai'"],
                 code: ["'ComicShannsMono Nerd Font', 'monospace'"],
             },
         },

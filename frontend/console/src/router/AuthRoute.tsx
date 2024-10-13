@@ -9,7 +9,7 @@ const AuthRoute = () => {
     const validateToken = async () => {
         const jsonResp = await validateTokenAPI();
         if (jsonResp.code === 1000) {
-            // code 1000 represent invalid token holding
+            // code 1000 represent invalid token
             message.warning("登录状态过期", 1);
             navigate("/auth/login", { replace: true });
         }
