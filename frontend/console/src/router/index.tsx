@@ -11,6 +11,7 @@ const Article = React.lazy(() => import("@/views/Article/index.tsx"));
 const EditArticle = React.lazy(() => import("@/views/EditArticle/index.tsx"));
 const Attachment = React.lazy(() => import("@/views/Attachment/index.tsx"));
 const Init = React.lazy(() => import("@/views/Init/index.tsx"));
+const NotFound = React.lazy(() => import("@/views/404/index.tsx"));
 
 const withLoadingComponent = (comp: JSX.Element) => {
     return <Suspense fallback={<div>Loading...</div>}>{comp}</Suspense>;
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     },
     { path: "/auth/login", element: withLoadingComponent(<Login />) },
     { path: "/init", element: withLoadingComponent(<Init />) },
+    { path: "*", element: withLoadingComponent(<NotFound />) },
 ]);
 
 export default router;
