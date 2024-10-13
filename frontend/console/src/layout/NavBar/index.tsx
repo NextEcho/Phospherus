@@ -1,7 +1,7 @@
 import { useUserStore } from "@/store";
 import { useEffect } from "react";
 import { IoLogOutOutline } from "react-icons/io5";
-import { RiLogoutCircleRFill, RiMailAddFill } from "react-icons/ri";
+import { RiGithubFill, RiLogoutCircleRFill, RiMailAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
@@ -30,11 +30,19 @@ const NavBar = () => {
                     <img src={userInfo.avatar} alt="avatar" className="rounded-full bg-cover bg-center" />
                 </div>
                 <div className="info ml-4 font-main flex flex-1 flex-col justify-around">
-                    <div className="name text-lg">{userInfo.nickname}</div>
-                    <div className="email text-sm text-slate-400 cursor-pointer">
-                        <RiMailAddFill className="inline-block mr-2" />
-                        <span>{userInfo.email}</span>
-                    </div>
+                    <div className="name text-2xl">{userInfo.nickname}</div>
+                    {userInfo.github && (
+                        <div className="github text-sm text-slate-400 cursor-pointer">
+                            <RiGithubFill className="inline-block mr-2" />
+                            <span>{userInfo.github}</span>
+                        </div>
+                    )}
+                    {userInfo.email && (
+                        <div className="email text-sm text-slate-400 cursor-pointer">
+                            <RiMailAddFill className="inline-block mr-2" />
+                            <span>{userInfo.email}</span>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="right-zone flex items-center h-full">
