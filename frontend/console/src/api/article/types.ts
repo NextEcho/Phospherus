@@ -7,6 +7,8 @@ export interface articleItem {
     categoryName: string;
     tagIds: number[];
     tagNames: string[];
+    createdAt: string;
+    updatedAt: string;
 }
 
 // getArticleList Request and Response

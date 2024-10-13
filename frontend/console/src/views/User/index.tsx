@@ -1,7 +1,7 @@
 import { userItem } from "@/api/user/types";
 import { createUserAPI, deleteUserAPI, getUserListAPI, updateUserAPI } from "@/api/user";
 import { Card, ConfigProvider, Input, message, Modal, Space, Table, theme } from "antd";
-import { ColumnsType } from "antd/es/table";
+import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { GeneratePassword } from "@/tools/password";
 
@@ -17,19 +17,31 @@ const User = () => {
     const [email, setEmail] = useState<string>("");
     const [github, setGithub] = useState<string>("");
 
+    const [pagination, setPagination] = useState<TablePaginationConfig>({
+        current: 1,
+        pageSize: 10,
+        total: 0,
+    });
+
     useEffect(() => {
         getUserList();
     }, []);
 
-    const getUserList = async () => {
+    const getUserList = async (page?: number, pageSize?: number) => {
         const params = {
-            pageNum: 1,
-            pageSize: 10,
+            pageNum: page || pagination.current!,
+            pageSize: pageSize || pagination.pageSize!,
         };
         try {
             const jsonResp = await getUserListAPI(params);
             if (jsonResp.code === 0) {
                 setUserList(jsonResp.data.userList);
+                setPagination(prev => ({
+                    ...prev,
+                    current: params.pageNum,
+                    pageSize: params.pageSize,
+                    total: jsonResp.data.total,
+                }));
             } else {
                 message.error("查询标签列表失败", 1);
             }
@@ -115,6 +127,10 @@ const User = () => {
         updateUser();
     };
 
+    const handlePaginationChange = (pagination: TablePaginationConfig) => {
+        getUserList(pagination.current!, pagination.pageSize!);
+    };
+
     const userColumns = [
         {
             title: "头像",
@@ -196,6 +212,8 @@ const User = () => {
                         dataSource={userList}
                         rowKey="id"
                         className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
+                        pagination={pagination}
+                        onChange={handlePaginationChange}
                     />
                 </ConfigProvider>
             </Card>

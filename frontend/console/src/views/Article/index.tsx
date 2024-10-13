@@ -2,7 +2,7 @@ import { deleteArticleAPI, getArticleListAPI } from "@/api/article";
 import { articleItem } from "@/api/article/types";
 import { getRandomColor } from "@/tools/color";
 import { Table, Card, Tag, message, ConfigProvider, theme, Space, Modal } from "antd";
-import { ColumnsType } from "antd/es/table";
+import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,20 +10,32 @@ const Article = () => {
 
     const navigate = useNavigate();
     const [articleList, setArticleList] = useState<articleItem[]>([]);
+    const [pagination, setPagination] = useState<TablePaginationConfig>({
+        current: 1,
+        pageSize: 10,
+        total: 0,
+    });
 
     useEffect(() => {
         getArticleList();
     }, []);
 
-    const getArticleList = async () => {
+    const getArticleList = async (page?: number, pageSize?: number) => {
         const params = {
-            pageNum: 1,
-            pageSize: 10,
+            pageNum: page || pagination.current!,
+            pageSize: pageSize || pagination.pageSize!,
         };
         try {
             const jsonResp = await getArticleListAPI(params);
             if (jsonResp.code === 0) {
+                console.log("jsonResp.data is", jsonResp.data);
                 setArticleList(jsonResp.data.articleList);
+                setPagination(prev => ({
+                    ...prev,
+                    current: params.pageNum,
+                    pageSize: params.pageSize,
+                    total: jsonResp.data.total,
+                }));
             } else {
                 message.error("查询文章列表失败", 1);
             }
@@ -76,6 +88,10 @@ const Article = () => {
         window.open(url, "_blank");
     }
 
+    const handlePaginationChange = (pagination: TablePaginationConfig) => {
+        getArticleList(pagination.current!, pagination.pageSize!);
+    };
+
     const ArticleColumns = [
         {
             title: "文章标题",
@@ -100,12 +116,14 @@ const Article = () => {
             dataIndex: "cover",
             key: "cover",
             render: (cover: string) => (
-                <div className="flex justify-center">
-                    {cover === "" ? (
-                        "暂无封面"
-                    ) : (
-                        <img src={cover} width={100} height={70} className="bg-cover bg-center" />
-                    )}
+                <div className="flex justify-center items-center">
+                    <div className="w-[100px] h-[70px] flex justify-center items-center">
+                        {cover === "" ? (
+                            <span>暂无封面</span>
+                        ) : (
+                            <img src={cover} className="w-full h-full object-cover object-center" alt="文章封面" />
+                        )}
+                    </div>
                 </div>
             ),
             align: "center",
@@ -129,7 +147,13 @@ const Article = () => {
             align: "center",
         },
         {
-            title: "Action",
+            title: "发布时间",
+            dataIndex: "createdAt",
+            key: "createdAt",
+            align: "center",
+        },
+        {
+            title: "操作",
             key: "action",
             render: (_, record) => (
                 <Space size="middle">
@@ -176,6 +200,8 @@ const Article = () => {
                         dataSource={articleList}
                         rowKey="id"
                         className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
+                        pagination={pagination}
+                        onChange={handlePaginationChange}
                     />
                 </ConfigProvider>
             </Card>

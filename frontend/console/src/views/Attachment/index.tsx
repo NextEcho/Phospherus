@@ -1,6 +1,6 @@
 import Card from "@/components/Card";
 import { ConfigProvider, message, Modal, Space, Table, theme } from "antd";
-import { ColumnsType } from "antd/es/table";
+import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { attachmentItem } from "@/api/attachment/types";
 import { useEffect, useState } from "react";
 import { deleteAttachmentAPI, getAttachmentListAPI } from "@/api/attachment";
@@ -28,20 +28,31 @@ const SelectTypeIcon = (type: string) => {
 const Attachment = () => {
     const [attachmentList, setAttachmentList] = useState<attachmentItem[]>([]);
     const [showFileUploadModal, setShowFileUploadModal] = useState<boolean>(false);
+    const [pagination, setPagination] = useState<TablePaginationConfig>({
+        current: 1,
+        pageSize: 10,
+        total: 0,
+    });
 
     useEffect(() => {
         getAttachmentList();
     }, []);
 
-    const getAttachmentList = async () => {
+    const getAttachmentList = async (page?: number, pageSize?: number) => {
         const params = {
-            pageNum: 1,
-            pageSize: 10,
+            pageNum: page || pagination.current!,
+            pageSize: pageSize || pagination.pageSize!,
         };
         try {
             const jsonResp = await getAttachmentListAPI(params);
             if (jsonResp.code === 0) {
                 setAttachmentList(jsonResp.data.attachmentList);
+                setPagination(prev => ({
+                    ...prev,
+                    current: params.pageNum,
+                    pageSize: params.pageSize,
+                    total: jsonResp.data.total,
+                }));
             } else {
                 message.error("查询附件列表失败", 1);
             }
@@ -107,6 +118,10 @@ const Attachment = () => {
             okText: "关闭",
             cancelText: "关闭",
         });
+    };
+
+    const handlePaginationChange = (pagination: TablePaginationConfig) => {
+        getAttachmentList(pagination.current!, pagination.pageSize!);
     };
 
     const AttachmentColums = [
@@ -200,6 +215,8 @@ const Attachment = () => {
                         dataSource={attachmentList}
                         rowKey="id"
                         className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
+                        pagination={pagination}
+                        onChange={handlePaginationChange}
                     />
                 </ConfigProvider>
             </Card>

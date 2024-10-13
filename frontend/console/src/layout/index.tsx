@@ -18,7 +18,7 @@ const AppLayout: React.FC = () => {
             </Sider>
             <Layout>
                 <Header
-                    className="h-40 text-slate-50 bg-[#1F243A] p-0"
+                    className="h-32 text-slate-50 bg-[#1F243A] p-0"
                     style={{ position: "sticky", top: 0, right: 0, zIndex: 999 }}
                 >
                     <NavBar />

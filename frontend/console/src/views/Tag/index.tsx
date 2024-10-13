@@ -13,7 +13,7 @@ import {
     theme,
 } from "antd";
 import { Color } from "antd/es/color-picker";
-import { ColumnsType } from "antd/es/table";
+import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { useEffect, useState } from "react";
 
 const Tag = () => {
@@ -26,19 +26,31 @@ const Tag = () => {
     const [color, setColor] = useState<string>("#7939E7");
     const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
+    const [pagination, setPagination] = useState<TablePaginationConfig>({
+        current: 1,
+        pageSize: 10,
+        total: 0,
+    });
+
     useEffect(() => {
         getTagList();
     }, []);
 
-    const getTagList = async () => {
+    const getTagList = async (page?: number, pageSize?: number) => {
         const params = {
-            pageNum: 1,
-            pageSize: 10,
+            pageNum: page || pagination.current!,
+            pageSize: pageSize || pagination.pageSize!,
         };
         try {
             const jsonResp = await getTagListAPI(params);
             if (jsonResp.code === 0) {
                 setTagList(jsonResp.data.tagList);
+                setPagination(prev => ({
+                    ...prev,
+                    current: params.pageNum,
+                    pageSize: params.pageSize,
+                    total: jsonResp.data.total,
+                }));
             } else {
                 message.error("查询标签列表失败", 1);
             }
@@ -117,6 +129,10 @@ const Tag = () => {
                 deleteTag(id);
             }
         });
+    };
+
+    const handlePaginationChange = (pagination: TablePaginationConfig) => {
+        getTagList(pagination.current!, pagination.pageSize!);
     };
 
     const TagColumns = [
@@ -202,6 +218,8 @@ const Tag = () => {
                         dataSource={tagList}
                         rowKey="id"
                         className="[&_.ant-table-cell]:align-middle [&_.ant-table-cell]:font-main"
+                        pagination={pagination}
+                        onChange={handlePaginationChange}
                     />
                 </ConfigProvider>
             </Card>
