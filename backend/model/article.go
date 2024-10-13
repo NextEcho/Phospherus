@@ -11,6 +11,7 @@ type Article struct {
 	Description string    `json:"description"`
 	IsVisible   int       `json:"isVisible"`
 	Status      int       `json:"status"`
+	ViewCount   int       `json:"viewCount"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
 }

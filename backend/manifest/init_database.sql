@@ -26,7 +26,6 @@ create table `article` (
     `is_visible` tinyint not null default 1 comment '文章是否可见 1-不可见 2-可见',
     `status` tinyint not null default 1 comment '文章状态 1-草稿 2-已发布 3-垃圾箱',
     `view_count` int not null default 0 comment '文章浏览量',
-    `like_count` int not null default 0 comment '文章点赞量',
     `created_at` timestamp not null default current_timestamp comment '创建时间',
     `updated_at` timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
     primary key (`id`)
@@ -73,6 +72,17 @@ create table `attachment` (
     `url` varchar(128) not null comment '附件路径',
     `type` tinyint not null comment '附件类型 1-图片 2-视频 3-音频 4-其他',
     `size` int not null comment '附件大小',
+    `created_at` timestamp not null default current_timestamp comment '创建时间',
+    primary key (`id`)
+);
+
+-- table of site
+create table `site` (
+    `id` int not null auto_increment comment '站点ID',
+    `user_id` int not null comment '站点管理员ID',
+    `site_name` varchar(128) not null comment '站点名称',
+    `site_icon` varchar(128) not null comment '站点图标',
+    `site_domain` varchar(128) not null comment '站点域名',
     `created_at` timestamp not null default current_timestamp comment '创建时间',
     primary key (`id`)
 );
