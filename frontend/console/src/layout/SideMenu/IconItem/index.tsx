@@ -17,8 +17,8 @@ const IconItem: React.FC<IconItemProps> = ({ path, children }) => {
     return (
         <div
             className={`edit transition duration-300 flex items-center justify-start px-4 py-2 my-1 w-full
-                        rounded-lg hover:bg-gradient-to-r from-[#1D2339] to-[#2A3352] hover:cursor-pointer 
-                        ${currPath.pathname === path ? "bg-gradient-to-r from-[#212842] to-[#2E3A5C]" : ""}`}
+                        rounded-lg hover:bg-[#2A3352] hover:cursor-pointer 
+                        ${currPath.pathname === path ? "bg-[#2E3A5C]" : ""}`}
             onClick={() => handleMenuClick(path)}
         >
             <div className="rounded-md p-2">
