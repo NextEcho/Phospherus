@@ -11,8 +11,10 @@ const (
 
 // Init Module
 const (
-	MsgWebsiteNameEmpty  = "网站名称不能为空"
-	MsgInitSystemSuccess = "初始化系统成功"
+	MsgWebsiteNameEmpty     = "网站名称不能为空"
+	MsgInitSystemSuccess    = "初始化系统成功"
+	MsgSystemInitialized    = "系统已初始化"
+	MsgSystemNotInitialized = "系统未初始化"
 )
 
 // User Module

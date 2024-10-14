@@ -1,7 +1,7 @@
 import { useUserStore } from "@/store";
 import { useEffect } from "react";
 import { IoLogOutOutline } from "react-icons/io5";
-import { RiGithubFill, RiLogoutCircleRFill, RiMailAddFill } from "react-icons/ri";
+import { RiGithubFill, RiMailAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
@@ -15,7 +15,7 @@ const NavBar = () => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
-        navigationTo("/auth/login");
+        navigationTo("/login");
     };
 
     return (

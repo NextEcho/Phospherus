@@ -7,7 +7,9 @@ enum API {
     VALIDATE_TOKEN = "/auth/validateToken", // token 校验接口
 }
 
-export const userLoginAPI = (data: loginReq): Promise<CustomSuccessData<loginResp>> => {
+export const userLoginAPI = (
+    data: loginReq,
+): Promise<CustomSuccessData<loginResp>> => {
     return http.post<loginResp>(API.LOGIN_API, data);
 };
 

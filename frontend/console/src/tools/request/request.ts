@@ -35,11 +35,9 @@ request.interceptors.response.use(
     (response: AxiosResponse) => {
         const { status, data } = response;
         if (status === 200) {
-            // if token is expired, log out
             if (data.code === 1000) {
                 localStorage.removeItem("token");
-                localStorage.setItem("showInvalidTokenMsg", "true");
-                window.location.href = "/auth/login";
+                window.location.href = "/login";
             }
             return data;
         } else {

@@ -41,6 +41,7 @@ func (*InitApi) InitSystem(ctx *gin.Context) {
 		WebsiteName: req.WebsiteName,
 		Passport:    req.Passport,
 		Password:    req.Password,
+		Email:       req.Email,
 	})
 	if err != nil {
 		global.LOGGER.Error("console.InitServiceInstance.InitSystem Error", zap.Error(err))
@@ -49,4 +50,23 @@ func (*InitApi) InitSystem(ctx *gin.Context) {
 	}
 
 	common.OkWithMessage(ctx, biz.MsgInitSystemSuccess)
+}
+
+// IsSystemInitialized 判断系统是否已初始化
+func (*InitApi) IsSystemInitialized(ctx *gin.Context) {
+
+	count := int64(0)
+	err := global.DB.Table("user").Count(&count).Error
+	if err != nil {
+		global.LOGGER.Error("global.DB.Table.Count Error", zap.Error(err))
+		common.FailWithMessage(ctx, biz.ErrServerBusy.Error())
+		return
+	}
+
+	if count > 0 {
+		common.OkWithMessage(ctx, biz.MsgSystemInitialized)
+		return
+	}
+
+	common.FailWithMessage(ctx, biz.MsgSystemNotInitialized)
 }
