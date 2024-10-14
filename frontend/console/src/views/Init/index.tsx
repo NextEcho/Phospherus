@@ -32,7 +32,7 @@ const Init: React.FC = () => {
         }
     }, []);
 
-    const nextStep = (event: React.FormEvent<HTMLFormElement>) => {
+    const nextStep = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setStep(step + 1);
     }
