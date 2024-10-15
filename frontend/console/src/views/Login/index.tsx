@@ -1,6 +1,6 @@
 import { userLoginAPI } from "@/api/auth";
 import { message } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
