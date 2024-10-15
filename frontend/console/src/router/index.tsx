@@ -18,7 +18,7 @@ const withLoadingComponent = (comp: JSX.Element) => {
 };
 
 const router = createBrowserRouter([
-    { path: "/", element: <Navigate to="/console/home" replace /> },
+    { path: "/", element: <Navigate to="/console" replace /> },
     {
         path: "/console",
         element: <AuthRoute />,

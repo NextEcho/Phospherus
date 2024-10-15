@@ -17,6 +17,8 @@ const AuthRoute = () => {
             // 先验证初始化状态
             const initStatusResp = await validateInitStatusAPI();
             if (initStatusResp.code === -1) {
+                localStorage.removeItem("userId");
+                localStorage.removeItem("token");
                 message.warning("系统未初始化", 1);
                 navigateTo("/init", { replace: true });
                 return;

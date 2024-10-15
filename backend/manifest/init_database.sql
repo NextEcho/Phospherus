@@ -39,7 +39,7 @@ create table `tag` (
     primary key (`id`)
 );
 
---table of category
+-- table of category
 create table `category` (
     `id` int not null auto_increment comment '分类ID',
     `parent_id` int not null default 0 comment '父级分类ID',

@@ -35,10 +35,6 @@ request.interceptors.response.use(
     (response: AxiosResponse) => {
         const { status, data } = response;
         if (status === 200) {
-            if (data.code === 1000) {
-                localStorage.removeItem("token");
-                window.location.href = "/login";
-            }
             return data;
         } else {
             return Promise.reject(data);
