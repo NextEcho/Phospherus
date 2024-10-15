@@ -10,9 +10,6 @@ const About = () => {
     const [nickname, setNickname] = useState("name");
     const [avatar, setAvatar] = useState("avatar");
     const [signature, setSignature] = useState("signature");
-    const [email, setEmail] = useState("email");
-    const [introduction, setIntroduction] = useState("introduction");
-    const [resume, setResume] = useState("resume");
 
     const getUserInfo = async () => {
         try {
@@ -21,10 +18,7 @@ const About = () => {
                 const userInfoData = jsonResp.data;
                 setNickname(userInfoData.nickname);
                 setSignature(userInfoData.signature);
-                setEmail(userInfoData.email);
                 setAvatar(userInfoData.avatar);
-                setResume(userInfoData.resume);
-                setIntroduction(userInfoData.introduction);
             } else {
                 console.log("获取博主信息失败", 1);
             }

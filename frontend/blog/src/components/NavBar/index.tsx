@@ -1,11 +1,6 @@
 import logo from "@/assets/images/logo.png";
 import MenuItem from "@/components/MenuItem/index";
 import React from "react";
-import { BiGlobeAlt } from "react-icons/bi";
-import { FaGlobeAsia } from "react-icons/fa";
-import { GiConsoleController, GiGameConsole } from "react-icons/gi";
-import { GrConsole } from "react-icons/gr";
-import { RiGlobalFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const NavBar: React.FC = () => {

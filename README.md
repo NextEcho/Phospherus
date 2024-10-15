@@ -1,9 +1,5 @@
 # Project Deployment
 
-> There are still some pre-features that are not ready.
->
-> Such as initialization of blog system, otherwise there will be no initial user data in mysql.
-
 ## docker-compose
 
 ### Step 1
@@ -16,7 +12,7 @@ git clone https://github.com/NextEcho/Phospherus.git
 
 ### Step 2
 
-Enter the project root directory.
+Go to the project root directory.
 
 ```shell
 cd Phospherus
