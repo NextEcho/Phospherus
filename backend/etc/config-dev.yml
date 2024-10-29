@@ -22,10 +22,6 @@ mysql:
   max_open_conns: 200
   max_idle_conns: 50
 
-redis:
-  host: "127.0.0.1"
-  port: 6379
-
 jwt:
   secret: "phospherus"
   expireTime: 3
