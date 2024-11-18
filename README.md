@@ -4,7 +4,7 @@
 
 Phospherus is a blog system that contains admin system and blog homepage, it's built with golang and react.
 
-> This project is just a blog system demo, so this project have many potential problems or imperfections.
+> The degree of completion of thie project is not high engouh, so there are many potential problems or imperfections.
 > But I think it's helpful to learn how to build a web project with golang and react, and how to deploy a web project with docker.
 
 ## 🛠 Tech Stack
@@ -117,7 +117,7 @@ pnpm run dev
 Clone source code to local.
 
 ```shell
-git clone https://github.com/NextEcho/Phospherus.git
+git clone https://github.com/n1nelink/Phospherus.git
 ```
 
 ### Step 2
